@@ -5,8 +5,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
 abstract class BasePresenter<V : BaseView>(var view: V) {
-    val context: Context = view as Context
-    var compositeDisposable: CompositeDisposable = CompositeDisposable()
+    protected val context: Context = view as Context
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     fun addDisposable(disposable: Disposable) {
         if (!compositeDisposable.isDisposed) {

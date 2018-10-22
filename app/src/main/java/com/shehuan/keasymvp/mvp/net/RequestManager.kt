@@ -4,7 +4,9 @@ import com.shehuan.keasymvp.mvp.BasePresenter
 import com.shehuan.keasymvp.mvp.BaseResponse
 import com.shehuan.keasymvp.mvp.net.convert.ExceptionConvert
 import com.shehuan.keasymvp.mvp.net.convert.ResponseConvert
+import com.shehuan.keasymvp.mvp.net.observer.BaseObserver
 import io.reactivex.Observable
+import io.reactivex.ObservableOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -24,5 +26,23 @@ object RequestManager {
         return observer.getDisposable()
     }
 
+    /**
+     * 通用耗时任务方法
+     */
+    fun <E> execute(presenter: BasePresenter<*>, listener: ExecuteListener<E>, observer: BaseObserver<E>): Disposable {
+        Observable.create(ObservableOnSubscribe<E> { emitter ->
+            emitter.onNext(listener.onExecute())
+            emitter.onComplete()
+        }).onErrorResumeNext(ExceptionConvert<E>())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer)
+        presenter.addDisposable(observer.getDisposable())
+        return observer.getDisposable()
+    }
+
+    interface ExecuteListener<E> {
+        fun onExecute(): E
+    }
 
 }

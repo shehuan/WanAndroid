@@ -10,9 +10,13 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitManager {
 
+    private val okHttpClient: OkHttpClient by lazy {
+        getOkHttpClient(true)
+    }
+
     fun <S> create(service: Class<S>): S {
         val retrofit = Retrofit.Builder()
-                .client(getOkHttpClient(true))
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(Const.WAN_ANDROID_UTL)
@@ -21,7 +25,6 @@ object RetrofitManager {
     }
 
     private fun getOkHttpClient(flag: Boolean): OkHttpClient {
-
         //配置超时拦截器
         val builder = OkHttpClient.Builder()
         builder.connectTimeout(10, TimeUnit.SECONDS)
