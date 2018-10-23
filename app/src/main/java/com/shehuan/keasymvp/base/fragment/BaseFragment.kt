@@ -1,4 +1,4 @@
-package com.shehuan.keasymvp.mvp.fragment
+package com.shehuan.keasymvp.base.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.shehuan.keasymvp.mvp.activity.BaseActivity
+import com.shehuan.keasymvp.base.activity.BaseActivity
 
 abstract class BaseFragment : Fragment() {
     lateinit var activity: BaseActivity

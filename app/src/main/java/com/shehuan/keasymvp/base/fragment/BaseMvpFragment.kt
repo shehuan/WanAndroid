@@ -1,9 +1,9 @@
-package com.shehuan.keasymvp.mvp.fragment
+package com.shehuan.keasymvp.base.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import com.shehuan.keasymvp.mvp.BasePresenter
+import com.shehuan.keasymvp.base.BasePresenter
 
 abstract class BaseMvpFragment<P : BasePresenter<*>> : BaseFragment() {
     lateinit var presenter: P

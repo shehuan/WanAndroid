@@ -1,4 +1,4 @@
-package com.shehuan.keasymvp.mvp
+package com.shehuan.keasymvp.base
 
 class Const {
     companion object {

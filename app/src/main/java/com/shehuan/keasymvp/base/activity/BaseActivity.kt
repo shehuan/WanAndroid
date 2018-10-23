@@ -1,4 +1,4 @@
-package com.shehuan.keasymvp.mvp.activity
+package com.shehuan.keasymvp.base.activity
 
 import android.content.Context
 import android.os.Bundle

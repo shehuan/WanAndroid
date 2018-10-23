@@ -1,21 +1,21 @@
-package com.shehuan.keasymvp.mvp.net.exception
+package com.shehuan.keasymvp.base.net.exception
 
 import android.net.ParseException
 import com.google.gson.JsonParseException
-import com.shehuan.keasymvp.mvp.net.exception.Code.Companion.BAD_GATEWAY
-import com.shehuan.keasymvp.mvp.net.exception.Code.Companion.FORBIDDEN
-import com.shehuan.keasymvp.mvp.net.exception.Code.Companion.GATEWAY_TIMEOUT
-import com.shehuan.keasymvp.mvp.net.exception.Code.Companion.HTTP_ERROR
-import com.shehuan.keasymvp.mvp.net.exception.Code.Companion.INTERNAL_SERVER_ERROR
-import com.shehuan.keasymvp.mvp.net.exception.Code.Companion.NET_ERROR
-import com.shehuan.keasymvp.mvp.net.exception.Code.Companion.NOT_FOUND
-import com.shehuan.keasymvp.mvp.net.exception.Code.Companion.PARSE_ERROR
-import com.shehuan.keasymvp.mvp.net.exception.Code.Companion.REQUEST_TIMEOUT
-import com.shehuan.keasymvp.mvp.net.exception.Code.Companion.SERVICE_UNAVAILABLE
-import com.shehuan.keasymvp.mvp.net.exception.Code.Companion.SSL_ERROR
-import com.shehuan.keasymvp.mvp.net.exception.Code.Companion.TIMEOUT_ERROR
-import com.shehuan.keasymvp.mvp.net.exception.Code.Companion.UNAUTHORIZED
-import com.shehuan.keasymvp.mvp.net.exception.Code.Companion.UNKNOWN_ERROR
+import com.shehuan.keasymvp.base.net.exception.Code.Companion.BAD_GATEWAY
+import com.shehuan.keasymvp.base.net.exception.Code.Companion.FORBIDDEN
+import com.shehuan.keasymvp.base.net.exception.Code.Companion.GATEWAY_TIMEOUT
+import com.shehuan.keasymvp.base.net.exception.Code.Companion.HTTP_ERROR
+import com.shehuan.keasymvp.base.net.exception.Code.Companion.INTERNAL_SERVER_ERROR
+import com.shehuan.keasymvp.base.net.exception.Code.Companion.NET_ERROR
+import com.shehuan.keasymvp.base.net.exception.Code.Companion.NOT_FOUND
+import com.shehuan.keasymvp.base.net.exception.Code.Companion.PARSE_ERROR
+import com.shehuan.keasymvp.base.net.exception.Code.Companion.REQUEST_TIMEOUT
+import com.shehuan.keasymvp.base.net.exception.Code.Companion.SERVICE_UNAVAILABLE
+import com.shehuan.keasymvp.base.net.exception.Code.Companion.SSL_ERROR
+import com.shehuan.keasymvp.base.net.exception.Code.Companion.TIMEOUT_ERROR
+import com.shehuan.keasymvp.base.net.exception.Code.Companion.UNAUTHORIZED
+import com.shehuan.keasymvp.base.net.exception.Code.Companion.UNKNOWN_ERROR
 import org.apache.http.conn.ConnectTimeoutException
 import org.json.JSONException
 import retrofit2.HttpException
@@ -26,7 +26,7 @@ class ExceptionHandler {
         fun handle(e: Throwable): ResponseException {
             val responseException: ResponseException
             if (e is ApiException) {
-                responseException = ResponseException(e, Integer.valueOf(e.getErrorCode()), e.message)
+                responseException = ResponseException(e, Integer.valueOf(e.errorCode), e.message)
             } else if (e is HttpException) {
                 responseException = when (e.code()) {
                     UNAUTHORIZED, FORBIDDEN, NOT_FOUND, REQUEST_TIMEOUT, GATEWAY_TIMEOUT, INTERNAL_SERVER_ERROR, BAD_GATEWAY, SERVICE_UNAVAILABLE -> ResponseException(e, "$HTTP_ERROR:${e.code()}", "网络连接错误")

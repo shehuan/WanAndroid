@@ -1,9 +1,9 @@
-package com.shehuan.keasymvp.mvp.net.observer
+package com.shehuan.keasymvp.base.net.observer
 
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import com.othershe.nicedialog.BaseNiceDialog
-import com.shehuan.keasymvp.mvp.LoadingDialog
+import com.shehuan.keasymvp.base.LoadingDialog
 import io.reactivex.disposables.Disposable
 import java.lang.ref.WeakReference
 

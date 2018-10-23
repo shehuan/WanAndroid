@@ -1,10 +1,10 @@
-package com.shehuan.keasymvp.mvp.net
+package com.shehuan.keasymvp.base.net
 
-import com.shehuan.keasymvp.mvp.BasePresenter
-import com.shehuan.keasymvp.mvp.BaseResponse
-import com.shehuan.keasymvp.mvp.net.convert.ExceptionConvert
-import com.shehuan.keasymvp.mvp.net.convert.ResponseConvert
-import com.shehuan.keasymvp.mvp.net.observer.BaseObserver
+import com.shehuan.keasymvp.base.BasePresenter
+import com.shehuan.keasymvp.base.BaseResponse
+import com.shehuan.keasymvp.base.net.convert.ExceptionConvert
+import com.shehuan.keasymvp.base.net.convert.ResponseConvert
+import com.shehuan.keasymvp.base.net.observer.BaseObserver
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers

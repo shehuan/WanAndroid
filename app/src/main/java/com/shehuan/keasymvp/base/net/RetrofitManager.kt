@@ -1,6 +1,6 @@
-package com.shehuan.keasymvp.mvp.net
+package com.shehuan.keasymvp.base.net
 
-import com.shehuan.keasymvp.mvp.Const
+import com.shehuan.keasymvp.base.Const
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

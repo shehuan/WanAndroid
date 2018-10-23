@@ -1,10 +1,10 @@
-package com.shehuan.keasymvp.mvp
+package com.shehuan.keasymvp.base
 
 import android.content.Context
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
-abstract class BasePresenter<V : BaseView>(var view: V) {
+abstract class BasePresenter<V : BaseView>(val view: V) {
     protected val context: Context = view as Context
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 

@@ -1,7 +1,7 @@
-package com.shehuan.keasymvp.mvp.net.convert
+package com.shehuan.keasymvp.base.net.convert
 
-import com.shehuan.keasymvp.mvp.BaseResponse
-import com.shehuan.keasymvp.mvp.net.exception.ApiException
+import com.shehuan.keasymvp.base.BaseResponse
+import com.shehuan.keasymvp.base.net.exception.ApiException
 import io.reactivex.functions.Function
 
 class ResponseConvert<E> : Function<BaseResponse<E>, E> {

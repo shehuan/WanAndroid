@@ -1,4 +1,4 @@
-package com.shehuan.keasymvp.mvp
+package com.shehuan.keasymvp.base
 
 import com.othershe.nicedialog.BaseNiceDialog
 import com.othershe.nicedialog.ViewHolder

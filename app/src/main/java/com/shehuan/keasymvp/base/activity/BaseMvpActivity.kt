@@ -1,7 +1,7 @@
-package com.shehuan.keasymvp.mvp.activity
+package com.shehuan.keasymvp.base.activity
 
 import android.os.Bundle
-import com.shehuan.keasymvp.mvp.BasePresenter
+import com.shehuan.keasymvp.base.BasePresenter
 
 abstract class BaseMvpActivity<P : BasePresenter<*>> : BaseActivity() {
     lateinit var presenter: P

@@ -1,8 +1,8 @@
 package com.shehuan.keasymvp.test.main
 
 import com.shehuan.keasymvp.test.bean.BannerBean
-import com.shehuan.keasymvp.mvp.BaseView
-import com.shehuan.keasymvp.mvp.net.exception.ResponseException
+import com.shehuan.keasymvp.base.BaseView
+import com.shehuan.keasymvp.base.net.exception.ResponseException
 import com.shehuan.keasymvp.test.bean.FriendBean
 
 interface SampleContract {

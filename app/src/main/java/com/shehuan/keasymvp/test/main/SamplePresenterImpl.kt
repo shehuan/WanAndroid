@@ -1,12 +1,12 @@
 package com.shehuan.keasymvp.test.main
 
 import com.shehuan.keasymvp.test.bean.BannerBean
-import com.shehuan.keasymvp.mvp.BasePresenter
-import com.shehuan.keasymvp.mvp.net.observer.BaseObserver
-import com.shehuan.keasymvp.mvp.net.RequestManager
-import com.shehuan.keasymvp.mvp.net.RetrofitManager
-import com.shehuan.keasymvp.mvp.net.exception.ResponseException
-import com.shehuan.keasymvp.mvp.net.observer.LoadingObserver
+import com.shehuan.keasymvp.base.BasePresenter
+import com.shehuan.keasymvp.base.net.observer.BaseObserver
+import com.shehuan.keasymvp.base.net.RequestManager
+import com.shehuan.keasymvp.base.net.RetrofitManager
+import com.shehuan.keasymvp.base.net.exception.ResponseException
+import com.shehuan.keasymvp.base.net.observer.LoadingObserver
 import com.shehuan.keasymvp.test.apis.WanAndroidApis
 import com.shehuan.keasymvp.test.bean.FriendBean
 

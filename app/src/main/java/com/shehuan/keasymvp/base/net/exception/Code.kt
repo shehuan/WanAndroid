@@ -1,4 +1,4 @@
-package com.shehuan.keasymvp.mvp.net.exception
+package com.shehuan.keasymvp.base.net.exception
 
 class Code {
     companion object {
