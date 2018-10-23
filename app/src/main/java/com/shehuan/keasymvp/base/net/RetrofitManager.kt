@@ -39,7 +39,7 @@ object RetrofitManager {
         }
 
         // 请求相应拦截器
-        // builder.addInterceptor(new CommonInterceptor());
+        // builder.addInterceptor();
 
         return builder.build()
     }

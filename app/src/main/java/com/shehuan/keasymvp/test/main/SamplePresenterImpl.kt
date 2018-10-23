@@ -13,7 +13,7 @@ import com.shehuan.keasymvp.test.bean.FriendBean
 class SamplePresenterImpl(view: SampleContract.View) : BasePresenter<SampleContract.View>(view), SampleContract.Presenter {
     override fun getFriendData() {
         RequestManager.execute(this, RetrofitManager.create(WanAndroidApis::class.java).friend(),
-                object : LoadingObserver<List<FriendBean>>(context, true, true) {
+                object : LoadingObserver<List<FriendBean>>(context, false, true) {
                     override fun onSuccess(data: List<FriendBean>) {
                         view.onFriedSuccess(data)
                     }
