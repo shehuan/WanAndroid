@@ -7,7 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.shehuan.keasymvp"
+        applicationId "com.shehuan.wanandroid"
         minSdkVersion 15
         targetSdkVersion 28
         versionCode 1
@@ -24,8 +24,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:28.+'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
 
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
@@ -37,4 +38,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
 
     implementation 'com.github.SheHuan:NiceDialog:1.1.6'
+    implementation 'com.github.SheHuan:RecyclerViewAdapter:1.2.6'
+    implementation 'com.github.SheHuan:StatusView:1.0.3'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
