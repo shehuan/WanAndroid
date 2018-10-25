@@ -1,12 +1,10 @@
 package com.shehuan.wanandroid.ui.main
 
-import com.shehuan.wanandroid.bean.BannerBean
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.ViewPagerAdapter
 import com.shehuan.wanandroid.base.activity.BaseMvpActivity
 import com.shehuan.wanandroid.base.fragment.BaseFragment
 import com.shehuan.wanandroid.base.net.exception.ResponseException
-import com.shehuan.wanandroid.bean.articleList.ArticleListBean
 import com.shehuan.wanandroid.bean.FriendBean
 import com.shehuan.wanandroid.bean.newProject.NewProjectBean
 import com.shehuan.wanandroid.ui.home.HomeFragment
@@ -49,28 +47,12 @@ class MainActivity : BaseMvpActivity<SamplePresenterImpl>(), SampleContract.View
         bottomTabLayout.setupWithViewPager(mainViewpager)
     }
 
-    override fun onBannerSuccess(data: List<BannerBean>) {
-        LogUtil.e(TAG, "onBannerSuccess")
-    }
-
-    override fun onBannerError(e: ResponseException) {
-        LogUtil.e(TAG, "onBannerError")
-    }
-
     override fun onFriedSuccess(data: List<FriendBean>) {
         LogUtil.e(TAG, "onFriedSuccess")
     }
 
     override fun onFriendError(e: ResponseException) {
         LogUtil.e(TAG, "onFriendError")
-    }
-
-    override fun onArticleListSuccess(data: ArticleListBean) {
-
-    }
-
-    override fun onArticleListError(e: ResponseException) {
-
     }
 
     override fun onNewProjectSuccess(data: NewProjectBean) {

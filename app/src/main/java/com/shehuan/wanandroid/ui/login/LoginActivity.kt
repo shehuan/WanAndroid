@@ -1,13 +1,36 @@
 package com.shehuan.wanandroid.ui.login
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
 import com.shehuan.wanandroid.R
+import com.shehuan.wanandroid.base.activity.BaseMvpActivity
+import com.shehuan.wanandroid.base.net.exception.ResponseException
+import com.shehuan.wanandroid.bean.LoginBean
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseMvpActivity<LoginPresenterImpl>(), LoginContract.View {
+    override fun initPresenter(): LoginPresenterImpl {
+        return LoginPresenterImpl(this)
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+    override fun loadData() {
+
+    }
+
+    override fun initLayoutResID(): Int {
+        return R.layout.activity_login
+    }
+
+    override fun initData() {
+
+    }
+
+    override fun initView() {
+
+    }
+
+    override fun onLoginSuccess(data: LoginBean) {
+
+    }
+
+    override fun onLoginError(e: ResponseException) {
+
     }
 }

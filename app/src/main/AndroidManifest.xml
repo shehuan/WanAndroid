@@ -22,7 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.login.LoginActivity" />
-        <activity android:name=".ui.about.AboutActivity"></activity>
+        <activity android:name=".ui.about.AboutActivity" />
+        <activity android:name=".ui.query.QueryActivity"></activity>
     </application>
 
 </manifest>
