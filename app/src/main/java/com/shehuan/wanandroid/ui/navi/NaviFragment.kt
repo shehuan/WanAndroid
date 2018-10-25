@@ -1,11 +1,15 @@
-package com.shehuan.wanandroid.ui.mine
+package com.shehuan.wanandroid.ui.navi
 
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.base.fragment.BaseMvpFragment
 
-class MineFragment : BaseMvpFragment<MinePresenterImpl>(), MineContract.View {
-    override fun initPresenter(): MinePresenterImpl {
-        return MinePresenterImpl(this)
+class NaviFragment : BaseMvpFragment<NaviPresenterImpl>(), NaviContract.View {
+    companion object {
+        fun newInstance() = NaviFragment()
+    }
+
+    override fun initPresenter(): NaviPresenterImpl {
+        return NaviPresenterImpl(this)
     }
 
     override fun loadData() {
@@ -22,9 +26,5 @@ class MineFragment : BaseMvpFragment<MinePresenterImpl>(), MineContract.View {
 
     override fun initView() {
 
-    }
-
-    companion object {
-        fun newInstance() = MineFragment()
     }
 }

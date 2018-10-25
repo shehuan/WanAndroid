@@ -6,9 +6,8 @@ import com.shehuan.wanandroid.base.activity.BaseMvpActivity
 import com.shehuan.wanandroid.base.fragment.BaseFragment
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.bean.FriendBean
-import com.shehuan.wanandroid.bean.newProject.NewProjectBean
 import com.shehuan.wanandroid.ui.home.HomeFragment
-import com.shehuan.wanandroid.ui.mine.MineFragment
+import com.shehuan.wanandroid.ui.navi.NaviFragment
 import com.shehuan.wanandroid.ui.tree.TreeFragment
 import com.shehuan.wanandroid.utils.LogUtil
 import kotlinx.android.synthetic.main.activity_main.*
@@ -40,7 +39,7 @@ class MainActivity : BaseMvpActivity<SamplePresenterImpl>(), SampleContract.View
         val fragments = arrayListOf<BaseFragment>()
         fragments.add(HomeFragment.newInstance())
         fragments.add(TreeFragment.newInstance())
-        fragments.add(MineFragment.newInstance())
+        fragments.add(NaviFragment.newInstance())
         val viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
         viewPagerAdapter.setFragments(fragments)
         mainViewpager.adapter = viewPagerAdapter
@@ -53,13 +52,5 @@ class MainActivity : BaseMvpActivity<SamplePresenterImpl>(), SampleContract.View
 
     override fun onFriendError(e: ResponseException) {
         LogUtil.e(TAG, "onFriendError")
-    }
-
-    override fun onNewProjectSuccess(data: NewProjectBean) {
-
-    }
-
-    override fun onNewProjectError(e: ResponseException) {
-
     }
 }

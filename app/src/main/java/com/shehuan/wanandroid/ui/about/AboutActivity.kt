@@ -1,13 +1,18 @@
 package com.shehuan.wanandroid.ui.about
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
 import com.shehuan.wanandroid.R
+import com.shehuan.wanandroid.base.activity.BaseActivity
 
-class AboutActivity : AppCompatActivity() {
+class AboutActivity : BaseActivity() {
+    override fun initLayoutResID(): Int {
+        return R.layout.activity_about
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_about)
+    override fun initData() {
+
+    }
+
+    override fun initView() {
+
     }
 }

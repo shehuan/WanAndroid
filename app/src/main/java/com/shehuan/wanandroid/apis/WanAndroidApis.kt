@@ -33,7 +33,7 @@ interface WanAndroidApis {
      * 最新项目
      */
     @GET("article/listproject/{pageNum}/json")
-    fun newProject(@Path("pageNum") pageNum: Int): Observable<BaseResponse<NewProjectBean>>
+    fun project(@Path("pageNum") pageNum: Int): Observable<BaseResponse<NewProjectBean>>
 
     /**
      * 热词（目前搜索最多的关键词）

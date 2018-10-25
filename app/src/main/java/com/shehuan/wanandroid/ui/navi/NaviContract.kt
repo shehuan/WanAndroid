@@ -1,8 +1,8 @@
-package com.shehuan.wanandroid.ui.mine
+package com.shehuan.wanandroid.ui.navi
 
 import com.shehuan.wanandroid.base.BaseView
 
-interface MineContract {
+interface NaviContract {
     interface View : BaseView {
 
     }
