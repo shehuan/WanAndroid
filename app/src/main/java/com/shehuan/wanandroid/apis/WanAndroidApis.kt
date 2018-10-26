@@ -2,9 +2,9 @@ package com.shehuan.wanandroid.apis
 
 import com.shehuan.wanandroid.base.BaseResponse
 import com.shehuan.wanandroid.bean.*
-import com.shehuan.wanandroid.bean.articleList.ArticleListBean
+import com.shehuan.wanandroid.bean.article.ArticleBean
 import com.shehuan.wanandroid.bean.navi.NaviBean
-import com.shehuan.wanandroid.bean.newProject.NewProjectBean
+import com.shehuan.wanandroid.bean.project.ProjectBean
 import com.shehuan.wanandroid.bean.officialAccountArticle.OfficialAccountArticleBean
 import com.shehuan.wanandroid.bean.query.QueryBean
 import com.shehuan.wanandroid.bean.tree.TreeBean
@@ -40,13 +40,13 @@ interface WanAndroidApis {
      * 首页文章列表
      */
     @GET("article/list/{pageNum}/json")
-    fun articleList(@Path("pageNum") pageNum: Int): Observable<BaseResponse<ArticleListBean>>
+    fun articleList(@Path("pageNum") pageNum: Int): Observable<BaseResponse<ArticleBean>>
 
     /**
      * 最新项目
      */
     @GET("article/listproject/{pageNum}/json")
-    fun project(@Path("pageNum") pageNum: Int): Observable<BaseResponse<NewProjectBean>>
+    fun project(@Path("pageNum") pageNum: Int): Observable<BaseResponse<ProjectBean>>
 
     /**
      * 热词（目前搜索最多的关键词）

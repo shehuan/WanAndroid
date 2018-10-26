@@ -1,4 +1,4 @@
-package com.shehuan.wanandroid.bean.articleList
+package com.shehuan.wanandroid.bean.article
 
 data class DatasItem(val superChapterName: String = "",
                      val publishTime: Long = 0,

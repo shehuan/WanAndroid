@@ -7,6 +7,25 @@
     android:orientation="vertical"
     tools:context=".ui.main.MainActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/cFE6243">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/other" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:src="@drawable/query" />
+
+    </RelativeLayout>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/mainViewpager"
         android:layout_width="match_parent"
@@ -15,13 +34,13 @@
 
     <View
         android:layout_width="match_parent"
-        android:background="@color/cCDCDCD"
-        android:layout_height="1px"/>
+        android:layout_height="1px"
+        android:background="@color/cCDCDCD" />
 
     <com.shehuan.wanandroid.widget.BottomTabLayout
-        android:id="@+id/bottomTabLayout"
+        android:id="@+id/mainBottomTabLayout"
         android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="60dp" />
+        android:layout_height="60dp"
+        android:background="@color/cFFFFFF" />
 
 </LinearLayout>

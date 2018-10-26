@@ -85,7 +85,7 @@ class BottomTabLayout : LinearLayout {
 
         fun select() {
             icon.setImageResource(selectIconId)
-            name.setTextColor(resources.getColor(R.color.cFF534D))
+            name.setTextColor(resources.getColor(R.color.cFE6243))
         }
 
         fun unSelect() {

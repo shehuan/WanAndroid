@@ -1,10 +1,12 @@
 package com.shehuan.wanandroid.ui.home
 
 import com.shehuan.wanandroid.R
+import com.shehuan.wanandroid.adapter.ViewPagerAdapter
+import com.shehuan.wanandroid.base.fragment.BaseFragment
 import com.shehuan.wanandroid.base.fragment.BaseMvpFragment
-import com.shehuan.wanandroid.base.net.exception.ResponseException
-import com.shehuan.wanandroid.bean.BannerBean
-import com.shehuan.wanandroid.bean.articleList.ArticleListBean
+import com.shehuan.wanandroid.ui.article.ArticleFragment
+import com.shehuan.wanandroid.ui.project.ProjectFragment
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
     companion object {
@@ -28,22 +30,18 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
     }
 
     override fun initView() {
+        val fragments = arrayListOf<BaseFragment>()
+        val titles = arrayListOf<String>()
 
-    }
+        fragments.add(ArticleFragment.newInstance())
+        fragments.add(ProjectFragment.newInstance())
 
-    override fun onBannerSuccess(data: List<BannerBean>) {
+        titles.add("文章")
+        titles.add("项目")
 
-    }
-
-    override fun onBannerError(e: ResponseException) {
-
-    }
-
-    override fun onArticleListSuccess(data: ArticleListBean) {
-
-    }
-
-    override fun onArticleListError(e: ResponseException) {
-
+        val viewPagerAdapter = ViewPagerAdapter(childFragmentManager)
+        viewPagerAdapter.setFragmentsAndTitles(fragments, titles)
+        homeViewPager.adapter = viewPagerAdapter
+        homeTabLayout.setupWithViewPager(homeViewPager)
     }
 }

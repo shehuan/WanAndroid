@@ -2,15 +2,15 @@ package com.shehuan.wanandroid.ui.project
 
 import com.shehuan.wanandroid.base.BaseView
 import com.shehuan.wanandroid.base.net.exception.ResponseException
-import com.shehuan.wanandroid.bean.newProject.NewProjectBean
+import com.shehuan.wanandroid.bean.project.ProjectBean
 
 interface ProjectContract {
     interface View : BaseView {
-        fun onProjectSuccess(data: NewProjectBean)
-        fun onProjectError(e: ResponseException)
+        fun onProjectListSuccess(data: ProjectBean)
+        fun onProjectListError(e: ResponseException)
     }
 
     interface Presenter {
-        fun getProject(pageNum: Int)
+        fun getProjectList(pageNum: Int)
     }
 }

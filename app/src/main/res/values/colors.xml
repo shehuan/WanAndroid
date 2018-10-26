@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF534D</color>
-    <color name="colorPrimaryDark">#FF534D</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#FE6243</color>
+    <color name="colorPrimaryDark">#FE6243</color>
+    <color name="colorAccent">#FE6243</color>
 
-    <color name="white">#FFFFFF</color>
-
+    <color name="cFFFFFF">#FFFFFF</color>
     <color name="cDBDBDB">#DBDBDB</color>
     <color name="cCDCDCD">#CDCDCD</color>
     <color name="cBFBFBF">#BFBFBF</color>
     <color name="c8A8A8A">#8A8A8A</color>
     <color name="c707070">#707070</color>
+    <color name="c515151">#515151</color>
+    <color name="c2C2C2C">#2C2C2C</color>
+    <color name="c000000">#000000</color>
+
+    <color name="cEDD0BE">#EDD0BE</color>
+    <color name="cFFC09F">#FFC09F</color>
+    <color name="cF17C67">#F17C67</color>
     <color name="cFF534D">#FF534D</color>
+    <color name="cE03636">#E03636</color>
+    <color name="cFE6243">#FE6243</color>
+
+    <color name="c9DD3FA">#9DD3FA</color>
+    <color name="c4CB7FF">#4CB7FF</color>
+    <color name="c25C6FC">#25C6FC</color>
+    <color name="c4CBCE7">#4CB4E7</color>
+    <color name="c1F6FB5">#1F6FB5</color>
+
+    <color name="c51C422">#51C422</color>
+    <color name="c376956">#376956</color>
 </resources>

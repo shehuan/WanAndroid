@@ -7,7 +7,7 @@ import io.reactivex.disposables.Disposable
 
 abstract class BasePresenter<V : BaseView>(val view: V) {
     protected val context: Context = if (view is BaseFragment) {
-        view.activity
+        view.context!!
     } else {
         view as Context
     }

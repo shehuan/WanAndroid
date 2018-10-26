@@ -1,4 +1,4 @@
-package com.shehuan.wanandroid.bean.newProject
+package com.shehuan.wanandroid.bean.project
 
 data class DatasItem(val superChapterName: String = "",
                      val publishTime: Long = 0,
