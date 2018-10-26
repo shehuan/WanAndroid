@@ -5,12 +5,25 @@ import com.shehuan.wanandroid.bean.*
 import com.shehuan.wanandroid.bean.articleList.ArticleListBean
 import com.shehuan.wanandroid.bean.navi.NaviBean
 import com.shehuan.wanandroid.bean.newProject.NewProjectBean
+import com.shehuan.wanandroid.bean.officialAccountArticle.OfficialAccountArticleBean
 import com.shehuan.wanandroid.bean.query.QueryBean
 import com.shehuan.wanandroid.bean.tree.TreeBean
 import io.reactivex.Observable
 import retrofit2.http.*
 
 interface WanAndroidApis {
+    /**
+     * 登录
+     */
+    @POST("user/login")
+    fun login(@QueryMap param: Map<String, String>): Observable<BaseResponse<LoginBean>>
+
+    /**
+     * 注册
+     */
+    @POST("user/register")
+    fun register(@QueryMap param: Map<String, String>): Observable<BaseResponse<RegisterBean>>
+
     /**
      * 首页banner
      */
@@ -60,16 +73,22 @@ interface WanAndroidApis {
     fun navi(): Observable<BaseResponse<List<NaviBean>>>
 
     /**
-     * 登录
+     * 微信公众号列表
      */
-    @POST("user/login")
-    fun login(@QueryMap param: Map<String, String>): Observable<BaseResponse<LoginBean>>
+    @GET("wxarticle/chapters/json")
+    fun officialAccount(): Observable<BaseResponse<List<OfficialAccountBean>>>
 
     /**
-     * 注册
+     * 微信公众号文章列表
      */
-    @POST("user/register")
-    fun register(@QueryMap param: Map<String, String>): Observable<BaseResponse<RegisterBean>>
+    @GET("wxarticle/list/{officialAccountId}/{pageNum}/json")
+    fun officialAccountArticleList(@Path("officialAccountId") officialAccountId: Int, @Path("pageNum") pageNum: Int): Observable<BaseResponse<OfficialAccountArticleBean>>
+
+    /**
+     * 微信公众号文章搜索
+     */
+    @GET("wxarticle/list/{officialAccountId}/{pageNum}/json")
+    fun queryOfficialAccountArticle(@Path("officialAccountId") officialAccountId: Int, @Path("pageNum") pageNum: Int, @Query("k") k: String): Observable<BaseResponse<OfficialAccountArticleBean>>
 
 //    /**
 //     * 收藏文章列表
