@@ -85,12 +85,12 @@ class BottomTabLayout : LinearLayout {
 
         fun select() {
             icon.setImageResource(selectIconId)
-            name.setTextColor(Color.RED)
+            name.setTextColor(resources.getColor(R.color.cFF534D))
         }
 
         fun unSelect() {
             icon.setImageResource(defaultIconId)
-            name.setTextColor(Color.BLACK)
+            name.setTextColor(resources.getColor(R.color.c707070))
         }
 
         private fun inflate(layoutId: Int): View = LayoutInflater.from(context).inflate(layoutId, this)

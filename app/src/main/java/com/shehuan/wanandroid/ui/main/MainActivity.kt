@@ -33,10 +33,10 @@ class MainActivity : BaseMvpActivity<SamplePresenterImpl>(), SampleContract.View
     }
 
     override fun initView() {
-        bottomTabLayout.addTab("首页", R.mipmap.ic_launcher, R.mipmap.ic_launcher)
-        bottomTabLayout.addTab("体系", R.mipmap.ic_launcher, R.mipmap.ic_launcher)
-        bottomTabLayout.addTab("导航", R.mipmap.ic_launcher, R.mipmap.ic_launcher)
-        bottomTabLayout.addTab("公众号", R.mipmap.ic_launcher, R.mipmap.ic_launcher)
+        bottomTabLayout.addTab("首页", R.drawable.homepage, R.drawable.homepage_fill)
+        bottomTabLayout.addTab("体系", R.drawable.manage, R.drawable.manage_fill)
+        bottomTabLayout.addTab("导航", R.drawable.coordinates, R.drawable.coordinates_fill)
+        bottomTabLayout.addTab("公众号", R.drawable.star, R.drawable.star_fill)
 
         val fragments = arrayListOf<BaseFragment>()
         fragments.add(HomeFragment.newInstance())
