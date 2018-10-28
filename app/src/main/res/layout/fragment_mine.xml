@@ -1,13 +1,24 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.shehuan.wanandroid.ui.navi.NaviFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
-</FrameLayout>
+        <com.shehuan.wanandroid.widget.VerticalTabLayout
+            android:id="@+id/naviTabLayout"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/naviDetailContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

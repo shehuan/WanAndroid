@@ -2,7 +2,6 @@ package com.shehuan.wanandroid.widget
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -24,8 +23,8 @@ class BottomTabLayout : LinearLayout {
         orientation = HORIZONTAL
     }
 
-    fun addTab(nameStr: String, defaultIconId: Int, selectIconId: Int) {
-        val tab = TabItem(context, nameStr, defaultIconId, selectIconId)
+    fun addTab(tabName: String, defaultIconId: Int, selectIconId: Int) {
+        val tab = TabItem(context, tabName, defaultIconId, selectIconId)
         tab.tag = childCount
         tab.setOnClickListener {
             val tag: Int = it.tag as Int
@@ -71,26 +70,26 @@ class BottomTabLayout : LinearLayout {
 
     @SuppressLint("ViewConstructor")
     private class TabItem(context: Context?, nameStr: String, private val defaultIconId: Int, private val selectIconId: Int) : LinearLayout(context) {
-        private val icon: ImageView
-        private val name: TextView
+        private val iconIv: ImageView
+        private val nameTv: TextView
 
         init {
             orientation = VERTICAL
             val tab: LinearLayout = inflate(R.layout.bottom_tab_item_layout) as LinearLayout
-            icon = tab.findViewById(R.id.icon)
-            icon.setImageResource(defaultIconId)
-            name = tab.findViewById(R.id.name)
-            name.text = nameStr
+            iconIv = tab.findViewById(R.id.tabIcon)
+            iconIv.setImageResource(defaultIconId)
+            nameTv = tab.findViewById(R.id.tabName)
+            nameTv.text = nameStr
         }
 
         fun select() {
-            icon.setImageResource(selectIconId)
-            name.setTextColor(resources.getColor(R.color.cFE6243))
+            iconIv.setImageResource(selectIconId)
+            nameTv.setTextColor(resources.getColor(R.color.cFE6243))
         }
 
         fun unSelect() {
-            icon.setImageResource(defaultIconId)
-            name.setTextColor(resources.getColor(R.color.c707070))
+            iconIv.setImageResource(defaultIconId)
+            nameTv.setTextColor(resources.getColor(R.color.c707070))
         }
 
         private fun inflate(layoutId: Int): View = LayoutInflater.from(context).inflate(layoutId, this)

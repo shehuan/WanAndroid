@@ -17,7 +17,7 @@ abstract class BaseMvpActivity<P : BasePresenter<*>> : BaseActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         presenter.detach()
+        super.onDestroy()
     }
 }

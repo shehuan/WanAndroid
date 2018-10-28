@@ -1,7 +1,7 @@
 package com.shehuan.wanandroid.bean.tree
 
 data class TreeBean(val visible: Int = 0,
-                    val children: List<ChildrenItem>?,
+                    val children: ArrayList<ChildrenItem>,
                     val name: String = "",
                     val userControlSetTop: Boolean = false,
                     val id: Int = 0,

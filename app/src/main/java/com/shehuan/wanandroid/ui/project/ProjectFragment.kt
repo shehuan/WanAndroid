@@ -1,16 +1,16 @@
 package com.shehuan.wanandroid.ui.project
 
-import android.support.v7.widget.LinearLayoutManager
+import android.support.design.widget.TabLayout
 import com.shehuan.wanandroid.R
-import com.shehuan.wanandroid.adapter.ProjectListAdapter
+import com.shehuan.wanandroid.adapter.ViewPagerAdapter
+import com.shehuan.wanandroid.base.fragment.BaseFragment
 import com.shehuan.wanandroid.base.fragment.BaseMvpFragment
 import com.shehuan.wanandroid.base.net.exception.ResponseException
-import com.shehuan.wanandroid.bean.project.ProjectBean
+import com.shehuan.wanandroid.bean.ProjectCategoryBean
+import com.shehuan.wanandroid.ui.project.projectDetail.ProjectDetailFragment
 import kotlinx.android.synthetic.main.fragment_project.*
 
 class ProjectFragment : BaseMvpFragment<ProjectPresenterImpl>(), ProjectContract.View {
-    private lateinit var projectListAdapter: ProjectListAdapter
-
     companion object {
         fun newInstance() = ProjectFragment()
     }
@@ -20,7 +20,7 @@ class ProjectFragment : BaseMvpFragment<ProjectPresenterImpl>(), ProjectContract
     }
 
     override fun loadData() {
-        presenter.getProjectList(0)
+        presenter.getProjectCategory()
     }
 
     override fun initLayoutResID(): Int {
@@ -32,18 +32,28 @@ class ProjectFragment : BaseMvpFragment<ProjectPresenterImpl>(), ProjectContract
     }
 
     override fun initView() {
-        projectListAdapter = ProjectListAdapter(context, null, true)
-        val linearLayoutManager = LinearLayoutManager(context)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        projectRv.layoutManager = linearLayoutManager
-        projectRv.adapter = projectListAdapter
+
     }
 
-    override fun onProjectListSuccess(data: ProjectBean) {
-        projectListAdapter.setNewData(data.datas)
+    override fun onProjectCategorySuccess(data: List<ProjectCategoryBean>) {
+        val titles = arrayListOf<String>()
+        val fragments = arrayListOf<BaseFragment>()
+        titles.add("最新项目")
+        fragments.add(ProjectDetailFragment.newInstance(-1))
+        for (category in data) {
+            titles.add(category.name)
+            fragments.add(ProjectDetailFragment.newInstance(category.id))
+        }
+
+        val viewPagerAdapter = ViewPagerAdapter(childFragmentManager)
+        viewPagerAdapter.setFragmentsAndTitles(fragments, titles)
+        projectViewPager.offscreenPageLimit = data.size + 1
+        projectViewPager.adapter = viewPagerAdapter
+        projectTabLayout.tabMode = TabLayout.MODE_SCROLLABLE
+        projectTabLayout.setupWithViewPager(projectViewPager)
     }
 
-    override fun onProjectListError(e: ResponseException) {
+    override fun onProjectCategoryError(e: ResponseException) {
 
     }
 }

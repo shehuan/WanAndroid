@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@color/cFFFFFF"
+    android:paddingBottom="15dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="15dp">
+
+    <TextView
+        android:id="@+id/chapterArticleTitleTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/c2C2C2C"
+        android:textSize="18sp" />
+
+
+    <TextView
+        android:id="@+id/chapterArticleTimeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text=""
+        android:textColor="@color/cBFBFBF"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/articleLikeIv"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/like" />
+
+</RelativeLayout>

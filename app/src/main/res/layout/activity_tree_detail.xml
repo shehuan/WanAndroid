@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.tree.treeDetail.TreeDetailActivity">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/treeDetailTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/cFFFFFF"
+        app:tabIndicatorColor="@color/cFE6243"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+        app:tabIndicatorFullWidth="false"
+        app:tabRippleColor="@android:color/transparent"
+        app:tabSelectedTextColor="@color/cFE6243"
+        app:tabTextColor="@color/c707070" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/treeDetailViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

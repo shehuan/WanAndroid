@@ -23,7 +23,9 @@
         </activity>
         <activity android:name=".ui.login.LoginActivity" />
         <activity android:name=".ui.about.AboutActivity" />
-        <activity android:name=".ui.query.QueryActivity"></activity>
+        <activity android:name=".ui.query.QueryActivity" />
+        <activity android:name=".ui.tree.treeDetail.TreeDetailActivity" />
+        <activity android:name=".ui.chapter.chapterDetail.ChapterDetailActivity"></activity>
     </application>
 
 </manifest>

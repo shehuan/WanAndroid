@@ -1,4 +1,4 @@
-package com.shehuan.wanandroid.bean.officialAccountArticle
+package com.shehuan.wanandroid.bean.chapter
 
 data class DatasItem(val superChapterName: String = "",
                      val publishTime: Long = 0,

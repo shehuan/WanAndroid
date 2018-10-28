@@ -1,6 +1,6 @@
 package com.shehuan.wanandroid.bean
 
-data class OfficialAccountBean(val visible: Int = 0,
+data class ProjectCategoryBean(val visible: Int = 0,
                                val name: String = "",
                                val userControlSetTop: Boolean = false,
                                val id: Int = 0,

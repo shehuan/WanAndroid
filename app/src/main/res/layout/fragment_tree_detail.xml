@@ -1,11 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.shehuan.wanandroid.ui.article.ArticleFragment">
+    tools:context=".ui.tree.treeDetail.TreeDetailFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/articleRv"
+        android:id="@+id/treeDetailRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never" />

@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 
 abstract class BaseActivity : AppCompatActivity() {
-    lateinit var context: Context
+    lateinit var mContext: Context
 
     abstract fun initLayoutResID(): Int
 
@@ -16,7 +16,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(initLayoutResID())
-        context = this
+        mContext = this
 
         initData()
         initView()
