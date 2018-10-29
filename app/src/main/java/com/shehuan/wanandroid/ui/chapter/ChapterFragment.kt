@@ -35,7 +35,7 @@ class ChapterFragment : BaseMvpFragment<ChapterPresenterImpl>(), ChapterContract
     override fun initView() {
         chapterAdapter = ChapterAdapter(context, null, false)
         chapterAdapter.setOnItemClickListener { _, data, _ ->
-            ChapterDetailActivity.start(mContext, data.id)
+            ChapterDetailActivity.start(mContext, data.name, data.id)
         }
         val gridLayoutManager = GridLayoutManager(context, 2)
         chapterRv.layoutManager = gridLayoutManager

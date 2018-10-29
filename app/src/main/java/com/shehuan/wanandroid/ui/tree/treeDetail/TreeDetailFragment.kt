@@ -8,6 +8,7 @@ import com.shehuan.wanandroid.adapter.TreeDetailListAdapter
 import com.shehuan.wanandroid.base.fragment.BaseMvpFragment
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.bean.treeDetail.TreeDetailBean
+import com.shehuan.wanandroid.ui.article.ArticleActivity
 import com.shehuan.wanandroid.widget.DivideItemDecoration
 import kotlinx.android.synthetic.main.fragment_tree_detail.*
 
@@ -44,8 +45,11 @@ class TreeDetailFragment : BaseMvpFragment<TreeDetailPresenterImpl>(), TreeDetai
 
     override fun initView() {
         treeDetailListAdapter = TreeDetailListAdapter(context, null, true)
-        treeDetailListAdapter.setOnItemClickListener { _, data, position ->
-
+        treeDetailListAdapter.setLoadingView(R.layout.rv_loading_layout)
+        treeDetailListAdapter.setLoadEndView(R.layout.rv_load_end_layout)
+        treeDetailListAdapter.setLoadFailedView(R.layout.rv_load_failed_layout)
+        treeDetailListAdapter.setOnItemClickListener { _, data, _ ->
+            ArticleActivity.start(mContext, data.title, data.link)
         }
         treeDetailListAdapter.setOnLoadMoreListener {
             presenter.getTreeDetail(pageNum, cid)
@@ -76,6 +80,6 @@ class TreeDetailFragment : BaseMvpFragment<TreeDetailPresenterImpl>(), TreeDetai
     }
 
     override fun onTreeDetailError(e: ResponseException) {
-
+        treeDetailListAdapter.loadFailed()
     }
 }

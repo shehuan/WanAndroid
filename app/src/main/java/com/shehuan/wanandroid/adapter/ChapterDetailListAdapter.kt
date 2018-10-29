@@ -9,7 +9,7 @@ import com.shehuan.wanandroid.bean.chapter.DatasItem
 class ChapterDetailListAdapter(context: Context?, data: List<DatasItem>?, isOpenLoadMore: Boolean) :
         CommonBaseAdapter<DatasItem>(context, data, isOpenLoadMore) {
     override fun getItemLayoutId(): Int {
-        return R.layout.chapter_detail_rv_item_layout
+        return R.layout.rv_item_chapter_detail_layout
     }
 
     override fun convert(viewHolder: ViewHolder, data: DatasItem, position: Int) {

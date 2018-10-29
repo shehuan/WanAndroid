@@ -16,7 +16,7 @@ class ChapterAdapter(context: Context?, data: List<ChapterBean>?, isOpenLoadMore
             R.color.cA3A380)
 
     override fun getItemLayoutId(): Int {
-        return R.layout.chapter_rv_item_layout
+        return R.layout.rv_item_chapter_layout
     }
 
     override fun convert(viewHolder: ViewHolder, data: ChapterBean, position: Int) {

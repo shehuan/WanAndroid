@@ -7,6 +7,7 @@ import com.shehuan.wanandroid.adapter.ProjectListAdapter
 import com.shehuan.wanandroid.base.fragment.BaseMvpFragment
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.bean.project.ProjectBean
+import com.shehuan.wanandroid.ui.article.ArticleActivity
 import com.shehuan.wanandroid.widget.DivideItemDecoration
 import kotlinx.android.synthetic.main.fragment_project_detail.*
 
@@ -43,8 +44,11 @@ class ProjectDetailFragment : BaseMvpFragment<ProjectDetailPresenterImpl>(), Pro
 
     override fun initView() {
         projectListAdapter = ProjectListAdapter(context, null, true)
-        projectListAdapter.setOnItemClickListener { _, data, position ->
-
+        projectListAdapter.setLoadingView(R.layout.rv_loading_layout)
+        projectListAdapter.setLoadEndView(R.layout.rv_load_end_layout)
+        projectListAdapter.setLoadFailedView(R.layout.rv_load_failed_layout)
+        projectListAdapter.setOnItemClickListener { _, data, _ ->
+            ArticleActivity.start(mContext, data.title, data.link)
         }
         projectListAdapter.setOnLoadMoreListener {
             if (cid == -1) {
@@ -86,7 +90,7 @@ class ProjectDetailFragment : BaseMvpFragment<ProjectDetailPresenterImpl>(), Pro
     }
 
     override fun onNewProjectListError(e: ResponseException) {
-
+        projectListAdapter.loadFailed()
     }
 
     override fun onProjectDetailSuccess(data: ProjectBean) {
@@ -94,6 +98,6 @@ class ProjectDetailFragment : BaseMvpFragment<ProjectDetailPresenterImpl>(), Pro
     }
 
     override fun onProjectDetailError(e: ResponseException) {
-
+        projectListAdapter.loadFailed()
     }
 }

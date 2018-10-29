@@ -9,7 +9,7 @@ import com.shehuan.wanandroid.bean.treeDetail.DatasItem
 class TreeDetailListAdapter(context: Context?, data: List<DatasItem>?, isOpenLoadMore: Boolean) :
         CommonBaseAdapter<DatasItem>(context, data, isOpenLoadMore) {
     override fun getItemLayoutId(): Int {
-        return R.layout.tree_detail_rv_item_layout
+        return R.layout.rv_item_tree_detail_layout
     }
 
     override fun convert(viewHolder: ViewHolder, data: DatasItem, position: Int) {

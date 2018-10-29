@@ -4,7 +4,7 @@ import com.shehuan.wanandroid.base.BaseView
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.bean.FriendBean
 
-interface SampleContract {
+interface MainContract {
     interface View : BaseView {
         fun onFriedSuccess(data: List<FriendBean>)
         fun onFriendError(e: ResponseException)

@@ -36,7 +36,7 @@ class TreeFragment : BaseMvpFragment<TreePresenterImpl>(), TreeContract.View {
     override fun initView() {
         treeListAdapter = TreeListAdapter(context, null, false)
         treeListAdapter.setOnItemClickListener { _, data, _ ->
-            TreeDetailActivity.start(mContext, data.children)
+            TreeDetailActivity.start(mContext, data.name, data.children)
         }
         val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL

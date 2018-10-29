@@ -7,6 +7,8 @@
     android:orientation="vertical"
     tools:context=".ui.tree.treeDetail.TreeDetailActivity">
 
+    <include layout="@layout/toolbar_layout" />
+
     <android.support.design.widget.TabLayout
         android:id="@+id/treeDetailTabLayout"
         android:layout_width="match_parent"

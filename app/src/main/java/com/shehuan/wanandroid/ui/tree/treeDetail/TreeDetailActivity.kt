@@ -9,14 +9,19 @@ import com.shehuan.wanandroid.base.activity.BaseActivity
 import com.shehuan.wanandroid.base.fragment.BaseFragment
 import com.shehuan.wanandroid.bean.tree.ChildrenItem
 import kotlinx.android.synthetic.main.activity_tree_detail.*
+import kotlinx.android.synthetic.main.toolbar_layout.*
 
 class TreeDetailActivity : BaseActivity() {
+    private lateinit var title: String
     private lateinit var secondaryTree: ArrayList<ChildrenItem>
 
     companion object {
-        fun start(context: Context, secondaryTree: ArrayList<ChildrenItem>) {
+        fun start(context: Context, title: String, secondaryTree: ArrayList<ChildrenItem>) {
             val intent = Intent(context, TreeDetailActivity::class.java)
-            intent.putParcelableArrayListExtra("secondaryTree", secondaryTree)
+            intent.apply {
+                putExtra("title", title)
+                putParcelableArrayListExtra("secondaryTree", secondaryTree)
+            }
             context.startActivity(intent)
         }
     }
@@ -26,10 +31,20 @@ class TreeDetailActivity : BaseActivity() {
     }
 
     override fun initData() {
-        secondaryTree = intent.getParcelableArrayListExtra("secondaryTree")
+        intent?.let {
+            title = it.getStringExtra("title")
+            secondaryTree = it.getParcelableArrayListExtra("secondaryTree")
+        }
     }
 
     override fun initView() {
+        toolbar.title = title
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
+
         val titles = arrayListOf<String>()
         val fragments = arrayListOf<BaseFragment>()
         for (tree in secondaryTree) {
@@ -41,7 +56,7 @@ class TreeDetailActivity : BaseActivity() {
         viewPagerAdapter.setFragmentsAndTitles(fragments, titles)
         treeDetailViewPager.offscreenPageLimit = secondaryTree.size
         treeDetailViewPager.adapter = viewPagerAdapter
-        if (titles.size>3){
+        if (titles.size > 3) {
             treeDetailTabLayout.tabMode = TabLayout.MODE_SCROLLABLE
         }
         treeDetailTabLayout.setupWithViewPager(treeDetailViewPager)

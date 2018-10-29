@@ -9,7 +9,7 @@ import com.shehuan.wanandroid.bean.tree.TreeBean
 class TreeListAdapter(context: Context?, data: List<TreeBean>?, isOpenLoadMore: Boolean) :
         CommonBaseAdapter<TreeBean>(context, data, isOpenLoadMore) {
     override fun getItemLayoutId(): Int {
-        return R.layout.tree_rv_item_layout
+        return R.layout.rv_item_tree_layout
     }
 
     override fun convert(viewHolder: ViewHolder, data: TreeBean, position: Int) {

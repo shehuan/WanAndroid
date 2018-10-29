@@ -1,4 +1,4 @@
-package com.shehuan.wanandroid.ui.navi
+package com.shehuan.wanandroid.ui.nav
 
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.base.fragment.BaseFragment
@@ -9,19 +9,19 @@ import com.shehuan.wanandroid.bean.navi.NaviBean
 import com.shehuan.wanandroid.widget.VerticalTabLayout
 import kotlinx.android.synthetic.main.fragment_mine.*
 
-class NaviFragment : BaseMvpFragment<NaviPresenterImpl>(), NaviContract.View {
+class NavFragment : BaseMvpFragment<NavPresenterImpl>(), NavContract.View {
     private val fragments: ArrayList<BaseFragment> = arrayListOf()
 
     companion object {
-        fun newInstance() = NaviFragment()
+        fun newInstance() = NavFragment()
     }
 
-    override fun initPresenter(): NaviPresenterImpl {
-        return NaviPresenterImpl(this)
+    override fun initPresenter(): NavPresenterImpl {
+        return NavPresenterImpl(this)
     }
 
     override fun loadData() {
-        presenter.navi()
+        presenter.nav()
     }
 
     override fun initLayoutResID(): Int {
@@ -43,17 +43,17 @@ class NaviFragment : BaseMvpFragment<NaviPresenterImpl>(), NaviContract.View {
         })
     }
 
-    override fun onNaviSuccess(data: List<NaviBean>) {
+    override fun onNavSuccess(data: List<NaviBean>) {
         val tabNames = arrayListOf<String>()
-        for (naviBean in data) {
-            tabNames.add(naviBean.name)
-            fragments.add(NaviDetailFragment.newInstance(naviBean.articles as ArrayList<ArticlesItem>))
+        for (navBean in data) {
+            tabNames.add(navBean.name)
+            fragments.add(NavDetailFragment.newInstance(navBean.articles as ArrayList<ArticlesItem>))
         }
         naviTabLayout.addTabs(tabNames)
         initDetailFragment()
     }
 
-    override fun onNaviError(e: ResponseException) {
+    override fun onNavError(e: ResponseException) {
 
     }
 

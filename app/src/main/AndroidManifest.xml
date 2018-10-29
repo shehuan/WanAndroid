@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.main.MainActivity">
+        <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,10 +22,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.login.LoginActivity" />
+        <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.about.AboutActivity" />
         <activity android:name=".ui.query.QueryActivity" />
         <activity android:name=".ui.tree.treeDetail.TreeDetailActivity" />
-        <activity android:name=".ui.chapter.chapterDetail.ChapterDetailActivity"></activity>
+        <activity android:name=".ui.chapter.chapterDetail.ChapterDetailActivity" />
+        <activity android:name=".ui.article.ArticleActivity" />
+        <activity android:name=".ui.collection.MyCollectionActivity"></activity>
     </application>
 
 </manifest>

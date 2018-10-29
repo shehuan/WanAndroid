@@ -75,7 +75,7 @@ class BottomTabLayout : LinearLayout {
 
         init {
             orientation = VERTICAL
-            val tab: LinearLayout = inflate(R.layout.bottom_tab_item_layout) as LinearLayout
+            val tab: LinearLayout = inflate(R.layout.tab_item_bottom_layout) as LinearLayout
             iconIv = tab.findViewById(R.id.tabIcon)
             iconIv.setImageResource(defaultIconId)
             nameTv = tab.findViewById(R.id.tabName)

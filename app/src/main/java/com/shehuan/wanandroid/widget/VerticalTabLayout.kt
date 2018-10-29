@@ -66,7 +66,7 @@ class VerticalTabLayout : LinearLayout {
         private val lineView: View
 
         init {
-            val tab: LinearLayout = inflate(R.layout.navi_tab_item_layout) as LinearLayout
+            val tab: LinearLayout = inflate(R.layout.tab_item_nav_layout) as LinearLayout
             nameTv = tab.findViewById(R.id.nameTv)
             nameTv.text = tabName
             indicatorView = tab.findViewById(R.id.indicatorView)

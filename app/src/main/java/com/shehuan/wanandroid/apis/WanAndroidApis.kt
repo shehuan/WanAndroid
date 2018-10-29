@@ -91,7 +91,7 @@ interface WanAndroidApis {
      * 导航
      */
     @GET("navi/json")
-    fun navi(): Observable<BaseResponse<List<NaviBean>>>
+    fun nav(): Observable<BaseResponse<List<NaviBean>>>
 
     /**
      * 微信公众号列表
@@ -111,9 +111,9 @@ interface WanAndroidApis {
     @GET("wxarticle/list/{chapterId}/{pageNum}/json")
     fun queryChapterArticle(@Path("officialAccountId") chapterId: Int, @Path("pageNum") pageNum: Int, @Query("k") k: String): Observable<BaseResponse<ChapterArticleBean>>
 
-//    /**
-//     * 收藏文章列表
-//     */
-//    @GET("/lg/collect/list/{pageNum}/json")
-//    fun collectArticleList(@Path("pageNum") pageNum: Int): Observable<BaseResponse<>>
+    /**
+     * 收藏文章列表
+     */
+    @GET("/lg/collect/list/{pageNum}/json")
+    fun collectArticleList(@Path("pageNum") pageNum: Int): Observable<BaseResponse<ArticleBean>>
 }

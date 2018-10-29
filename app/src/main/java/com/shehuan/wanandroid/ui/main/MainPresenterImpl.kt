@@ -8,7 +8,7 @@ import com.shehuan.wanandroid.base.net.observer.LoadingObserver
 import com.shehuan.wanandroid.apis.WanAndroidApis
 import com.shehuan.wanandroid.bean.FriendBean
 
-class SamplePresenterImpl(view: SampleContract.View) : BasePresenter<SampleContract.View>(view), SampleContract.Presenter {
+class MainPresenterImpl(view: MainContract.View) : BasePresenter<MainContract.View>(view), MainContract.Presenter {
     override fun getFriendData() {
         RequestManager.execute(this, RetrofitManager.create(WanAndroidApis::class.java).friend(),
                 object : LoadingObserver<List<FriendBean>>(context, false, true) {

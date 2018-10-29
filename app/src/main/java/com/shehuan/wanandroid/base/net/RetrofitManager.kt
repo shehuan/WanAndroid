@@ -1,6 +1,8 @@
 package com.shehuan.wanandroid.base.net
 
 import com.shehuan.wanandroid.base.Const
+import com.shehuan.wanandroid.base.net.interceptor.AddCookiesInterceptor
+import com.shehuan.wanandroid.base.net.interceptor.SaveCookiesInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -39,7 +41,8 @@ object RetrofitManager {
         }
 
         // 请求相应拦截器
-        // builder.addInterceptor();
+        builder.addInterceptor(SaveCookiesInterceptor())
+        builder.addInterceptor(AddCookiesInterceptor())
 
         return builder.build()
     }

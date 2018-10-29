@@ -1,16 +1,16 @@
-package com.shehuan.wanandroid.ui.navi
+package com.shehuan.wanandroid.ui.nav
 
 import com.shehuan.wanandroid.base.BaseView
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.bean.navi.NaviBean
 
-interface NaviContract {
+interface NavContract {
     interface View : BaseView {
-        fun onNaviSuccess(data: List<NaviBean>)
-        fun onNaviError(e: ResponseException)
+        fun onNavSuccess(data: List<NaviBean>)
+        fun onNavError(e: ResponseException)
     }
 
     interface Presenter {
-        fun navi()
+        fun nav()
     }
 }

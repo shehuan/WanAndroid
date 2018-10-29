@@ -10,7 +10,7 @@ import com.shehuan.wanandroid.utils.ImageLoader
 class ProjectListAdapter(context: Context?, data: List<DatasItem>?, isOpenLoadMore: Boolean) :
         CommonBaseAdapter<DatasItem>(context, data, isOpenLoadMore) {
     override fun getItemLayoutId(): Int {
-        return R.layout.project_rv_item_layout
+        return R.layout.rv_item_project_layout
     }
 
     override fun convert(viewHolder: ViewHolder, data: DatasItem, position: Int) {

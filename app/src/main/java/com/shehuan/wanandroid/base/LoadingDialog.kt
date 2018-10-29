@@ -11,7 +11,7 @@ class LoadingDialog : BaseNiceDialog() {
     }
 
     override fun intLayoutId(): Int {
-        return R.layout.loading_dialog_layout
+        return R.layout.dialog_loading_layout
     }
 
     companion object {

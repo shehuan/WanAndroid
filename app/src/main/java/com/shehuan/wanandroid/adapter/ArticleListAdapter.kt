@@ -11,7 +11,7 @@ import com.shehuan.wanandroid.bean.article.DatasItem
 class ArticleListAdapter(context: Context?, data: List<DatasItem>?, isOpenLoadMore: Boolean) :
         CommonBaseAdapter<DatasItem>(context, data, isOpenLoadMore) {
     override fun getItemLayoutId(): Int {
-        return R.layout.article_rv_item_layout
+        return R.layout.rv_item_article_layout
     }
 
     override fun convert(viewHolder: ViewHolder, data: DatasItem, position: Int) {

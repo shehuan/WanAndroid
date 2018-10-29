@@ -8,8 +8,10 @@ import com.shehuan.wanandroid.adapter.ChapterDetailListAdapter
 import com.shehuan.wanandroid.base.activity.BaseMvpActivity
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.bean.chapter.ChapterArticleBean
+import com.shehuan.wanandroid.ui.article.ArticleActivity
 import com.shehuan.wanandroid.widget.DivideItemDecoration
 import kotlinx.android.synthetic.main.activity_chapter_detail.*
+import kotlinx.android.synthetic.main.toolbar_layout.*
 
 class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), ChapterDetailContract.View {
     private var pageNum: Int = 0
@@ -18,9 +20,12 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
     private lateinit var chapterDetailListAdapter: ChapterDetailListAdapter
 
     companion object {
-        fun start(context: Context, chapterId: Int) {
+        fun start(context: Context, title: String, chapterId: Int) {
             val intent = Intent(context, ChapterDetailActivity::class.java)
-            intent.putExtra("chapterId", chapterId)
+            intent.apply {
+                putExtra("chapterId", chapterId)
+                putExtra("title", title)
+            }
             context.startActivity(intent)
         }
     }
@@ -38,14 +43,27 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
     }
 
     override fun initData() {
-        chapterId = intent.getIntExtra("chapterId", 0)
+        intent?.let {
+            title = it.getStringExtra("title")
+            chapterId = it.getIntExtra("chapterId", 0)
+        }
     }
 
     override fun initView() {
+        toolbar.title = title
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
+
         chapterDetailListAdapter = ChapterDetailListAdapter(mContext, null, true)
+        chapterDetailListAdapter.setLoadingView(R.layout.rv_loading_layout)
+        chapterDetailListAdapter.setLoadEndView(R.layout.rv_load_end_layout)
+        chapterDetailListAdapter.setLoadFailedView(R.layout.rv_load_failed_layout)
 
-        chapterDetailListAdapter.setOnItemClickListener { _, data, position ->
-
+        chapterDetailListAdapter.setOnItemClickListener { _, data, _ ->
+            ArticleActivity.start(mContext, data.title, data.link)
         }
         chapterDetailListAdapter.setOnLoadMoreListener {
             presenter.getChapterArticleList(chapterId, pageNum)
@@ -71,7 +89,7 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
     }
 
     override fun onChapterArticleListError(e: ResponseException) {
-
+        chapterDetailListAdapter.loadFailed()
     }
 
     override fun onQueryChapterArticleListSuccess(data: ChapterArticleBean) {

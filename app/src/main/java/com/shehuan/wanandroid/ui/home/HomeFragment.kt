@@ -10,6 +10,7 @@ import com.shehuan.wanandroid.bean.article.ArticleBean
 import com.shehuan.wanandroid.widget.DivideItemDecoration
 import kotlinx.android.synthetic.main.fragment_home.*
 import android.view.LayoutInflater
+import com.shehuan.wanandroid.ui.article.ArticleActivity
 import com.youth.banner.Banner
 import com.shehuan.wanandroid.widget.BannerImageLoader
 import com.youth.banner.BannerConfig
@@ -53,12 +54,14 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
         }
 
         articleListAdapter = ArticleListAdapter(context, null, true)
-
+        articleListAdapter.setLoadingView(R.layout.rv_loading_layout)
+        articleListAdapter.setLoadEndView(R.layout.rv_load_end_layout)
+        articleListAdapter.setLoadFailedView(R.layout.rv_load_failed_layout)
         // 添加banner
         articleListAdapter.addHeaderView(banner)
 
-        articleListAdapter.setOnItemClickListener { _, data, position ->
-
+        articleListAdapter.setOnItemClickListener { _, data, _ ->
+            ArticleActivity.start(mContext, data.title, data.link)
         }
         articleListAdapter.setOnLoadMoreListener {
             presenter.getArticleList(pageNum)
@@ -102,6 +105,6 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
     }
 
     override fun onArticleListError(e: ResponseException) {
-
+        articleListAdapter.loadFailed()
     }
 }
