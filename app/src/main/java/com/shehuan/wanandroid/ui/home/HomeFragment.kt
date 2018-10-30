@@ -20,6 +20,8 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
     private var pageNum: Int = 0
     private lateinit var articleListAdapter: ArticleListAdapter
 
+    private lateinit var bannerBeans: List<BannerBean>
+
     private lateinit var banner: Banner
 
     companion object {
@@ -50,7 +52,7 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
         banner.setIndicatorGravity(BannerConfig.RIGHT)
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE)
         banner.setOnBannerListener {
-
+            ArticleActivity.start(mContext, bannerBeans[it].title, bannerBeans[it].url)
         }
 
         articleListAdapter = ArticleListAdapter(context, null, true)
@@ -74,6 +76,7 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
     }
 
     override fun onBannerSuccess(data: List<BannerBean>) {
+        bannerBeans = data
         val images = arrayListOf<String>()
         val titles = arrayListOf<String>()
 

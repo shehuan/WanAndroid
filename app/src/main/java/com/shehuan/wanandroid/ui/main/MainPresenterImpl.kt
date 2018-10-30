@@ -6,18 +6,17 @@ import com.shehuan.wanandroid.base.net.RetrofitManager
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.base.net.observer.LoadingObserver
 import com.shehuan.wanandroid.apis.WanAndroidApis
-import com.shehuan.wanandroid.bean.FriendBean
 
 class MainPresenterImpl(view: MainContract.View) : BasePresenter<MainContract.View>(view), MainContract.Presenter {
-    override fun getFriendData() {
-        RequestManager.execute(this, RetrofitManager.create(WanAndroidApis::class.java).friend(),
-                object : LoadingObserver<List<FriendBean>>(context, false, true) {
-                    override fun onSuccess(data: List<FriendBean>) {
-                        view.onFriedSuccess(data)
+    override fun logout() {
+        RequestManager.execute(this, RetrofitManager.create(WanAndroidApis::class.java).logout(),
+                object : LoadingObserver<Any>(context, false, true) {
+                    override fun onSuccess(data: Any) {
+                        view.onLogoutSuccess(data)
                     }
 
                     override fun onError(e: ResponseException) {
-                        view.onFriendError(e)
+                        view.onLogoutError(e)
                     }
                 })
     }

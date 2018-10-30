@@ -16,10 +16,11 @@
         app:is_circle="true" />
 
     <TextView
+        android:id="@+id/usernameTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="shehuan"
+        android:text=""
         android:textColor="@color/cFFFFFF"
         android:textSize="16sp" />
 

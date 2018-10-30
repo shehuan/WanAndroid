@@ -28,7 +28,8 @@
         <activity android:name=".ui.tree.treeDetail.TreeDetailActivity" />
         <activity android:name=".ui.chapter.chapterDetail.ChapterDetailActivity" />
         <activity android:name=".ui.article.ArticleActivity" />
-        <activity android:name=".ui.collection.MyCollectionActivity"></activity>
+        <activity android:name=".ui.collection.MyCollectionActivity" />
+        <activity android:name=".ui.register.RegisterActivity"></activity>
     </application>
 
 </manifest>

@@ -12,8 +12,6 @@ import kotlinx.android.synthetic.main.toolbar_layout.*
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.net.Uri
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.shehuan.wanandroid.utils.ToastUtil
 
@@ -59,7 +57,7 @@ class ArticleActivity : BaseActivity() {
         webSettings.setSupportZoom(true)
         webSettings.builtInZoomControls = true
         webSettings.displayZoomControls = false
-        articleWebView.webViewClient = object : WebViewClient(){}
+        articleWebView.webViewClient = object : WebViewClient() {}
         articleWebView.loadUrl(link)
     }
 

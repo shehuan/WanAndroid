@@ -1,28 +1,40 @@
 package com.shehuan.wanandroid.ui.main
 
-import android.content.Context
 import android.content.Intent
+import android.os.Handler
 import android.support.v4.view.GravityCompat
+import android.widget.TextView
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.ViewPagerAdapter
+import com.shehuan.wanandroid.base.activity.BaseActivity
 import com.shehuan.wanandroid.base.activity.BaseMvpActivity
 import com.shehuan.wanandroid.base.fragment.BaseFragment
 import com.shehuan.wanandroid.base.net.exception.ResponseException
-import com.shehuan.wanandroid.bean.FriendBean
+import com.shehuan.wanandroid.bean.event.AccountEvent
 import com.shehuan.wanandroid.ui.home.HomeFragment
 import com.shehuan.wanandroid.ui.nav.NavFragment
 import com.shehuan.wanandroid.ui.chapter.ChapterFragment
 import com.shehuan.wanandroid.ui.collection.MyCollectionActivity
+import com.shehuan.wanandroid.ui.login.LoginActivity
 import com.shehuan.wanandroid.ui.project.ProjectFragment
 import com.shehuan.wanandroid.ui.tree.TreeFragment
-import com.shehuan.wanandroid.utils.LogUtil
+import com.shehuan.wanandroid.utils.ToastUtil
+import com.shehuan.wanandroid.utils.sp.SpUtil
 import kotlinx.android.synthetic.main.activity_main.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+
 
 class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
     private val TAG: String = MainActivity::class.java.simpleName
 
+    private var isBackPressed: Boolean = false
+
+    private lateinit var usernameTv: TextView
+
     companion object {
-        fun start(context: Context) {
+        fun start(context: BaseActivity) {
             val intent = Intent(context, MainActivity::class.java)
             context.startActivity(intent)
         }
@@ -33,7 +45,7 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
     }
 
     override fun loadData() {
-
+        EventBus.getDefault().register(this)
     }
 
     override fun initLayoutResID(): Int {
@@ -48,12 +60,21 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
         mainMenu.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }
+
+        usernameTv = navigationView.getHeaderView(0).findViewById(R.id.usernameTv)
+        usernameTv.text = SpUtil.getUsername()
+        usernameTv.setOnClickListener {
+            if ("登录" == SpUtil.getUsername()) {
+                LoginActivity.start(this)
+            }
+        }
+
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_item_collect -> collection()
                 R.id.nav_item_setting -> setting()
                 R.id.nav_item_about -> about()
-                R.id.nav_item_logout -> about()
+                R.id.nav_item_logout -> logout()
             }
             drawerLayout.closeDrawer(GravityCompat.START)
             return@setNavigationItemSelectedListener true
@@ -79,6 +100,10 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
     }
 
     private fun collection() {
+        if (SpUtil.getCookies().isEmpty()) {
+            ToastUtil.showToast(mContext, "请先登录哦")
+            return
+        }
         MyCollectionActivity.start(mContext)
     }
 
@@ -91,14 +116,46 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
     }
 
     private fun logout() {
+        if (SpUtil.getCookies().isEmpty()) {
+            ToastUtil.showToast(mContext, "没登录还想退出？")
+            return
+        }
+
+        SpUtil.removeCookies()
+        SpUtil.removeUsername()
+        usernameTv.text = SpUtil.getUsername()
+        ToastUtil.showToast(mContext, "退出成功")
+    }
+
+    override fun onLogoutSuccess(data: Any) {
 
     }
 
-    override fun onFriedSuccess(data: List<FriendBean>) {
-        LogUtil.e(TAG, "onFriedSuccess")
+    override fun onLogoutError(e: ResponseException) {
+
     }
 
-    override fun onFriendError(e: ResponseException) {
-        LogUtil.e(TAG, "onFriendError")
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onAccountEvent(event: AccountEvent) {
+        usernameTv.text = SpUtil.getUsername()
+    }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            if (isBackPressed) {
+                super.onBackPressed()
+                return
+            }
+            isBackPressed = true
+            ToastUtil.showToast(mContext, "再按一次退出")
+            Handler().postDelayed({ isBackPressed = false }, 2000)
+        }
+    }
+
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
     }
 }

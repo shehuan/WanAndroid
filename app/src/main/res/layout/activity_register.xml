@@ -10,7 +10,7 @@
     <include layout="@layout/toolbar_layout" />
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/loginUsernameTTL"
+        android:id="@+id/registerUsernameTTL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
@@ -18,7 +18,7 @@
         android:layout_marginRight="50dp">
 
         <EditText
-            android:id="@+id/loginUsernameET"
+            android:id="@+id/registerUsernameET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="用户名" />
@@ -26,7 +26,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/loginPasswordTTL"
+        android:id="@+id/registerPasswordTTL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
@@ -34,7 +34,7 @@
         android:layout_marginRight="50dp">
 
         <EditText
-            android:id="@+id/loginPasswordET"
+            android:id="@+id/registerPasswordET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="密码"
@@ -42,27 +42,33 @@
 
     </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/registerRepasswordTTL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="50dp">
+
+        <EditText
+            android:id="@+id/registerRepasswordET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="确认密码"
+            android:inputType="textPassword" />
+
+    </android.support.design.widget.TextInputLayout>
+
     <Button
-        android:id="@+id/loginBtn"
+        android:id="@+id/registerBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="50dp"
         android:layout_marginRight="50dp"
         android:background="@drawable/cfe6243_corner_rect_solid_shape"
-        android:text="登录"
+        android:text="注册"
         android:textColor="@color/cFFFFFF"
         android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/registerTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:padding="5dp"
-        android:text="注册"
-        android:textColor="@color/c707070"
-        android:textSize="16sp" />
 
 </LinearLayout>

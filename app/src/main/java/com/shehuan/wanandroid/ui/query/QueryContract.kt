@@ -2,6 +2,7 @@ package com.shehuan.wanandroid.ui.query
 
 import com.shehuan.wanandroid.base.BaseView
 import com.shehuan.wanandroid.base.net.exception.ResponseException
+import com.shehuan.wanandroid.bean.FriendBean
 import com.shehuan.wanandroid.bean.HotKeyBean
 import com.shehuan.wanandroid.bean.query.QueryBean
 
@@ -12,11 +13,16 @@ interface QueryContract {
 
         fun onHotKeySuccess(data: List<HotKeyBean>)
         fun onHotKeyError(e: ResponseException)
+
+        fun onFriedSuccess(data: List<FriendBean>)
+        fun onFriendError(e: ResponseException)
     }
 
     interface Presenter {
         fun query(pageNum: Int, k: String)
 
         fun getHotKey()
+
+        fun getFriendData()
     }
 }

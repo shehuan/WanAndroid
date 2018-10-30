@@ -7,9 +7,10 @@ import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.shehuan.wanandroid.base.activity.BaseActivity
 
 abstract class BaseFragment : Fragment() {
-    lateinit var mContext: Context
+    lateinit var mContext: BaseActivity
 
     private var isViewCreated: Boolean = false // 界面是否已创建完成
     protected var isVisibleToUser: Boolean = false // 是否对用户可见
@@ -26,7 +27,7 @@ abstract class BaseFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        mContext = context!!
+        mContext = context as BaseActivity
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

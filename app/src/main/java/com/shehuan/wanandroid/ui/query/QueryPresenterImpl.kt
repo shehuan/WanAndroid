@@ -6,6 +6,8 @@ import com.shehuan.wanandroid.base.net.RequestManager
 import com.shehuan.wanandroid.base.net.RetrofitManager
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.base.net.observer.BaseObserver
+import com.shehuan.wanandroid.base.net.observer.LoadingObserver
+import com.shehuan.wanandroid.bean.FriendBean
 import com.shehuan.wanandroid.bean.HotKeyBean
 import com.shehuan.wanandroid.bean.query.QueryBean
 
@@ -32,6 +34,19 @@ class QueryPresenterImpl(view: QueryContract.View) : BasePresenter<QueryContract
 
                     override fun onError(e: ResponseException) {
                         view.onHotKeyError(e)
+                    }
+                })
+    }
+
+    override fun getFriendData() {
+        RequestManager.execute(this, RetrofitManager.create(WanAndroidApis::class.java).friend(),
+                object : LoadingObserver<List<FriendBean>>(context, false, true) {
+                    override fun onSuccess(data: List<FriendBean>) {
+                        view.onFriedSuccess(data)
+                    }
+
+                    override fun onError(e: ResponseException) {
+                        view.onFriendError(e)
                     }
                 })
     }

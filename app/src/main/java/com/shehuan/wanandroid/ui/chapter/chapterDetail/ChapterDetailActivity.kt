@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.ChapterDetailListAdapter
+import com.shehuan.wanandroid.base.activity.BaseActivity
 import com.shehuan.wanandroid.base.activity.BaseMvpActivity
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.bean.chapter.ChapterArticleBean
@@ -20,7 +21,7 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
     private lateinit var chapterDetailListAdapter: ChapterDetailListAdapter
 
     companion object {
-        fun start(context: Context, title: String, chapterId: Int) {
+        fun start(context: BaseActivity, title: String, chapterId: Int) {
             val intent = Intent(context, ChapterDetailActivity::class.java)
             intent.apply {
                 putExtra("chapterId", chapterId)

@@ -1,16 +1,23 @@
 package com.shehuan.wanandroid.ui.login
 
-import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import com.shehuan.wanandroid.R
+import com.shehuan.wanandroid.base.activity.BaseActivity
 import com.shehuan.wanandroid.base.activity.BaseMvpActivity
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.bean.LoginBean
-import com.shehuan.wanandroid.ui.main.MainActivity
+import com.shehuan.wanandroid.bean.event.AccountEvent
+import com.shehuan.wanandroid.ui.register.RegisterActivity
+import com.shehuan.wanandroid.utils.sp.SpUtil
+import com.shehuan.wanandroid.widget.WrapTextWatcher
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.toolbar_layout.*
+import org.greenrobot.eventbus.EventBus
 
 class LoginActivity : BaseMvpActivity<LoginPresenterImpl>(), LoginContract.View {
     companion object {
-        fun start(context: Context) {
+        fun start(context: BaseActivity) {
             val intent = Intent(context, LoginActivity::class.java)
             context.startActivity(intent)
         }
@@ -21,7 +28,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenterImpl>(), LoginContract.View 
     }
 
     override fun loadData() {
-        presenter.login("shehuan", "wanandroid320955")
+
     }
 
     override fun initLayoutResID(): Int {
@@ -33,11 +40,41 @@ class LoginActivity : BaseMvpActivity<LoginPresenterImpl>(), LoginContract.View 
     }
 
     override fun initView() {
+        toolbar.title = "登录"
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
 
+        registerTv.paint.flags = Paint.UNDERLINE_TEXT_FLAG
+        registerTv.setOnClickListener {
+            RegisterActivity.start(this)
+            finish()
+        }
+
+        loginPasswordTTL.isPasswordVisibilityToggleEnabled = true
+        loginUsernameET.addTextChangedListener(WrapTextWatcher(loginUsernameTTL))
+        loginPasswordET.addTextChangedListener(WrapTextWatcher(loginPasswordTTL))
+
+        loginBtn.setOnClickListener {
+            if (loginUsernameET.text.isEmpty()) {
+                loginUsernameTTL.error = "用户名不能为空"
+                loginUsernameTTL.isErrorEnabled = true
+                return@setOnClickListener
+            }
+            if (loginPasswordET.text.isEmpty()) {
+                loginPasswordTTL.error = "密码不能为空"
+                return@setOnClickListener
+            }
+
+            presenter.login(loginUsernameET.text.toString(), loginPasswordET.text.toString())
+        }
     }
 
     override fun onLoginSuccess(data: LoginBean) {
-        MainActivity.start(mContext)
+        SpUtil.setUsername(data.username)
+        EventBus.getDefault().post(AccountEvent())
         finish()
     }
 

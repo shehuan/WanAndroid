@@ -26,6 +26,12 @@ interface WanAndroidApis {
     fun register(@QueryMap param: Map<String, String>): Observable<BaseResponse<RegisterBean>>
 
     /**
+     * 退出
+     */
+    @GET("user/logout/json")
+    fun logout(): Observable<BaseResponse<Any>>
+
+    /**
      * 首页banner
      */
     @GET("banner/json")

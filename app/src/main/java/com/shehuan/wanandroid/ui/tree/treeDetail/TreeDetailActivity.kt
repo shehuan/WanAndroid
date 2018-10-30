@@ -16,7 +16,7 @@ class TreeDetailActivity : BaseActivity() {
     private lateinit var secondaryTree: ArrayList<ChildrenItem>
 
     companion object {
-        fun start(context: Context, title: String, secondaryTree: ArrayList<ChildrenItem>) {
+        fun start(context: BaseActivity, title: String, secondaryTree: ArrayList<ChildrenItem>) {
             val intent = Intent(context, TreeDetailActivity::class.java)
             intent.apply {
                 putExtra("title", title)

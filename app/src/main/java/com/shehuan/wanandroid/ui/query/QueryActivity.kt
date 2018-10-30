@@ -3,6 +3,7 @@ package com.shehuan.wanandroid.ui.query
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.base.activity.BaseMvpActivity
 import com.shehuan.wanandroid.base.net.exception.ResponseException
+import com.shehuan.wanandroid.bean.FriendBean
 import com.shehuan.wanandroid.bean.HotKeyBean
 import com.shehuan.wanandroid.bean.query.QueryBean
 
@@ -40,6 +41,14 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
     }
 
     override fun onHotKeyError(e: ResponseException) {
+
+    }
+
+    override fun onFriedSuccess(data: List<FriendBean>) {
+
+    }
+
+    override fun onFriendError(e: ResponseException) {
 
     }
 }
