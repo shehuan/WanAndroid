@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="110dp"
     android:background="@color/cFFFFFF"
-    android:paddingBottom="15dp"
     android:paddingLeft="10dp"
+    android:paddingTop="15dp"
     android:paddingRight="10dp"
-    android:paddingTop="15dp">
+    android:paddingBottom="15dp">
 
     <TextView
         android:id="@+id/articleTitleTv"
@@ -25,10 +25,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginRight="20dp"
         android:background="@drawable/c51c422_corner_rect_stroke_shape"
-        android:paddingBottom="1dp"
         android:paddingLeft="4dp"
-        android:paddingRight="4dp"
         android:paddingTop="1dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="1dp"
         android:textColor="@color/c51C422"
         android:textSize="12sp" />
 
@@ -39,10 +39,10 @@
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/articleTypeTv"
         android:background="@drawable/c25c6fc_corner_rect_stroke_shape"
-        android:paddingBottom="1dp"
         android:paddingLeft="4dp"
-        android:paddingRight="4dp"
         android:paddingTop="1dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="1dp"
         android:textColor="@color/c25C6FC"
         android:textSize="12sp" />
 
@@ -59,10 +59,10 @@
 
     <ImageView
         android:id="@+id/articleLikeIv"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:src="@drawable/like" />
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_like" />
 
 </RelativeLayout>

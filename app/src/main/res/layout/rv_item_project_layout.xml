@@ -66,9 +66,9 @@
 
     <ImageView
         android:id="@+id/articleLikeIv"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:src="@drawable/like" />
+        android:src="@drawable/ic_like" />
 </RelativeLayout>

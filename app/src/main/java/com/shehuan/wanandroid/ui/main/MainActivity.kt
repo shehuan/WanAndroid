@@ -80,11 +80,11 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
             return@setNavigationItemSelectedListener true
         }
 
-        mainBottomTabLayout.addTab("首页", R.drawable.homepage, R.drawable.homepage_fill)
-        mainBottomTabLayout.addTab("项目", R.drawable.activity, R.drawable.activity_fill)
-        mainBottomTabLayout.addTab("体系", R.drawable.manage, R.drawable.manage_fill)
-        mainBottomTabLayout.addTab("导航", R.drawable.coordinates, R.drawable.coordinates_fill)
-        mainBottomTabLayout.addTab("公众号", R.drawable.chapter, R.drawable.chapter_fill)
+        mainBottomTabLayout.addTab("首页", R.drawable.ic_homepage, R.drawable.ic_homepage_fill)
+        mainBottomTabLayout.addTab("项目", R.drawable.ic_createtask, R.drawable.ic_createtask_fill)
+        mainBottomTabLayout.addTab("体系", R.drawable.ic_manage, R.drawable.ic_manage_fill)
+        mainBottomTabLayout.addTab("导航", R.drawable.ic_coordinates, R.drawable.ic_coordinates_fill)
+        mainBottomTabLayout.addTab("公众号", R.drawable.ic_select, R.drawable.ic_select_fill)
 
         val fragments = arrayListOf<BaseFragment>()
         fragments.add(HomeFragment.newInstance())
