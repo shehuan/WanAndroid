@@ -1,6 +1,5 @@
 package com.shehuan.wanandroid.ui.tree.treeDetail
 
-import android.content.Context
 import android.content.Intent
 import android.support.design.widget.TabLayout
 import com.shehuan.wanandroid.R

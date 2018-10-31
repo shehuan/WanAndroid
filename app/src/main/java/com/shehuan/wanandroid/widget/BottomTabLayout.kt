@@ -63,9 +63,20 @@ class BottomTabLayout : LinearLayout {
     fun switchTab(destTabIndex: Int) {
         val destTab: TabItem = getChildAt(destTabIndex) as TabItem
         destTab.select()
+        listener.onTabSwitch(destTabIndex, destTab.tabName())
         val currentTab: TabItem = getChildAt(currentTabIndex) as TabItem
         currentTab.unSelect()
         currentTabIndex = destTabIndex
+    }
+
+    private lateinit var listener: OnTabSwitchListener
+
+    fun setOnTabSwitchListener(listener: OnTabSwitchListener) {
+        this.listener = listener
+    }
+
+    interface OnTabSwitchListener {
+        fun onTabSwitch(tabIndex: Int, tabName: String)
     }
 
     @SuppressLint("ViewConstructor")
@@ -91,6 +102,8 @@ class BottomTabLayout : LinearLayout {
             iconIv.setImageResource(defaultIconId)
             nameTv.setTextColor(resources.getColor(R.color.c707070))
         }
+
+        fun tabName() = nameTv.text.toString()
 
         private fun inflate(layoutId: Int): View = LayoutInflater.from(context).inflate(layoutId, this)
 

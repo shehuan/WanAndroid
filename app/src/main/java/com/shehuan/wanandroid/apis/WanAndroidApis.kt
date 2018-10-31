@@ -56,7 +56,7 @@ interface WanAndroidApis {
     fun hotKey(): Observable<BaseResponse<List<HotKeyBean>>>
 
     /**
-     * 搜索
+     * 搜索（支持多个关键词，用空格隔开）
      */
     @POST("article/query/{pageNum}/json")
     fun query(@Path("pageNum") pageNum: Int, @Query("k") k: String): Observable<BaseResponse<QueryBean>>

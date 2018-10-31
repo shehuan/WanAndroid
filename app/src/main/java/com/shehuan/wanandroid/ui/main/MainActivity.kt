@@ -17,9 +17,11 @@ import com.shehuan.wanandroid.ui.chapter.ChapterFragment
 import com.shehuan.wanandroid.ui.collection.MyCollectionActivity
 import com.shehuan.wanandroid.ui.login.LoginActivity
 import com.shehuan.wanandroid.ui.project.ProjectFragment
+import com.shehuan.wanandroid.ui.query.QueryActivity
 import com.shehuan.wanandroid.ui.tree.TreeFragment
 import com.shehuan.wanandroid.utils.ToastUtil
 import com.shehuan.wanandroid.utils.sp.SpUtil
+import com.shehuan.wanandroid.widget.BottomTabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -57,8 +59,12 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
     }
 
     override fun initView() {
-        mainMenu.setOnClickListener {
+        mainMenuIv.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
+        }
+
+        mainQueryIv.setOnClickListener {
+            QueryActivity.start(this)
         }
 
         usernameTv = navigationView.getHeaderView(0).findViewById(R.id.usernameTv)
@@ -79,6 +85,12 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
             drawerLayout.closeDrawer(GravityCompat.START)
             return@setNavigationItemSelectedListener true
         }
+
+        mainBottomTabLayout.setOnTabSwitchListener(object : BottomTabLayout.OnTabSwitchListener {
+            override fun onTabSwitch(tabIndex: Int, tabName: String) {
+                tabNameTv.text = tabName
+            }
+        })
 
         mainBottomTabLayout.addTab("首页", R.drawable.ic_homepage, R.drawable.ic_homepage_fill)
         mainBottomTabLayout.addTab("项目", R.drawable.ic_createtask, R.drawable.ic_createtask_fill)
