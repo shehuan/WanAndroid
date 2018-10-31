@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/cFFFFFF"
+    android:paddingBottom="15dp"
     android:paddingLeft="10dp"
-    android:paddingTop="15dp"
     android:paddingRight="10dp"
-    android:paddingBottom="15dp">
+    android:paddingTop="15dp">
 
     <TextView
         android:id="@+id/treeTitleTv"
@@ -16,18 +17,18 @@
         android:textColor="@color/c2C2C2C"
         android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/treeSecondaryTitleTv"
-        android:layout_width="wrap_content"
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/treeFL"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/treeTitleTv"
-        android:layout_marginTop="15dp"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:textColor="@color/cBFBFBF"
-        android:textSize="14sp" />
+        android:layout_below="@+id/treeTitleTv"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_toLeftOf="@+id/treeArrow"
+        app:flexWrap="wrap" />
 
     <ImageView
+        android:id="@+id/treeArrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

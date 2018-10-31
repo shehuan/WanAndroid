@@ -6,6 +6,7 @@ import com.shehuan.wanandroid.base.fragment.BaseMvpFragment
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.bean.navi.ArticlesItem
 import com.shehuan.wanandroid.bean.navi.NaviBean
+import com.shehuan.wanandroid.ui.website.HotWebsiteFragment
 import com.shehuan.wanandroid.widget.VerticalTabLayout
 import kotlinx.android.synthetic.main.fragment_mine.*
 
@@ -45,6 +46,8 @@ class NavFragment : BaseMvpFragment<NavPresenterImpl>(), NavContract.View {
 
     override fun onNavSuccess(data: List<NaviBean>) {
         val tabNames = arrayListOf<String>()
+        tabNames.add("热门网站")
+        fragments.add(HotWebsiteFragment.newInstance())
         for (navBean in data) {
             tabNames.add(navBean.name)
             fragments.add(NavDetailFragment.newInstance(navBean.articles as ArrayList<ArticlesItem>))

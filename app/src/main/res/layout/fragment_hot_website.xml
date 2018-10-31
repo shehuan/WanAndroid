@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cFFFFFF"
-    tools:context=".ui.nav.NavDetailFragment">
+    tools:context=".ui.website.HotWebsiteFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:scrollbars="none">
 
         <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/navDetailFL"
+            android:id="@+id/websiteFL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

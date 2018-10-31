@@ -9,55 +9,78 @@
 
     <include layout="@layout/toolbar_layout" />
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:scrollbars="none">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="搜索记录" />
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/queryHistoryFL"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:flexWrap="wrap" />
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="热门搜索" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
 
-            <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/hotKeyFL"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:flexWrap="wrap" />
+                    <TextView
+                        android:id="@+id/queryHistoryTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="搜索记录"
+                        android:textColor="@color/c707070" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="常用网站" />
+                    <TextView
+                        android:id="@+id/clearHistoryTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:text="清空记录"
+                        android:textColor="@color/c1F6FB5"
+                        android:textSize="12sp" />
 
-            <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/websiteFL"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:flexWrap="wrap" />
-        </LinearLayout>
-    </ScrollView>
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:id="@+id/queryHistoryFL"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/queryHistoryTv"
+                        android:layout_marginTop="10dp"
+                        app:flexWrap="wrap" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:text="热门搜索"
+                    android:textColor="@color/c707070" />
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/hotKeyFL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:flexWrap="wrap" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/queryResultRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/cFFFFFF"
+            android:overScrollMode="never"
+            android:visibility="gone" />
+    </RelativeLayout>
 
 </LinearLayout>

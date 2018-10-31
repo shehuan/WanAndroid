@@ -1,24 +1,19 @@
 package com.shehuan.wanandroid.ui.nav
 
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
 import android.view.ViewGroup
 import android.widget.TextView
 import com.google.android.flexbox.FlexboxLayout
 import com.shehuan.wanandroid.R
-import com.shehuan.wanandroid.adapter.NavDetailAdapter
 import com.shehuan.wanandroid.base.fragment.BaseFragment
-import com.shehuan.wanandroid.bean.FriendBean
 import com.shehuan.wanandroid.bean.navi.ArticlesItem
 import com.shehuan.wanandroid.ui.article.ArticleActivity
 import com.shehuan.wanandroid.utils.CommonUtil
-import kotlinx.android.synthetic.main.activity_query.*
 import kotlinx.android.synthetic.main.fragment_navi_detail.*
 
 private const val ARTICLES = "articles"
 
 class NavDetailFragment : BaseFragment() {
-//    private lateinit var navDetailAdapter: NavDetailAdapter
 
     private lateinit var articles: ArrayList<ArticlesItem>
 
@@ -43,13 +38,6 @@ class NavDetailFragment : BaseFragment() {
 
     override fun initView() {
         navDetailFL.setWebsiteData(articles)
-//        navDetailAdapter = NavDetailAdapter(context, articles, false)
-//        navDetailAdapter.setOnItemClickListener { _, data, _ ->
-//            ArticleActivity.start(mContext, data.title, data.link)
-//        }
-//        val gridLayoutManager = GridLayoutManager(context, 2)
-//        naviDetailRv.layoutManager = gridLayoutManager
-//        naviDetailRv.adapter = navDetailAdapter
     }
 
     override fun loadData() {
