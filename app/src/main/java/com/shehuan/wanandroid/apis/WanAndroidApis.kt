@@ -52,7 +52,7 @@ interface WanAndroidApis {
     /**
      * 热词（目前搜索最多的关键词）
      */
-    @GET("//hotkey/json")
+    @GET("/hotkey/json")
     fun hotKey(): Observable<BaseResponse<List<HotKeyBean>>>
 
     /**

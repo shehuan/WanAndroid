@@ -8,7 +8,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.shehuan.wanandroid"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -48,5 +48,5 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.youth.banner:banner:1.4.10'
-    implementation 'com.google.android:flexbox:1.1.0'
+    implementation 'com.google.android:flexbox:0.3.2'
 }

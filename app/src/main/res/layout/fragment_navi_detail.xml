@@ -1,15 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.nav.NaviDetailFragment">
+    android:background="@color/cFFFFFF"
+    tools:context=".ui.nav.NavDetailFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/naviDetailRv"
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/naviDetailRv"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@color/cFFFFFF"-->
+    <!--android:overScrollMode="never" />-->
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/cFFFFFF"
-        android:overScrollMode="never" />
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/navDetailFL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:flexWrap="wrap" />
+    </ScrollView>
 
 </FrameLayout>
