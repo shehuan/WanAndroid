@@ -8,9 +8,14 @@ interface MyCollectionContract {
     interface View : BaseView {
         fun onCollectionListSuccess(data: ArticleBean)
         fun onCollectionListError(e: ResponseException)
+
+        fun onCancelCollectionSuccess(data: String)
+        fun onCancelCollectionError(e: ResponseException)
     }
 
     interface Presenter {
         fun getCollectionList(pageNum: Int)
+
+        fun cancelCollection(id: Int, originId: Int)
     }
 }

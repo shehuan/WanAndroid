@@ -29,7 +29,7 @@ interface WanAndroidApis {
      * 退出
      */
     @GET("user/logout/json")
-    fun logout(): Observable<BaseResponse<Any>>
+    fun logout(): Observable<BaseResponse<String>>
 
     /**
      * 首页banner
@@ -120,6 +120,24 @@ interface WanAndroidApis {
     /**
      * 收藏文章列表
      */
-    @GET("/lg/collect/list/{pageNum}/json")
+    @GET("lg/collect/list/{pageNum}/json")
     fun collectArticleList(@Path("pageNum") pageNum: Int): Observable<BaseResponse<ArticleBean>>
+
+    /**
+     * 收藏站内文章
+     */
+    @POST("lg/collect/{id}/json")
+    fun collectArticle(@Path("id") id: Int): Observable<BaseResponse<String>>
+
+    /**
+     * 在文章列表取消收藏
+     */
+    @POST("lg/uncollect_originId/{id}/json")
+    fun uncollectArticle(@Path("id") id: Int): Observable<BaseResponse<String>>
+
+    /**
+     * 在收藏列表取消收藏
+     */
+    @POST("lg/uncollect/{id}/json")
+    fun cancelMyCollection(@Path("id") id: Int, @Query("originId") originId: Int): Observable<BaseResponse<String>>
 }

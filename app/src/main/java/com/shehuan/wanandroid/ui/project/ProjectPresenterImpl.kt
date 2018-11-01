@@ -11,7 +11,7 @@ import com.shehuan.wanandroid.bean.ProjectCategoryBean
 class ProjectPresenterImpl(view: ProjectContract.View) : BasePresenter<ProjectContract.View>(view), ProjectContract.Presenter {
     override fun getProjectCategory() {
         RequestManager.execute(this, RetrofitManager.create(WanAndroidApis::class.java).projectCategory(),
-                object : BaseObserver<List<ProjectCategoryBean>>(true) {
+                object : BaseObserver<List<ProjectCategoryBean>>() {
                     override fun onSuccess(data: List<ProjectCategoryBean>) {
                         view.onProjectCategorySuccess(data)
                     }

@@ -11,7 +11,7 @@ import com.shehuan.wanandroid.bean.navi.NaviBean
 class NavPresenterImpl(view: NavContract.View) : BasePresenter<NavContract.View>(view), NavContract.Presenter {
     override fun nav() {
         RequestManager.execute(this, RetrofitManager.create(WanAndroidApis::class.java).nav(),
-                object : BaseObserver<List<NaviBean>>(true) {
+                object : BaseObserver<List<NaviBean>>() {
                     override fun onSuccess(data: List<NaviBean>) {
                         view.onNavSuccess(data)
                     }

@@ -11,7 +11,7 @@ import com.shehuan.wanandroid.bean.tree.TreeBean
 class TreePresenterImpl(view: TreeContract.View) : BasePresenter<TreeContract.View>(view), TreeContract.Presenter {
     override fun getTree() {
         RequestManager.execute(this, RetrofitManager.create(WanAndroidApis::class.java).tree(),
-                object : BaseObserver<List<TreeBean>>(true) {
+                object : BaseObserver<List<TreeBean>>() {
                     override fun onSuccess(data: List<TreeBean>) {
                         view.onTreeSuccess(data)
                     }

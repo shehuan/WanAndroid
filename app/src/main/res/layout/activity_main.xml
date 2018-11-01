@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/ic_menu_34dp" />
+                android:src="@drawable/ic_menu" />
 
             <TextView
                 android:id="@+id/tabNameTv"
@@ -45,7 +45,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/ic_query_34dp" />
+                android:src="@drawable/ic_query" />
 
         </RelativeLayout>
 

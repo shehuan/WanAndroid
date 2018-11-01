@@ -113,7 +113,7 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
 
     private fun collection() {
         if (SpUtil.getCookies().isEmpty()) {
-            ToastUtil.showToast(mContext, "请先登录哦")
+            ToastUtil.showToast(mContext, "请先登录!")
             return
         }
         MyCollectionActivity.start(mContext)
@@ -132,15 +132,14 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
             ToastUtil.showToast(mContext, "没登录还想退出？")
             return
         }
+        presenter.logout()
+    }
 
+    override fun onLogoutSuccess(data: String) {
         SpUtil.removeCookies()
         SpUtil.removeUsername()
         usernameTv.text = SpUtil.getUsername()
         ToastUtil.showToast(mContext, "退出成功")
-    }
-
-    override fun onLogoutSuccess(data: Any) {
-
     }
 
     override fun onLogoutError(e: ResponseException) {

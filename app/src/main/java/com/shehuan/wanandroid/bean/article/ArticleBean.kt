@@ -6,4 +6,4 @@ data class ArticleBean(val over: Boolean = false,
                        val curPage: Int = 0,
                        val offset: Int = 0,
                        val size: Int = 0,
-                       val datas: List<DatasItem>?)
+                       val datas: List<DatasItem>)

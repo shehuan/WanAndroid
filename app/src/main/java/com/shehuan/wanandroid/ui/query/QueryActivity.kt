@@ -21,11 +21,18 @@ import com.shehuan.wanandroid.utils.CommonUtil
 import com.shehuan.wanandroid.widget.DivideItemDecoration
 import kotlinx.android.synthetic.main.activity_query.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
+import android.widget.EditText
+import com.shehuan.wanandroid.bean.db.QueryHistoryBean
+import com.shehuan.wanandroid.utils.QueryHistoryDbUtil
+
 
 class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View {
     private var pageNum: Int = 0
     private lateinit var keyWord: String
     private lateinit var queryResultAdapter: QueryResultAdapter
+    private lateinit var searchView: SearchView
+
+    private lateinit var queryHistoryBeans: List<QueryHistoryBean>
 
     companion object {
         fun start(context: BaseActivity) {
@@ -58,6 +65,21 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
             finish()
         }
 
+        // 搜索记录相关
+        queryHistoryBeans = QueryHistoryDbUtil.query()
+        if (!queryHistoryBeans.isEmpty()) {
+            queryHistoryRl.visibility = View.VISIBLE
+            queryHistoryFL.addQueryHistoryViews(queryHistoryBeans)
+        }
+        // 清空搜索记录
+        clearHistoryTv.setOnClickListener {
+            QueryHistoryDbUtil.clear()
+            queryHistoryBeans = listOf()
+            queryHistoryFL.removeAllViews()
+            queryHistoryRl.visibility = View.GONE
+        }
+
+        // 搜索结果列表相关初始化
         queryResultAdapter = QueryResultAdapter(mContext, null, true)
         queryResultAdapter.setLoadingView(R.layout.rv_loading_layout)
         queryResultAdapter.setLoadEndView(R.layout.rv_load_end_layout)
@@ -81,13 +103,16 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_query_menu_layout, menu)
         val queryItem = menu?.findItem(R.id.action_query)
-        val searchView: SearchView = MenuItemCompat.getActionView(queryItem) as SearchView
-        searchView.isSubmitButtonEnabled = true
+        searchView = MenuItemCompat.getActionView(queryItem) as SearchView
+        // 是否显示提交按钮
+        searchView.isSubmitButtonEnabled = false
+        // 搜索框是否展开
         searchView.isIconified = false
         searchView.queryHint = "多个关键词，用空格隔开"
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(content: String?): Boolean {
-                keyWord = content.toString()
+            override fun onQueryTextSubmit(content: String): Boolean {
+                addQueryHistory(content)
+                keyWord = content
                 if (!keyWord.isEmpty()) {
                     pageNum = 0
                     presenter.query(pageNum, keyWord)
@@ -100,6 +125,7 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
             }
         })
 
+        // 关闭搜索
         searchView.setOnCloseListener {
             queryResultRv.visibility = View.GONE
             pageNum = 0
@@ -130,19 +156,18 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
     }
 
     override fun onHotKeySuccess(data: List<HotKeyBean>) {
-        hotKeyFL.setHotKeyData(data)
+        hotKeyFL.addHotKeyViews(data)
     }
 
     override fun onHotKeyError(e: ResponseException) {
 
     }
 
-    private fun FlexboxLayout.setHotKeyData(data: List<HotKeyBean>) {
+    private fun FlexboxLayout.addHotKeyViews(data: List<HotKeyBean>) {
         for (hotKey in data) {
             val view = TextView(mContext)
             view.setOnClickListener {
-                keyWord = hotKey.name
-                presenter.query(pageNum, keyWord)
+                flexboxChildClick(hotKey.name)
             }
             view.text = hotKey.name
             view.setTextColor(resources.getColor(R.color.c8A8A8A))
@@ -154,7 +179,70 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
             val margin1 = CommonUtil.dp2px(mContext, 6)
             val margin2 = CommonUtil.dp2px(mContext, 10)
             params.setMargins(margin2, margin1, margin2, margin1)
-            hotKeyFL.addView(view, params)
+            this.addView(view, params)
         }
+    }
+
+    private fun FlexboxLayout.addQueryHistoryViews(data: List<QueryHistoryBean>) {
+        for (queryHistory in data) {
+            addQueryHistoryView(queryHistory.name)
+        }
+    }
+
+    private fun FlexboxLayout.addQueryHistoryView(name: String) {
+        val view = TextView(mContext)
+        view.setOnClickListener {
+            flexboxChildClick(name)
+        }
+        view.text = name
+        view.setTextColor(resources.getColor(R.color.c8A8A8A))
+        view.background = resources.getDrawable(R.drawable.hotkey_selector)
+        val padding1 = CommonUtil.dp2px(mContext, 10)
+        val padding2 = CommonUtil.dp2px(mContext, 3)
+        view.setPadding(padding1, padding2, padding1, padding2)
+        val params = FlexboxLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        val margin1 = CommonUtil.dp2px(mContext, 6)
+        val margin2 = CommonUtil.dp2px(mContext, 10)
+        params.setMargins(margin2, margin1, margin2, margin1)
+        view.layoutParams = params
+        this.addView(view, 0)
+    }
+
+    private fun FlexboxLayout.childName(index: Int): String {
+        val view: TextView = this.getChildAt(index) as TextView
+        return view.text.toString()
+    }
+
+    private fun flexboxChildClick(name: String) {
+        addQueryHistory(name)
+        // 点击热门搜索tag时如果SearchView没展开，则手动展开，并填充tag内容
+        if (searchView.isIconified) {
+            searchView.isIconified = false
+        }
+        val editText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text) as EditText
+        keyWord = name
+        editText.setText(keyWord)
+        editText.setSelection(keyWord.length)
+
+        presenter.query(pageNum, keyWord)
+    }
+
+    /**
+     * 添加搜索记录
+     */
+    private fun addQueryHistory(name: String) {
+        for (i in 0 until queryHistoryFL.childCount) {
+            if (name == queryHistoryFL.childName(i)) {
+                val view = queryHistoryFL.getChildAt(i)
+                queryHistoryFL.removeView(view)
+                queryHistoryFL.addView(view, 0)
+                QueryHistoryDbUtil.update(name)
+                return
+            }
+        }
+
+        queryHistoryFL.addQueryHistoryView(name)
+        QueryHistoryDbUtil.save(name)
+        queryHistoryRl.visibility = View.VISIBLE
     }
 }

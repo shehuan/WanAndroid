@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/cFFFFFF"
     android:orientation="vertical"
     tools:context=".ui.query.QueryActivity">
 
@@ -24,9 +25,11 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
+                    android:id="@+id/queryHistoryRl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/queryHistoryTv"
@@ -61,6 +64,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="20dp"
+                    android:drawableRight="@drawable/ic_hot"
+                    android:drawablePadding="2dp"
+                    android:gravity="center"
                     android:text="热门搜索"
                     android:textColor="@color/c707070" />
 

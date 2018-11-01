@@ -10,8 +10,8 @@ import com.shehuan.wanandroid.apis.WanAndroidApis
 class MainPresenterImpl(view: MainContract.View) : BasePresenter<MainContract.View>(view), MainContract.Presenter {
     override fun logout() {
         RequestManager.execute(this, RetrofitManager.create(WanAndroidApis::class.java).logout(),
-                object : LoadingObserver<Any>(context, false, true) {
-                    override fun onSuccess(data: Any) {
+                object : LoadingObserver<String>(context) {
+                    override fun onSuccess(data: String) {
                         view.onLogoutSuccess(data)
                     }
 

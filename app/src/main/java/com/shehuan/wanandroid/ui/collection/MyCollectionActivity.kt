@@ -9,13 +9,16 @@ import com.shehuan.wanandroid.base.activity.BaseMvpActivity
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.bean.article.ArticleBean
 import com.shehuan.wanandroid.ui.article.ArticleActivity
+import com.shehuan.wanandroid.utils.ToastUtil
 import com.shehuan.wanandroid.widget.DivideItemDecoration
+import com.shehuan.wanandroid.widget.WrapLinearLayoutManager
 import kotlinx.android.synthetic.main.activity_my_collection.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
 
 class MyCollectionActivity : BaseMvpActivity<MyCollectionPresenterImpl>(), MyCollectionContract.View {
     private var pageNum: Int = 0
     private lateinit var collectionListAdapter: CollectionListAdapter
+    private var collectPosition: Int = 0
 
     companion object {
         fun start(context: Context) {
@@ -56,10 +59,15 @@ class MyCollectionActivity : BaseMvpActivity<MyCollectionPresenterImpl>(), MyCol
         collectionListAdapter.setOnItemClickListener { _, data, _ ->
             ArticleActivity.start(mContext, data.title, data.link)
         }
+        collectionListAdapter.setOnItemChildClickListener(R.id.articleCollectIv) { _, data, position ->
+            collectPosition = position
+            presenter.cancelCollection(data.id, data.originId)
+
+        }
         collectionListAdapter.setOnLoadMoreListener {
             presenter.getCollectionList(pageNum)
         }
-        val linearLayoutManager = LinearLayoutManager(mContext)
+        val linearLayoutManager = WrapLinearLayoutManager(mContext)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         collectionRv.layoutManager = linearLayoutManager
         collectionRv.addItemDecoration(DivideItemDecoration())
@@ -81,5 +89,14 @@ class MyCollectionActivity : BaseMvpActivity<MyCollectionPresenterImpl>(), MyCol
 
     override fun onCollectionListError(e: ResponseException) {
         collectionListAdapter.loadFailed()
+    }
+
+    override fun onCancelCollectionSuccess(data: String) {
+        collectionListAdapter.remove(collectPosition)
+        ToastUtil.showToast(mContext, "取消收藏成功")
+    }
+
+    override fun onCancelCollectionError(e: ResponseException) {
+
     }
 }

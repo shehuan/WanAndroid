@@ -7,7 +7,7 @@ import com.shehuan.wanandroid.base.LoadingDialog
 import io.reactivex.disposables.Disposable
 import java.lang.ref.WeakReference
 
-abstract class LoadingObserver<E>(context: Context, showLoading: Boolean, showErrorTip: Boolean) : BaseObserver<E>(showErrorTip) {
+abstract class LoadingObserver<E>(context: Context, showLoading: Boolean = true, showErrorTip: Boolean = true) : BaseObserver<E>(showErrorTip) {
     private val wrContext: WeakReference<Context> = WeakReference(context)
 
     private var loadingDialog: BaseNiceDialog? = null

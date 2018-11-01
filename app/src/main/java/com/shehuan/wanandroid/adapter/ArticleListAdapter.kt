@@ -1,7 +1,9 @@
 package com.shehuan.wanandroid.adapter
 
 import android.content.Context
+import android.text.Html
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.othershe.baseadapter.ViewHolder
 import com.othershe.baseadapter.base.CommonBaseAdapter
@@ -15,12 +17,19 @@ class ArticleListAdapter(context: Context?, data: List<DatasItem>?, isOpenLoadMo
     }
 
     override fun convert(viewHolder: ViewHolder, data: DatasItem, position: Int) {
-        viewHolder.setText(R.id.articleTitleTv, data.title)
+        viewHolder.setText(R.id.articleTitleTv, Html.fromHtml(data.title).toString())
         val typeTv = viewHolder.getView<TextView>(R.id.articleTypeTv)
-        if (data.tags.isNotEmpty()){
+        val collectTv = viewHolder.getView<ImageView>(R.id.articleCollectIv)
+        if (data.collect) {
+            collectTv.setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_like_fill))
+        } else {
+            collectTv.setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_like))
+        }
+
+        if (data.tags.isNotEmpty()) {
             typeTv.text = data.tags[0].name
             typeTv.visibility = View.VISIBLE
-        }else{
+        } else {
             typeTv.visibility = View.GONE
         }
         viewHolder.setText(R.id.articleAuthorTv, data.author)

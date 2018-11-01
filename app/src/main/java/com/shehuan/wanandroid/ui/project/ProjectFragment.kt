@@ -1,6 +1,7 @@
 package com.shehuan.wanandroid.ui.project
 
 import android.support.design.widget.TabLayout
+import android.text.Html
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.ViewPagerAdapter
 import com.shehuan.wanandroid.base.fragment.BaseFragment
@@ -41,7 +42,7 @@ class ProjectFragment : BaseMvpFragment<ProjectPresenterImpl>(), ProjectContract
         titles.add("最新项目")
         fragments.add(ProjectDetailFragment.newInstance(-1))
         for (category in data) {
-            titles.add(category.name)
+            titles.add(Html.fromHtml(category.name).toString())
             fragments.add(ProjectDetailFragment.newInstance(category.id))
         }
 

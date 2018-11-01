@@ -5,7 +5,7 @@ import com.shehuan.wanandroid.base.net.exception.ResponseException
 
 interface MainContract {
     interface View : BaseView {
-        fun onLogoutSuccess(data: Any)
+        fun onLogoutSuccess(data: String)
         fun onLogoutError(e: ResponseException)
     }
 

@@ -4,9 +4,10 @@ import com.shehuan.wanandroid.base.BaseView
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.bean.BannerBean
 import com.shehuan.wanandroid.bean.article.ArticleBean
+import com.shehuan.wanandroid.ui.collection.CollectContract
 
 interface HomeContract {
-    interface View : BaseView {
+    interface View : BaseView, CollectContract.View {
         fun onBannerSuccess(data: List<BannerBean>)
         fun onBannerError(e: ResponseException)
 
@@ -14,7 +15,7 @@ interface HomeContract {
         fun onArticleListError(e: ResponseException)
     }
 
-    interface Presenter {
+    interface Presenter : CollectContract.Presenter {
         fun getBannerData()
 
         fun getArticleList(pageNum: Int)

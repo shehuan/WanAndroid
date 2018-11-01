@@ -43,11 +43,11 @@
         android:textSize="12sp" />
 
     <ImageView
-        android:id="@+id/articleLikeIv"
+        android:id="@+id/articleCollectIv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/ic_like" />
+        android:src="@drawable/ic_like_fill" />
 
 </RelativeLayout>

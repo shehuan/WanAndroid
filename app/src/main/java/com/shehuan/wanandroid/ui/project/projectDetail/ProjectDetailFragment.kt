@@ -6,8 +6,10 @@ import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.ProjectListAdapter
 import com.shehuan.wanandroid.base.fragment.BaseMvpFragment
 import com.shehuan.wanandroid.base.net.exception.ResponseException
+import com.shehuan.wanandroid.bean.project.DatasItem
 import com.shehuan.wanandroid.bean.project.ProjectBean
 import com.shehuan.wanandroid.ui.article.ArticleActivity
+import com.shehuan.wanandroid.utils.ToastUtil
 import com.shehuan.wanandroid.widget.DivideItemDecoration
 import kotlinx.android.synthetic.main.fragment_project_detail.*
 
@@ -16,6 +18,8 @@ private const val CID = "cid"
 class ProjectDetailFragment : BaseMvpFragment<ProjectDetailPresenterImpl>(), ProjectDetailContract.View {
     private var pageNum: Int = 0
     private lateinit var projectListAdapter: ProjectListAdapter
+    private lateinit var collectDataItem: DatasItem
+    private var collectPosition: Int = 0
 
     private var cid: Int = 0
 
@@ -49,6 +53,15 @@ class ProjectDetailFragment : BaseMvpFragment<ProjectDetailPresenterImpl>(), Pro
         projectListAdapter.setLoadFailedView(R.layout.rv_load_failed_layout)
         projectListAdapter.setOnItemClickListener { _, data, _ ->
             ArticleActivity.start(mContext, data.title, data.link)
+        }
+        projectListAdapter.setOnItemChildClickListener(R.id.projectCollectIv) { _, data, position ->
+            collectDataItem = data
+            collectPosition = position
+            if (!data.collect) {
+                presenter.collect(data.id)
+            } else {
+                presenter.uncollect(data.id)
+            }
         }
         projectListAdapter.setOnLoadMoreListener {
             if (cid == -1) {
@@ -99,5 +112,25 @@ class ProjectDetailFragment : BaseMvpFragment<ProjectDetailPresenterImpl>(), Pro
 
     override fun onProjectDetailError(e: ResponseException) {
         projectListAdapter.loadFailed()
+    }
+
+    override fun onCollectSuccess(data: String) {
+        collectDataItem.collect = true
+        projectListAdapter.change(collectPosition)
+        ToastUtil.showToast(mContext, "收藏成功")
+    }
+
+    override fun onCollectError(e: ResponseException) {
+
+    }
+
+    override fun onUncollectSuccess(data: String) {
+        collectDataItem.collect = false
+        projectListAdapter.change(collectPosition)
+        ToastUtil.showToast(mContext, "取消收藏成功")
+    }
+
+    override fun onUncollectError(e: ResponseException) {
+
     }
 }

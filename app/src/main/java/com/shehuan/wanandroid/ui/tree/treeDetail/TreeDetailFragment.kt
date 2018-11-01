@@ -7,8 +7,10 @@ import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.TreeDetailListAdapter
 import com.shehuan.wanandroid.base.fragment.BaseMvpFragment
 import com.shehuan.wanandroid.base.net.exception.ResponseException
+import com.shehuan.wanandroid.bean.treeDetail.DatasItem
 import com.shehuan.wanandroid.bean.treeDetail.TreeDetailBean
 import com.shehuan.wanandroid.ui.article.ArticleActivity
+import com.shehuan.wanandroid.utils.ToastUtil
 import com.shehuan.wanandroid.widget.DivideItemDecoration
 import kotlinx.android.synthetic.main.fragment_tree_detail.*
 
@@ -17,6 +19,8 @@ private const val CID = "cid"
 class TreeDetailFragment : BaseMvpFragment<TreeDetailPresenterImpl>(), TreeDetailContract.View {
     private var pageNum: Int = 0
     private lateinit var treeDetailListAdapter: TreeDetailListAdapter
+    private lateinit var collectDataItem: DatasItem
+    private var collectPosition: Int = 0
 
     private var cid: Int = 0
 
@@ -51,6 +55,15 @@ class TreeDetailFragment : BaseMvpFragment<TreeDetailPresenterImpl>(), TreeDetai
         treeDetailListAdapter.setOnItemClickListener { _, data, _ ->
             ArticleActivity.start(mContext, data.title, data.link)
         }
+        treeDetailListAdapter.setOnItemChildClickListener(R.id.treeArticleCollectIv) { _, data, position ->
+            collectDataItem = data
+            collectPosition = position
+            if (!data.collect) {
+                presenter.collect(data.id)
+            } else {
+                presenter.uncollect(data.id)
+            }
+        }
         treeDetailListAdapter.setOnLoadMoreListener {
             presenter.getTreeDetail(pageNum, cid)
 
@@ -81,5 +94,25 @@ class TreeDetailFragment : BaseMvpFragment<TreeDetailPresenterImpl>(), TreeDetai
 
     override fun onTreeDetailError(e: ResponseException) {
         treeDetailListAdapter.loadFailed()
+    }
+
+    override fun onCollectSuccess(data: String) {
+        collectDataItem.collect = true
+        treeDetailListAdapter.change(collectPosition)
+        ToastUtil.showToast(mContext, "收藏成功")
+    }
+
+    override fun onCollectError(e: ResponseException) {
+
+    }
+
+    override fun onUncollectSuccess(data: String) {
+        collectDataItem.collect = false
+        treeDetailListAdapter.change(collectPosition)
+        ToastUtil.showToast(mContext, "取消收藏成功")
+    }
+
+    override fun onUncollectError(e: ResponseException) {
+
     }
 }

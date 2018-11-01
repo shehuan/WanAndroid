@@ -1,6 +1,7 @@
 package com.shehuan.wanandroid.adapter
 
 import android.content.Context
+import android.text.Html
 import com.othershe.baseadapter.ViewHolder
 import com.othershe.baseadapter.base.CommonBaseAdapter
 import com.shehuan.wanandroid.R
@@ -13,7 +14,7 @@ class CollectionListAdapter(context: Context?, data: List<DatasItem>?, isOpenLoa
     }
 
     override fun convert(viewHolder: ViewHolder, data: DatasItem, position: Int) {
-        viewHolder.setText(R.id.articleTitleTv, data.title)
+        viewHolder.setText(R.id.articleTitleTv, Html.fromHtml(data.title).toString())
         viewHolder.setText(R.id.articleAuthorTv, data.author)
         viewHolder.setText(R.id.collectTimeTv, data.niceDate)
     }

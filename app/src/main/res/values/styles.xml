@@ -9,12 +9,8 @@
     </style>
 
     <!-- 作用于搜索Activity -->
-    <style name="AppTheme1" parent="Theme.AppCompat.Light.NoActionBar">
-
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <style name="AppTheme1" parent="AppTheme">
         <item name="colorAccent">@color/cFFFFFF</item>
-
         <item name="searchViewStyle">@style/SearchViewStyle</item>
     </style>
 
@@ -23,7 +19,7 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
-        <item name="searchIcon">@drawable/ic_query_34dp</item>
+        <item name="searchIcon">@drawable/ic_query</item>
     </style>
 
 </resources>

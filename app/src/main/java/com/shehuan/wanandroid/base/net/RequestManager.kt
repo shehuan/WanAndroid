@@ -17,7 +17,7 @@ object RequestManager {
      */
     fun <E> execute(presenter: BasePresenter<*>, observable: Observable<BaseResponse<E>>, observer: BaseObserver<E>): Disposable {
         observable
-                .map(ResponseConvert<E>())
+                .map(ResponseConvert())
                 .onErrorResumeNext(ExceptionConvert<E>())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

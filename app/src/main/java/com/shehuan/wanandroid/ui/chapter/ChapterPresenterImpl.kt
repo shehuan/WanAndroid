@@ -11,7 +11,7 @@ import com.shehuan.wanandroid.bean.ChapterBean
 class ChapterPresenterImpl(view: ChapterContract.View) : BasePresenter<ChapterContract.View>(view), ChapterContract.Presenter {
     override fun getChapter() {
         RequestManager.execute(this, RetrofitManager.create(WanAndroidApis::class.java).chapter(),
-                object : BaseObserver<List<ChapterBean>>(true) {
+                object : BaseObserver<List<ChapterBean>>() {
                     override fun onSuccess(data: List<ChapterBean>) {
                         view.onChapterSuccess(data)
                     }

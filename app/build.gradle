@@ -49,4 +49,5 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.youth.banner:banner:1.4.10'
     implementation 'com.google.android:flexbox:0.3.2'
+    implementation 'org.litepal.android:kotlin:3.0.0'
 }

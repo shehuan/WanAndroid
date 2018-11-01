@@ -1,15 +1,17 @@
 package com.shehuan.wanandroid.ui.chapter.chapterDetail
 
-import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
+import com.shehuan.library.StatusView
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.ChapterDetailListAdapter
 import com.shehuan.wanandroid.base.activity.BaseActivity
 import com.shehuan.wanandroid.base.activity.BaseMvpActivity
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.bean.chapter.ChapterArticleBean
+import com.shehuan.wanandroid.bean.chapter.DatasItem
 import com.shehuan.wanandroid.ui.article.ArticleActivity
+import com.shehuan.wanandroid.utils.ToastUtil
 import com.shehuan.wanandroid.widget.DivideItemDecoration
 import kotlinx.android.synthetic.main.activity_chapter_detail.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
@@ -19,6 +21,9 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
     private var chapterId: Int = 0
 
     private lateinit var chapterDetailListAdapter: ChapterDetailListAdapter
+
+    private lateinit var collectDataItem: DatasItem
+    private var collectPosition: Int = 0
 
     companion object {
         fun start(context: BaseActivity, title: String, chapterId: Int) {
@@ -66,6 +71,15 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
         chapterDetailListAdapter.setOnItemClickListener { _, data, _ ->
             ArticleActivity.start(mContext, data.title, data.link)
         }
+        chapterDetailListAdapter.setOnItemChildClickListener(R.id.chapterArticleCollectIv) { _, data, position ->
+            collectDataItem = data
+            collectPosition = position
+            if (!data.collect) {
+                presenter.collect(data.id)
+            } else {
+                presenter.uncollect(data.id)
+            }
+        }
         chapterDetailListAdapter.setOnLoadMoreListener {
             presenter.getChapterArticleList(chapterId, pageNum)
         }
@@ -98,6 +112,26 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
     }
 
     override fun onQueryChapterArticleListError(e: ResponseException) {
+
+    }
+
+    override fun onCollectSuccess(data: String) {
+        collectDataItem.collect = true
+        chapterDetailListAdapter.change(collectPosition)
+        ToastUtil.showToast(mContext, "收藏成功")
+    }
+
+    override fun onCollectError(e: ResponseException) {
+
+    }
+
+    override fun onUncollectSuccess(data: String) {
+        collectDataItem.collect = false
+        chapterDetailListAdapter.change(collectPosition)
+        ToastUtil.showToast(mContext, "取消收藏成功")
+    }
+
+    override fun onUncollectError(e: ResponseException) {
 
     }
 }

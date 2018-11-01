@@ -6,6 +6,7 @@ import com.shehuan.wanandroid.base.net.RequestManager
 import com.shehuan.wanandroid.base.net.RetrofitManager
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.base.net.observer.BaseObserver
+import com.shehuan.wanandroid.base.net.observer.LoadingObserver
 import com.shehuan.wanandroid.bean.LoginBean
 
 class LoginPresenterImpl(view: LoginContract.View) : BasePresenter<LoginContract.View>(view), LoginContract.Presenter {
@@ -14,7 +15,7 @@ class LoginPresenterImpl(view: LoginContract.View) : BasePresenter<LoginContract
         params["username"] = username
         params["password"] = password
         RequestManager.execute(this, RetrofitManager.create(WanAndroidApis::class.java).login(params),
-                object : BaseObserver<LoginBean>(true) {
+                object : LoadingObserver<LoginBean>(context) {
                     override fun onSuccess(data: LoginBean) {
                         view.onLoginSuccess(data)
                     }

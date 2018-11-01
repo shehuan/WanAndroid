@@ -8,7 +8,7 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import java.lang.ref.WeakReference
 
-abstract class BaseObserver<E>(private val showErrorTip: Boolean) : Observer<E> {
+abstract class BaseObserver<E>(private val showErrorTip: Boolean = true) : Observer<E> {
     private val wrContext: WeakReference<Context> = WeakReference(App.getApp())
 
     private lateinit var disposable: Disposable

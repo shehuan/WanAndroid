@@ -10,7 +10,9 @@ import com.shehuan.wanandroid.bean.article.ArticleBean
 import com.shehuan.wanandroid.widget.DivideItemDecoration
 import kotlinx.android.synthetic.main.fragment_home.*
 import android.view.LayoutInflater
+import com.shehuan.wanandroid.bean.article.DatasItem
 import com.shehuan.wanandroid.ui.article.ArticleActivity
+import com.shehuan.wanandroid.utils.ToastUtil
 import com.youth.banner.Banner
 import com.shehuan.wanandroid.widget.BannerImageLoader
 import com.youth.banner.BannerConfig
@@ -19,9 +21,10 @@ import com.youth.banner.BannerConfig
 class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
     private var pageNum: Int = 0
     private lateinit var articleListAdapter: ArticleListAdapter
+    private lateinit var collectDataItem: DatasItem
+    private var collectPosition: Int = 0
 
     private lateinit var bannerBeans: List<BannerBean>
-
     private lateinit var banner: Banner
 
     companion object {
@@ -64,6 +67,15 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
 
         articleListAdapter.setOnItemClickListener { _, data, _ ->
             ArticleActivity.start(mContext, data.title, data.link)
+        }
+        articleListAdapter.setOnItemChildClickListener(R.id.articleCollectIv) { _, data, position ->
+            collectDataItem = data
+            collectPosition = position
+            if (!data.collect) {
+                presenter.collect(data.id)
+            } else {
+                presenter.uncollect(data.id)
+            }
         }
         articleListAdapter.setOnLoadMoreListener {
             presenter.getArticleList(pageNum)
@@ -109,5 +121,25 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
 
     override fun onArticleListError(e: ResponseException) {
         articleListAdapter.loadFailed()
+    }
+
+    override fun onCollectSuccess(data: String) {
+        collectDataItem.collect = true
+        articleListAdapter.change(collectPosition + 1)
+        ToastUtil.showToast(mContext, "收藏成功")
+    }
+
+    override fun onCollectError(e: ResponseException) {
+
+    }
+
+    override fun onUncollectSuccess(data: String) {
+        collectDataItem.collect = false
+        articleListAdapter.change(collectPosition + 1)
+        ToastUtil.showToast(mContext, "取消收藏成功")
+    }
+
+    override fun onUncollectError(e: ResponseException) {
+
     }
 }
