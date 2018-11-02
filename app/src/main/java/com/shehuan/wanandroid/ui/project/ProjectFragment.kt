@@ -2,6 +2,7 @@ package com.shehuan.wanandroid.ui.project
 
 import android.support.design.widget.TabLayout
 import android.text.Html
+import android.view.View
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.ViewPagerAdapter
 import com.shehuan.wanandroid.base.fragment.BaseFragment
@@ -21,6 +22,7 @@ class ProjectFragment : BaseMvpFragment<ProjectPresenterImpl>(), ProjectContract
     }
 
     override fun loadData() {
+        statusView.showLoadingView()
         presenter.getProjectCategory()
     }
 
@@ -33,10 +35,14 @@ class ProjectFragment : BaseMvpFragment<ProjectPresenterImpl>(), ProjectContract
     }
 
     override fun initView() {
-
+        statusView = initStatusView(R.id.projectViewPager) {
+            loadData()
+        }
     }
 
     override fun onProjectCategorySuccess(data: List<ProjectCategoryBean>) {
+        statusView.showContentView()
+        projectTabLayout.visibility = View.VISIBLE
         val titles = arrayListOf<String>()
         val fragments = arrayListOf<BaseFragment>()
         titles.add("最新项目")
@@ -55,6 +61,6 @@ class ProjectFragment : BaseMvpFragment<ProjectPresenterImpl>(), ProjectContract
     }
 
     override fun onProjectCategoryError(e: ResponseException) {
-
+        statusView.showErrorView()
     }
 }

@@ -22,6 +22,7 @@ class TreeFragment : BaseMvpFragment<TreePresenterImpl>(), TreeContract.View {
     }
 
     override fun loadData() {
+        statusView.showLoadingView()
         presenter.getTree()
     }
 
@@ -45,13 +46,18 @@ class TreeFragment : BaseMvpFragment<TreePresenterImpl>(), TreeContract.View {
                 .setDevideHeight(20)
                 .setDevideColor(resources.getColor(R.color.cEEEEF5)))
         treeRv.adapter = treeListAdapter
+
+        statusView = initStatusView(R.id.treeRv) {
+            loadData()
+        }
     }
 
     override fun onTreeSuccess(data: List<TreeBean>) {
+        statusView.showContentView()
         treeListAdapter.setNewData(data)
     }
 
     override fun onTreeError(e: ResponseException) {
-
+        statusView.showErrorView()
     }
 }

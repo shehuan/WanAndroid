@@ -8,7 +8,7 @@ import com.shehuan.wanandroid.bean.navi.ArticlesItem
 import com.shehuan.wanandroid.bean.navi.NaviBean
 import com.shehuan.wanandroid.ui.website.HotWebsiteFragment
 import com.shehuan.wanandroid.widget.VerticalTabLayout
-import kotlinx.android.synthetic.main.fragment_mine.*
+import kotlinx.android.synthetic.main.fragment_navi.*
 
 class NavFragment : BaseMvpFragment<NavPresenterImpl>(), NavContract.View {
     private val fragments: ArrayList<BaseFragment> = arrayListOf()
@@ -26,7 +26,7 @@ class NavFragment : BaseMvpFragment<NavPresenterImpl>(), NavContract.View {
     }
 
     override fun initLayoutResID(): Int {
-        return R.layout.fragment_mine
+        return R.layout.fragment_navi
     }
 
     override fun initData() {

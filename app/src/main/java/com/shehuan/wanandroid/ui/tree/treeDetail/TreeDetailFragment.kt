@@ -73,14 +73,20 @@ class TreeDetailFragment : BaseMvpFragment<TreeDetailPresenterImpl>(), TreeDetai
         treeDetailRv.layoutManager = linearLayoutManager
         treeDetailRv.addItemDecoration(DivideItemDecoration())
         treeDetailRv.adapter = treeDetailListAdapter
+
+        statusView = initStatusView(R.id.treeDetailRv) {
+            loadData()
+        }
     }
 
     override fun loadData() {
+        statusView.showLoadingView()
         presenter.getTreeDetail(pageNum, cid)
     }
 
     override fun onTreeDetailSuccess(data: TreeDetailBean) {
         if (pageNum == 0) {
+            statusView.showContentView()
             treeDetailListAdapter.setNewData(data.datas)
         } else {
             treeDetailListAdapter.setLoadMoreData(data.datas)
@@ -93,7 +99,11 @@ class TreeDetailFragment : BaseMvpFragment<TreeDetailPresenterImpl>(), TreeDetai
     }
 
     override fun onTreeDetailError(e: ResponseException) {
-        treeDetailListAdapter.loadFailed()
+        if (pageNum == 0) {
+            statusView.showErrorView()
+        } else {
+            treeDetailListAdapter.loadFailed()
+        }
     }
 
     override fun onCollectSuccess(data: String) {

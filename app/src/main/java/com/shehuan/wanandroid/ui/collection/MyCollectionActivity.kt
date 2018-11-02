@@ -32,6 +32,7 @@ class MyCollectionActivity : BaseMvpActivity<MyCollectionPresenterImpl>(), MyCol
     }
 
     override fun loadData() {
+        statusView.showLoadingView()
         presenter.getCollectionList(pageNum)
     }
 
@@ -44,12 +45,7 @@ class MyCollectionActivity : BaseMvpActivity<MyCollectionPresenterImpl>(), MyCol
     }
 
     override fun initView() {
-        toolbar.title = "收藏"
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener {
-            finish()
-        }
+        initToolbar("收藏")
 
         collectionListAdapter = CollectionListAdapter(mContext, null, true)
         collectionListAdapter.setLoadingView(R.layout.rv_loading_layout)
@@ -72,10 +68,15 @@ class MyCollectionActivity : BaseMvpActivity<MyCollectionPresenterImpl>(), MyCol
         collectionRv.layoutManager = linearLayoutManager
         collectionRv.addItemDecoration(DivideItemDecoration())
         collectionRv.adapter = collectionListAdapter
+
+        statusView = initStatusView(R.id.collectionRv) {
+            loadData()
+        }
     }
 
     override fun onCollectionListSuccess(data: ArticleBean) {
         if (pageNum == 0) {
+            statusView.showContentView()
             collectionListAdapter.setNewData(data.datas)
         } else {
             collectionListAdapter.setLoadMoreData(data.datas)
@@ -88,7 +89,11 @@ class MyCollectionActivity : BaseMvpActivity<MyCollectionPresenterImpl>(), MyCol
     }
 
     override fun onCollectionListError(e: ResponseException) {
-        collectionListAdapter.loadFailed()
+        if (pageNum == 0) {
+            statusView.showErrorView()
+        } else {
+            collectionListAdapter.loadFailed()
+        }
     }
 
     override fun onCancelCollectionSuccess(data: String) {

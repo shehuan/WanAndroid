@@ -3,6 +3,10 @@ package com.shehuan.wanandroid.base.activity
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
+import com.shehuan.library.StatusView
+import com.shehuan.library.StatusViewBuilder
+import kotlinx.android.synthetic.main.toolbar_layout.*
 
 abstract class BaseActivity : AppCompatActivity() {
     lateinit var mContext: Context
@@ -20,5 +24,25 @@ abstract class BaseActivity : AppCompatActivity() {
 
         initData()
         initView()
+    }
+
+    protected lateinit var statusView: StatusView
+
+    protected fun initStatusView(id: Int, errorRetry: (View) -> Unit): StatusView {
+        val statusView: StatusView = StatusView.init(this, id)
+        statusView.config(StatusViewBuilder.Builder()
+                .setLoadingTip(" ")
+                .setOnErrorRetryClickListener(errorRetry)
+                .build())
+        return statusView
+    }
+
+    protected fun initToolbar(title: String) {
+        toolbar.title = title
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
     }
 }

@@ -56,12 +56,7 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
     }
 
     override fun initView() {
-        toolbar.title = "搜索"
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener {
-            finish()
-        }
+        initToolbar("搜索")
 
         // 搜索记录相关
         val queryHistoryBeans = QueryHistoryDbUtil.query()

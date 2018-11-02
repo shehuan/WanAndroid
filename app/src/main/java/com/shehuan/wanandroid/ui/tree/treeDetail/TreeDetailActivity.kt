@@ -37,12 +37,7 @@ class TreeDetailActivity : BaseActivity() {
     }
 
     override fun initView() {
-        toolbar.title = title
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener {
-            finish()
-        }
+        initToolbar(title)
 
         val titles = arrayListOf<String>()
         val fragments = arrayListOf<BaseFragment>()

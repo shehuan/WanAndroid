@@ -8,11 +8,10 @@ import android.view.MenuItem
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.base.activity.BaseActivity
 import kotlinx.android.synthetic.main.activity_article.*
-import kotlinx.android.synthetic.main.toolbar_layout.*
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.net.Uri
-import android.webkit.WebViewClient
+import android.webkit.*
 import com.shehuan.wanandroid.utils.ToastUtil
 
 
@@ -44,12 +43,7 @@ class ArticleActivity : BaseActivity() {
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun initView() {
-        toolbar.title = title
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener {
-            finish()
-        }
+        initToolbar(title)
 
         articleWebView.requestFocusFromTouch()
         val webSettings = articleWebView.settings
@@ -57,8 +51,27 @@ class ArticleActivity : BaseActivity() {
         webSettings.setSupportZoom(true)
         webSettings.builtInZoomControls = true
         webSettings.displayZoomControls = false
-        articleWebView.webViewClient = object : WebViewClient() {}
+        articleWebView.webViewClient = object : WebViewClient() {
+            override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
+                super.onReceivedError(view, request, error)
+                statusView.showErrorView()
+            }
+        }
+        articleWebView.webChromeClient = object : WebChromeClient() {
+            override fun onProgressChanged(view: WebView?, newProgress: Int) {
+                super.onProgressChanged(view, newProgress)
+                if (newProgress > 90) {
+                    statusView.showContentView()
+                }
+            }
+        }
         articleWebView.loadUrl(link)
+
+        statusView = initStatusView(R.id.articleWebView) {
+            statusView.showLoadingView()
+            articleWebView.loadUrl(link)
+        }
+        statusView.showLoadingView()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

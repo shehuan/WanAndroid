@@ -17,11 +17,11 @@ import com.shehuan.wanandroid.ui.article.ArticleActivity
 import com.shehuan.wanandroid.utils.ToastUtil
 import com.shehuan.wanandroid.widget.DivideItemDecoration
 import kotlinx.android.synthetic.main.activity_chapter_detail.*
-import kotlinx.android.synthetic.main.toolbar_layout.*
 
 class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), ChapterDetailContract.View {
     private var pageNum: Int = 0
     private var chapterId: Int = 0
+    private lateinit var title: String
 
     private lateinit var chapterDetailListAdapter: ChapterDetailListAdapter
 
@@ -49,6 +49,7 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
     }
 
     override fun loadData() {
+        statusView.showLoadingView()
         presenter.getChapterArticleList(chapterId, pageNum)
     }
 
@@ -64,15 +65,13 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
     }
 
     override fun initView() {
-        toolbar.title = title
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener {
-            finish()
-        }
-
+        initToolbar(title)
         initChapterList()
         initQueryChapterList()
+
+        statusView = initStatusView(R.id.contentFl) {
+            loadData()
+        }
     }
 
     /**
@@ -174,6 +173,7 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
 
     override fun onChapterArticleListSuccess(data: ChapterArticleBean) {
         if (pageNum == 0) {
+            statusView.showContentView()
             chapterDetailListAdapter.setNewData(data.datas)
         } else {
             chapterDetailListAdapter.setLoadMoreData(data.datas)
@@ -186,7 +186,11 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
     }
 
     override fun onChapterArticleListError(e: ResponseException) {
-        chapterDetailListAdapter.loadFailed()
+        if (pageNum == 0) {
+            statusView.showErrorView()
+        } else {
+            chapterDetailListAdapter.loadFailed()
+        }
     }
 
     override fun onQueryChapterArticleListSuccess(data: ChapterArticleBean) {

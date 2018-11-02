@@ -75,9 +75,14 @@ class ProjectDetailFragment : BaseMvpFragment<ProjectDetailPresenterImpl>(), Pro
         projectRv.layoutManager = linearLayoutManager
         projectRv.addItemDecoration(DivideItemDecoration())
         projectRv.adapter = projectListAdapter
+
+        statusView = initStatusView(R.id.projectRv) {
+            loadData()
+        }
     }
 
     override fun loadData() {
+        statusView.showLoadingView()
         if (cid == -1) {
             presenter.getNewProjectList(pageNum)
         } else {
@@ -87,6 +92,7 @@ class ProjectDetailFragment : BaseMvpFragment<ProjectDetailPresenterImpl>(), Pro
 
     private fun setData(data: ProjectBean) {
         if (pageNum == 0) {
+            statusView.showContentView()
             projectListAdapter.setNewData(data.datas)
         } else {
             projectListAdapter.setLoadMoreData(data.datas)
@@ -103,7 +109,11 @@ class ProjectDetailFragment : BaseMvpFragment<ProjectDetailPresenterImpl>(), Pro
     }
 
     override fun onNewProjectListError(e: ResponseException) {
-        projectListAdapter.loadFailed()
+        if (pageNum == 0) {
+            statusView.showErrorView()
+        } else {
+            projectListAdapter.loadFailed()
+        }
     }
 
     override fun onProjectDetailSuccess(data: ProjectBean) {
@@ -111,7 +121,11 @@ class ProjectDetailFragment : BaseMvpFragment<ProjectDetailPresenterImpl>(), Pro
     }
 
     override fun onProjectDetailError(e: ResponseException) {
-        projectListAdapter.loadFailed()
+        if (pageNum == 0) {
+            statusView.showErrorView()
+        } else {
+            projectListAdapter.loadFailed()
+        }
     }
 
     override fun onCollectSuccess(data: String) {

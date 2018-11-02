@@ -21,6 +21,7 @@ class ChapterFragment : BaseMvpFragment<ChapterPresenterImpl>(), ChapterContract
     }
 
     override fun loadData() {
+        statusView.showLoadingView()
         presenter.getChapter()
     }
 
@@ -40,13 +41,18 @@ class ChapterFragment : BaseMvpFragment<ChapterPresenterImpl>(), ChapterContract
         val gridLayoutManager = GridLayoutManager(context, 2)
         chapterRv.layoutManager = gridLayoutManager
         chapterRv.adapter = chapterAdapter
+
+        statusView = initStatusView(R.id.chapterRv) {
+            loadData()
+        }
     }
 
     override fun onChapterSuccess(data: List<ChapterBean>) {
+        statusView.showContentView()
         chapterAdapter.setNewData(data)
     }
 
     override fun onChapterError(e: ResponseException) {
-
+        statusView.showErrorView()
     }
 }

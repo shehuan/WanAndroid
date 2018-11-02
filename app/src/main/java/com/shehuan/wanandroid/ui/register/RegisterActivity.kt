@@ -38,12 +38,7 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenterImpl>(), RegisterContr
     }
 
     override fun initView() {
-        toolbar.title = "注册"
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener {
-            finish()
-        }
+        initToolbar("注册")
 
         registerPasswordTTL.isPasswordVisibilityToggleEnabled = true
         registerRepasswordTTL.isPasswordVisibilityToggleEnabled = true

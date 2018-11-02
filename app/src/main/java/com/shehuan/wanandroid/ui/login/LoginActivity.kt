@@ -40,12 +40,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenterImpl>(), LoginContract.View 
     }
 
     override fun initView() {
-        toolbar.title = "登录"
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener {
-            finish()
-        }
+        initToolbar("登录")
 
         registerTv.paint.flags = Paint.UNDERLINE_TEXT_FLAG
         registerTv.setOnClickListener {
