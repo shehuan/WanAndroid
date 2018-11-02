@@ -1,8 +1,11 @@
 package com.shehuan.wanandroid.ui.chapter.chapterDetail
 
 import android.content.Intent
+import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.LinearLayoutManager
-import com.shehuan.library.StatusView
+import android.support.v7.widget.SearchView
+import android.view.Menu
+import android.view.View
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.ChapterDetailListAdapter
 import com.shehuan.wanandroid.base.activity.BaseActivity
@@ -21,6 +24,11 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
     private var chapterId: Int = 0
 
     private lateinit var chapterDetailListAdapter: ChapterDetailListAdapter
+
+    private var queryPageNum: Int = 0
+    private lateinit var keyWord: String
+    private lateinit var queryResultAdapter: ChapterDetailListAdapter
+    private var isInitQuery: Boolean = false
 
     private lateinit var collectDataItem: DatasItem
     private var collectPosition: Int = 0
@@ -63,6 +71,14 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
             finish()
         }
 
+        initChapterList()
+        initQueryChapterList()
+    }
+
+    /**
+     * 文章列表初始化
+     */
+    private fun initChapterList() {
         chapterDetailListAdapter = ChapterDetailListAdapter(mContext, null, true)
         chapterDetailListAdapter.setLoadingView(R.layout.rv_loading_layout)
         chapterDetailListAdapter.setLoadEndView(R.layout.rv_load_end_layout)
@@ -90,6 +106,72 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
         chapterDetailRv.adapter = chapterDetailListAdapter
     }
 
+    /**
+     * 搜索列表初始化
+     */
+    private fun initQueryChapterList() {
+        queryResultAdapter = ChapterDetailListAdapter(mContext, null, true)
+        queryResultAdapter.setLoadingView(R.layout.rv_loading_layout)
+        queryResultAdapter.setLoadEndView(R.layout.rv_load_end_layout)
+        queryResultAdapter.setLoadFailedView(R.layout.rv_load_failed_layout)
+
+        queryResultAdapter.setOnItemClickListener { _, data, _ ->
+            ArticleActivity.start(mContext, data.title, data.link)
+        }
+        queryResultAdapter.setOnItemChildClickListener(R.id.chapterArticleCollectIv) { _, data, position ->
+            collectDataItem = data
+            collectPosition = position
+            if (!data.collect) {
+                presenter.collect(data.id)
+            } else {
+                presenter.uncollect(data.id)
+            }
+        }
+        queryResultAdapter.setOnLoadMoreListener {
+            presenter.queryChapterArticle(chapterId, pageNum, keyWord)
+        }
+        val linearLayoutManager = LinearLayoutManager(mContext)
+        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        queryChapterRv.layoutManager = linearLayoutManager
+        queryChapterRv.addItemDecoration(DivideItemDecoration())
+        queryChapterRv.adapter = queryResultAdapter
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_query_menu_layout, menu)
+        val queryItem = menu?.findItem(R.id.action_query)
+        val searchView = MenuItemCompat.getActionView(queryItem) as SearchView
+        // 是否显示提交按钮
+        searchView.isSubmitButtonEnabled = false
+        // 搜索框是否展开,false表示展开
+        searchView.isIconified = true
+        searchView.queryHint = "输入关键字"
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(content: String): Boolean {
+                searchView.clearFocus()
+                keyWord = content
+                if (!keyWord.isEmpty()) {
+                    queryPageNum = 0
+                    isInitQuery = true
+                    presenter.queryChapterArticle(chapterId, queryPageNum, keyWord)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return true
+            }
+        })
+
+        // 关闭搜索
+        searchView.setOnCloseListener {
+            queryChapterRv.visibility = View.GONE
+            return@setOnCloseListener false
+        }
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onChapterArticleListSuccess(data: ChapterArticleBean) {
         if (pageNum == 0) {
             chapterDetailListAdapter.setNewData(data.datas)
@@ -108,11 +190,30 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
     }
 
     override fun onQueryChapterArticleListSuccess(data: ChapterArticleBean) {
+        if (queryChapterRv.visibility == View.GONE) {
+            queryChapterRv.visibility = View.VISIBLE
+        }
 
+        if (isInitQuery) {
+            isInitQuery = false
+            queryChapterRv.scrollToPosition(0)
+            queryResultAdapter.reset()
+        }
+
+        if (queryPageNum == 0) {
+            queryResultAdapter.setNewData(data.datas)
+        } else {
+            queryResultAdapter.setLoadMoreData(data.datas)
+        }
+        queryPageNum++
+        if (queryPageNum == data.pageCount) {
+            queryResultAdapter.loadEnd()
+            return
+        }
     }
 
     override fun onQueryChapterArticleListError(e: ResponseException) {
-
+        queryResultAdapter.loadEnd()
     }
 
     override fun onCollectSuccess(data: String) {

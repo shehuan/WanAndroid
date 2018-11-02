@@ -1,7 +1,7 @@
-package com.shehuan.wanandroid.base
+package com.shehuan.wanandroid.widget
 
-import com.othershe.nicedialog.BaseNiceDialog
-import com.othershe.nicedialog.ViewHolder
+import com.shehuan.nicedialog.BaseNiceDialog
+import com.shehuan.nicedialog.ViewHolder
 import com.shehuan.wanandroid.R
 
 class LoadingDialog : BaseNiceDialog() {
@@ -12,6 +12,10 @@ class LoadingDialog : BaseNiceDialog() {
 
     override fun intLayoutId(): Int {
         return R.layout.dialog_loading_layout
+    }
+
+    override fun initTheme(): Int {
+        return R.style.MyDialog
     }
 
     companion object {

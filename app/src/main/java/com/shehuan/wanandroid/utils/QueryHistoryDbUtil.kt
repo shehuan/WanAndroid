@@ -13,7 +13,7 @@ class QueryHistoryDbUtil {
             bean.save()
         }
 
-        fun query(): List<QueryHistoryBean> = LitePal.findAll<QueryHistoryBean>()
+        fun query(): List<QueryHistoryBean> = LitePal.order("time").find()
 
         fun clear() = LitePal.deleteAll<QueryHistoryBean>()
 

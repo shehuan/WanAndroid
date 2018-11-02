@@ -22,4 +22,8 @@
         <item name="searchIcon">@drawable/ic_query</item>
     </style>
 
+    <style name="MyDialog" parent="NiceDialogStyle">
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
 </resources>

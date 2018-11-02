@@ -24,13 +24,16 @@
         <activity android:name=".ui.login.LoginActivity" />
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.about.AboutActivity" />
-        <activity android:name=".ui.query.QueryActivity"
-            android:theme="@style/AppTheme1"/>
+        <activity
+            android:name=".ui.query.QueryActivity"
+            android:theme="@style/AppTheme1" />
         <activity android:name=".ui.tree.treeDetail.TreeDetailActivity" />
-        <activity android:name=".ui.chapter.chapterDetail.ChapterDetailActivity" />
+        <activity
+            android:name=".ui.chapter.chapterDetail.ChapterDetailActivity"
+            android:theme="@style/AppTheme1" />
         <activity android:name=".ui.article.ArticleActivity" />
         <activity android:name=".ui.collection.MyCollectionActivity" />
-        <activity android:name=".ui.register.RegisterActivity"/>
+        <activity android:name=".ui.register.RegisterActivity" />
     </application>
 
 </manifest>

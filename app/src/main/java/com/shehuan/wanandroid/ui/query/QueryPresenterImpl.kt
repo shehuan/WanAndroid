@@ -11,9 +11,9 @@ import com.shehuan.wanandroid.bean.HotKeyBean
 import com.shehuan.wanandroid.bean.query.QueryBean
 
 class QueryPresenterImpl(view: QueryContract.View) : BasePresenter<QueryContract.View>(view), QueryContract.Presenter {
-    override fun query(pageNum: Int, k: String) {
+    override fun query(pageNum: Int, k: String, showLoading: Boolean) {
         RequestManager.execute(this, RetrofitManager.create(WanAndroidApis::class.java).query(pageNum, k),
-                object : LoadingObserver<QueryBean>(context) {
+                object : LoadingObserver<QueryBean>(context, showLoading) {
                     override fun onSuccess(data: QueryBean) {
                         view.onQuerySuccess(data)
                     }

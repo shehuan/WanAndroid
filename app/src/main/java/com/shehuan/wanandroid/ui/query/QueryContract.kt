@@ -15,7 +15,7 @@ interface QueryContract {
     }
 
     interface Presenter {
-        fun query(pageNum: Int, k: String)
+        fun query(pageNum: Int, k: String, showLoading: Boolean)
 
         fun getHotKey()
     }

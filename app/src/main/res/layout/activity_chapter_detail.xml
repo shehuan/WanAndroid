@@ -8,10 +8,24 @@
 
     <include layout="@layout/toolbar_layout" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/chapterDetailRv"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never" />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/chapterDetailRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/cFFFFFF"
+            android:overScrollMode="never" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/queryChapterRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/cFFFFFF"
+            android:overScrollMode="never"
+            android:visibility="gone" />
+    </FrameLayout>
 
 </LinearLayout>

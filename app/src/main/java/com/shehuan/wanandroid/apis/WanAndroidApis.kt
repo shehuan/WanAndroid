@@ -115,7 +115,7 @@ interface WanAndroidApis {
      * 微信公众号文章搜索
      */
     @GET("wxarticle/list/{chapterId}/{pageNum}/json")
-    fun queryChapterArticle(@Path("officialAccountId") chapterId: Int, @Path("pageNum") pageNum: Int, @Query("k") k: String): Observable<BaseResponse<ChapterArticleBean>>
+    fun queryChapterArticle(@Path("chapterId") chapterId: Int, @Path("pageNum") pageNum: Int, @Query("k") k: String): Observable<BaseResponse<ChapterArticleBean>>
 
     /**
      * 收藏文章列表

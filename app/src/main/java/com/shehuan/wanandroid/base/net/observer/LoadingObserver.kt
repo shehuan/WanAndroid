@@ -2,8 +2,8 @@ package com.shehuan.wanandroid.base.net.observer
 
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
-import com.othershe.nicedialog.BaseNiceDialog
-import com.shehuan.wanandroid.base.LoadingDialog
+import com.shehuan.nicedialog.BaseNiceDialog
+import com.shehuan.wanandroid.widget.LoadingDialog
 import io.reactivex.disposables.Disposable
 import java.lang.ref.WeakReference
 

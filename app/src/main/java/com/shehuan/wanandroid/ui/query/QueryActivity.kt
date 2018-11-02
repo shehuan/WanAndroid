@@ -21,7 +21,6 @@ import com.shehuan.wanandroid.utils.CommonUtil
 import com.shehuan.wanandroid.widget.DivideItemDecoration
 import kotlinx.android.synthetic.main.activity_query.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
-import android.widget.EditText
 import com.shehuan.wanandroid.bean.db.QueryHistoryBean
 import com.shehuan.wanandroid.utils.QueryHistoryDbUtil
 
@@ -29,10 +28,9 @@ import com.shehuan.wanandroid.utils.QueryHistoryDbUtil
 class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View {
     private var pageNum: Int = 0
     private lateinit var keyWord: String
+    private var isInitQuery: Boolean = false
     private lateinit var queryResultAdapter: QueryResultAdapter
     private lateinit var searchView: SearchView
-
-    private lateinit var queryHistoryBeans: List<QueryHistoryBean>
 
     companion object {
         fun start(context: BaseActivity) {
@@ -66,7 +64,7 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
         }
 
         // 搜索记录相关
-        queryHistoryBeans = QueryHistoryDbUtil.query()
+        val queryHistoryBeans = QueryHistoryDbUtil.query()
         if (!queryHistoryBeans.isEmpty()) {
             queryHistoryRl.visibility = View.VISIBLE
             queryHistoryFL.addQueryHistoryViews(queryHistoryBeans)
@@ -74,7 +72,6 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
         // 清空搜索记录
         clearHistoryTv.setOnClickListener {
             QueryHistoryDbUtil.clear()
-            queryHistoryBeans = listOf()
             queryHistoryFL.removeAllViews()
             queryHistoryRl.visibility = View.GONE
         }
@@ -90,7 +87,7 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
         }
         queryResultAdapter.setOnLoadMoreListener {
             if (!keyWord.isEmpty()) {
-                presenter.query(pageNum, keyWord)
+                presenter.query(pageNum, keyWord, false)
             }
         }
         val linearLayoutManager = LinearLayoutManager(mContext)
@@ -108,14 +105,16 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
         searchView.isSubmitButtonEnabled = false
         // 搜索框是否展开
         searchView.isIconified = false
-        searchView.queryHint = "多个关键词，用空格隔开"
+        searchView.queryHint = "输入关键字，多个用空格隔开"
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(content: String): Boolean {
+                searchView.clearFocus()
                 addQueryHistory(content)
                 keyWord = content
                 if (!keyWord.isEmpty()) {
+                    isInitQuery = true
                     pageNum = 0
-                    presenter.query(pageNum, keyWord)
+                    presenter.query(pageNum, keyWord, true)
                 }
                 return true
             }
@@ -128,8 +127,6 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
         // 关闭搜索
         searchView.setOnCloseListener {
             queryResultRv.visibility = View.GONE
-            pageNum = 0
-            keyWord = ""
             return@setOnCloseListener false
         }
 
@@ -137,7 +134,15 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
     }
 
     override fun onQuerySuccess(data: QueryBean) {
-        queryResultRv.visibility = View.VISIBLE
+        if (queryResultRv.visibility == View.GONE) {
+            queryResultRv.visibility = View.VISIBLE
+        }
+
+        if (isInitQuery) {
+            isInitQuery = false
+            queryResultRv.scrollToPosition(0)
+            queryResultAdapter.reset()
+        }
 
         if (pageNum == 0) {
             queryResultAdapter.setNewData(data.datas)
@@ -213,18 +218,15 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
         return view.text.toString()
     }
 
+    /**
+     * 点击搜索记录、热门搜索时调用
+     */
     private fun flexboxChildClick(name: String) {
         addQueryHistory(name)
-        // 点击热门搜索tag时如果SearchView没展开，则手动展开，并填充tag内容
         if (searchView.isIconified) {
             searchView.isIconified = false
         }
-        val editText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text) as EditText
-        keyWord = name
-        editText.setText(keyWord)
-        editText.setSelection(keyWord.length)
-
-        presenter.query(pageNum, keyWord)
+        searchView.setQuery(name, true)
     }
 
     /**
