@@ -76,7 +76,7 @@ class ProjectDetailFragment : BaseMvpFragment<ProjectDetailPresenterImpl>(), Pro
         projectRv.addItemDecoration(DivideItemDecoration())
         projectRv.adapter = projectListAdapter
 
-        statusView = initStatusView(R.id.projectRv) {
+        initStatusView(projectDetailRootLayout) {
             loadData()
         }
     }

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.shehuan.library.StatusView
 import com.shehuan.library.StatusViewBuilder
+import com.shehuan.wanandroid.R
 import kotlinx.android.synthetic.main.toolbar_layout.*
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -28,13 +29,12 @@ abstract class BaseActivity : AppCompatActivity() {
 
     protected lateinit var statusView: StatusView
 
-    protected fun initStatusView(id: Int, errorRetry: (View) -> Unit): StatusView {
-        val statusView: StatusView = StatusView.init(this, id)
+    protected fun initStatusView(id: Int, errorRetry: (View) -> Unit) {
+        statusView = StatusView.init(this, id)
+        statusView.setLoadingView(R.layout.dialog_loading_layout)
         statusView.config(StatusViewBuilder.Builder()
-                .setLoadingTip(" ")
                 .setOnErrorRetryClickListener(errorRetry)
                 .build())
-        return statusView
     }
 
     protected fun initToolbar(title: String) {

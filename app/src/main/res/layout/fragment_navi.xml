@@ -1,24 +1,28 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.shehuan.library.StatusView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navRootLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.shehuan.wanandroid.ui.nav.NavFragment">
+    android:layout_height="match_parent">
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:overScrollMode="never"
-        android:scrollbars="none">
-
-        <com.shehuan.wanandroid.widget.VerticalTabLayout
-            android:id="@+id/naviTabLayout"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content" />
-    </ScrollView>
-
-    <FrameLayout
-        android:id="@+id/naviDetailContainer"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
-</LinearLayout>
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <com.shehuan.wanandroid.widget.VerticalTabLayout
+                android:id="@+id/naviTabLayout"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content" />
+        </ScrollView>
+
+        <FrameLayout
+            android:id="@+id/naviDetailContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+</com.shehuan.library.StatusView>

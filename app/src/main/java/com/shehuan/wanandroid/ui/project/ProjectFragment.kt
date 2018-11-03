@@ -35,7 +35,7 @@ class ProjectFragment : BaseMvpFragment<ProjectPresenterImpl>(), ProjectContract
     }
 
     override fun initView() {
-        statusView = initStatusView(R.id.projectViewPager) {
+        initStatusView(R.id.projectViewPager) {
             loadData()
         }
     }

@@ -74,7 +74,7 @@ class TreeDetailFragment : BaseMvpFragment<TreeDetailPresenterImpl>(), TreeDetai
         treeDetailRv.addItemDecoration(DivideItemDecoration())
         treeDetailRv.adapter = treeDetailListAdapter
 
-        statusView = initStatusView(R.id.treeDetailRv) {
+        initStatusView(treeDetailRootLayout) {
             loadData()
         }
     }

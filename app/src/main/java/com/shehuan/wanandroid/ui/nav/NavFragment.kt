@@ -22,6 +22,7 @@ class NavFragment : BaseMvpFragment<NavPresenterImpl>(), NavContract.View {
     }
 
     override fun loadData() {
+        statusView.showLoadingView()
         presenter.nav()
     }
 
@@ -42,9 +43,14 @@ class NavFragment : BaseMvpFragment<NavPresenterImpl>(), NavContract.View {
                         .commit()
             }
         })
+
+        initStatusView(navRootLayout) {
+            loadData()
+        }
     }
 
     override fun onNavSuccess(data: List<NaviBean>) {
+        statusView.showContentView()
         val tabNames = arrayListOf<String>()
         tabNames.add("热门网站")
         fragments.add(HotWebsiteFragment.newInstance())

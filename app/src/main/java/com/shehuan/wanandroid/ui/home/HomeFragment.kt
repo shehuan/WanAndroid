@@ -36,8 +36,9 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
     }
 
     override fun loadData() {
-        presenter.getBannerData()
+        statusView.showLoadingView()
         presenter.getArticleList(pageNum)
+        presenter.getBannerData()
     }
 
     override fun initLayoutResID(): Int {
@@ -85,9 +86,14 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
         articleRv.layoutManager = linearLayoutManager
         articleRv.addItemDecoration(DivideItemDecoration())
         articleRv.adapter = articleListAdapter
+
+        initStatusView(homeRootLayout) {
+            loadData()
+        }
     }
 
     override fun onBannerSuccess(data: List<BannerBean>) {
+        statusView.showContentView()
         bannerBeans = data
         val images = arrayListOf<String>()
         val titles = arrayListOf<String>()
@@ -103,7 +109,7 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
     }
 
     override fun onBannerError(e: ResponseException) {
-
+        statusView.showErrorView()
     }
 
     override fun onArticleListSuccess(data: ArticleBean) {

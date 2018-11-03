@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.shehuan.library.StatusView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/treeDetailRootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.tree.treeDetail.TreeDetailFragment">
@@ -12,4 +13,4 @@
         android:background="@color/cFFFFFF"
         android:overScrollMode="never" />
 
-</FrameLayout>
+</com.shehuan.library.StatusView>

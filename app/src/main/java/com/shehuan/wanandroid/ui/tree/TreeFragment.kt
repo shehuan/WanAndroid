@@ -47,7 +47,7 @@ class TreeFragment : BaseMvpFragment<TreePresenterImpl>(), TreeContract.View {
                 .setDevideColor(resources.getColor(R.color.cEEEEF5)))
         treeRv.adapter = treeListAdapter
 
-        statusView = initStatusView(R.id.treeRv) {
+        initStatusView(treeRootLayout) {
             loadData()
         }
     }

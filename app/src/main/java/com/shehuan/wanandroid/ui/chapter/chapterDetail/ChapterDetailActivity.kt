@@ -69,7 +69,7 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
         initChapterList()
         initQueryChapterList()
 
-        statusView = initStatusView(R.id.contentFl) {
+        initStatusView(R.id.contentFl) {
             loadData()
         }
     }

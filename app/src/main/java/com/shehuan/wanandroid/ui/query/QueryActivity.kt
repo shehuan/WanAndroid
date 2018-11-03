@@ -20,7 +20,6 @@ import com.shehuan.wanandroid.ui.article.ArticleActivity
 import com.shehuan.wanandroid.utils.CommonUtil
 import com.shehuan.wanandroid.widget.DivideItemDecoration
 import kotlinx.android.synthetic.main.activity_query.*
-import kotlinx.android.synthetic.main.toolbar_layout.*
 import com.shehuan.wanandroid.bean.db.QueryHistoryBean
 import com.shehuan.wanandroid.utils.QueryHistoryDbUtil
 
@@ -44,6 +43,7 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
     }
 
     override fun loadData() {
+        statusView.showLoadingView()
         presenter.getHotKey()
     }
 
@@ -90,6 +90,10 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
         queryResultRv.layoutManager = linearLayoutManager
         queryResultRv.addItemDecoration(DivideItemDecoration())
         queryResultRv.adapter = queryResultAdapter
+
+        initStatusView(R.id.hotKeyFL) {
+            loadData()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -156,11 +160,12 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
     }
 
     override fun onHotKeySuccess(data: List<HotKeyBean>) {
+        statusView.showContentView()
         hotKeyFL.addHotKeyViews(data)
     }
 
     override fun onHotKeyError(e: ResponseException) {
-
+        statusView.showErrorView()
     }
 
     private fun FlexboxLayout.addHotKeyViews(data: List<HotKeyBean>) {
@@ -196,7 +201,7 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
         }
         view.text = name
         view.setTextColor(resources.getColor(R.color.c8A8A8A))
-        view.background = resources.getDrawable(R.drawable.hotkey_selector)
+        view.background = resources.getDrawable(R.drawable.query_history_selector)
         val padding1 = CommonUtil.dp2px(mContext, 10)
         val padding2 = CommonUtil.dp2px(mContext, 3)
         view.setPadding(padding1, padding2, padding1, padding2)

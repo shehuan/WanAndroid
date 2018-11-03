@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.shehuan.library.StatusView
 import com.shehuan.library.StatusViewBuilder
+import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.base.activity.BaseActivity
 
 abstract class BaseFragment : Fragment() {
@@ -164,13 +165,16 @@ abstract class BaseFragment : Fragment() {
 
     protected lateinit var statusView: StatusView
 
-    protected fun initStatusView(id: Int, errorRetry: (View) -> Unit): StatusView {
-        val statusView: StatusView = StatusView.init(this, id)
-        statusView.config(StatusViewBuilder.Builder()
+    protected fun initStatusView(id: Int, errorRetry: (View) -> Unit) {
+        initStatusView(StatusView.init(this, id), errorRetry)
+    }
+
+    protected fun initStatusView(statusView: StatusView, errorRetry: (View) -> Unit) {
+        this.statusView = statusView
+        this.statusView.setLoadingView(R.layout.dialog_loading_layout)
+        this.statusView.config(StatusViewBuilder.Builder()
                 .setLoadingTip(" ")
                 .setOnErrorRetryClickListener(errorRetry)
                 .build())
-        return statusView
     }
-
 }

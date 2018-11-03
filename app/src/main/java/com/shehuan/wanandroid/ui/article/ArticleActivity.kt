@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_article.*
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.net.Uri
+import android.text.Html
 import android.webkit.*
 import com.shehuan.wanandroid.utils.ToastUtil
 
@@ -43,7 +44,7 @@ class ArticleActivity : BaseActivity() {
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun initView() {
-        initToolbar(title)
+        initToolbar(Html.fromHtml(title).toString())
 
         articleWebView.requestFocusFromTouch()
         val webSettings = articleWebView.settings
@@ -67,7 +68,7 @@ class ArticleActivity : BaseActivity() {
         }
         articleWebView.loadUrl(link)
 
-        statusView = initStatusView(R.id.articleWebView) {
+        initStatusView(R.id.articleWebView) {
             statusView.showLoadingView()
             articleWebView.loadUrl(link)
         }

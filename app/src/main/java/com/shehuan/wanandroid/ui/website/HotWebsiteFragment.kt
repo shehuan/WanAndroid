@@ -31,19 +31,23 @@ class HotWebsiteFragment : BaseMvpFragment<HotWebsitePresenterImpl>(), HotWebsit
     }
 
     override fun initView() {
-
+        initStatusView(hotWebsiteHomeLayout) {
+            loadData()
+        }
     }
 
     override fun loadData() {
+        statusView.showLoadingView()
         presenter.getFriendData()
     }
 
     override fun onFriedSuccess(data: List<FriendBean>) {
+        statusView.showContentView()
         websiteFL.setWebsiteData(data)
     }
 
     override fun onFriendError(e: ResponseException) {
-
+        statusView.showErrorView()
     }
 
     private fun FlexboxLayout.setWebsiteData(data: List<FriendBean>) {

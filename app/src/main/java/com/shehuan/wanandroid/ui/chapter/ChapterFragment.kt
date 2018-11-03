@@ -7,7 +7,7 @@ import com.shehuan.wanandroid.base.fragment.BaseMvpFragment
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.bean.ChapterBean
 import com.shehuan.wanandroid.ui.chapter.chapterDetail.ChapterDetailActivity
-import kotlinx.android.synthetic.main.fragment_official_accounts.*
+import kotlinx.android.synthetic.main.fragment_chapter.*
 
 class ChapterFragment : BaseMvpFragment<ChapterPresenterImpl>(), ChapterContract.View {
     private lateinit var chapterAdapter: ChapterAdapter
@@ -26,7 +26,7 @@ class ChapterFragment : BaseMvpFragment<ChapterPresenterImpl>(), ChapterContract
     }
 
     override fun initLayoutResID(): Int {
-        return R.layout.fragment_official_accounts
+        return R.layout.fragment_chapter
     }
 
     override fun initData() {
@@ -42,7 +42,7 @@ class ChapterFragment : BaseMvpFragment<ChapterPresenterImpl>(), ChapterContract
         chapterRv.layoutManager = gridLayoutManager
         chapterRv.adapter = chapterAdapter
 
-        statusView = initStatusView(R.id.chapterRv) {
+        initStatusView(chapterRootLayout) {
             loadData()
         }
     }

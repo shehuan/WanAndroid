@@ -64,8 +64,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="20dp"
-                    android:drawableRight="@drawable/ic_hot"
                     android:drawablePadding="2dp"
+                    android:drawableRight="@drawable/ic_hot"
                     android:gravity="center"
                     android:text="热门搜索"
                     android:textColor="@color/c707070" />
@@ -73,7 +73,7 @@
                 <com.google.android.flexbox.FlexboxLayout
                     android:id="@+id/hotKeyFL"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
                     app:flexWrap="wrap" />
 

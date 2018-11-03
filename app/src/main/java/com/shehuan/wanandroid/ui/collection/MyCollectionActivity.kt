@@ -69,7 +69,7 @@ class MyCollectionActivity : BaseMvpActivity<MyCollectionPresenterImpl>(), MyCol
         collectionRv.addItemDecoration(DivideItemDecoration())
         collectionRv.adapter = collectionListAdapter
 
-        statusView = initStatusView(R.id.collectionRv) {
+        initStatusView(R.id.collectionRv) {
             loadData()
         }
     }
