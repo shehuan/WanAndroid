@@ -48,25 +48,26 @@ class TreeDetailFragment : BaseMvpFragment<TreeDetailPresenterImpl>(), TreeDetai
     }
 
     override fun initView() {
-        treeDetailListAdapter = TreeDetailListAdapter(context, null, true)
-        treeDetailListAdapter.setLoadingView(R.layout.rv_loading_layout)
-        treeDetailListAdapter.setLoadEndView(R.layout.rv_load_end_layout)
-        treeDetailListAdapter.setLoadFailedView(R.layout.rv_load_failed_layout)
-        treeDetailListAdapter.setOnItemClickListener { _, data, _ ->
-            ArticleActivity.start(mContext, data.title, data.link)
-        }
-        treeDetailListAdapter.setOnItemChildClickListener(R.id.treeArticleCollectIv) { _, data, position ->
-            collectDataItem = data
-            collectPosition = position
-            if (!data.collect) {
-                presenter.collect(data.id)
-            } else {
-                presenter.uncollect(data.id)
+        treeDetailListAdapter = TreeDetailListAdapter(context, null, true).apply {
+            setLoadingView(R.layout.rv_loading_layout)
+            setLoadEndView(R.layout.rv_load_end_layout)
+            setLoadFailedView(R.layout.rv_load_failed_layout)
+            setOnItemClickListener { _, data, _ ->
+                ArticleActivity.start(mContext, data.title, data.link)
             }
-        }
-        treeDetailListAdapter.setOnLoadMoreListener {
-            presenter.getTreeDetail(pageNum, cid)
+            setOnItemChildClickListener(R.id.treeArticleCollectIv) { _, data, position ->
+                collectDataItem = data
+                collectPosition = position
+                if (!data.collect) {
+                    presenter.collect(data.id)
+                } else {
+                    presenter.uncollect(data.id)
+                }
+            }
+            setOnLoadMoreListener {
+                presenter.getTreeDetail(pageNum, cid)
 
+            }
         }
         val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL

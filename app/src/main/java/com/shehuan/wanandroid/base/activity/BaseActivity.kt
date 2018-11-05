@@ -30,19 +30,23 @@ abstract class BaseActivity : AppCompatActivity() {
     protected lateinit var statusView: StatusView
 
     protected fun initStatusView(id: Int, errorRetry: (View) -> Unit) {
-        statusView = StatusView.init(this, id)
-        statusView.setLoadingView(R.layout.dialog_loading_layout)
-        statusView.config(StatusViewBuilder.Builder()
-                .setOnErrorRetryClickListener(errorRetry)
-                .build())
+        statusView = StatusView.init(this, id).apply {
+            setLoadingView(R.layout.dialog_loading_layout)
+            config(StatusViewBuilder.Builder()
+                    .showEmptyRetry(false)
+                    .setOnErrorRetryClickListener(errorRetry)
+                    .build())
+        }
     }
 
-    protected fun initToolbar(title: String) {
-        toolbar.title = title
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener {
-            finish()
+    protected fun initToolbar(titleStr: String) {
+        toolbar.run {
+            title = titleStr
+            setSupportActionBar(this)
+            setNavigationOnClickListener {
+                finish()
+            }
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
     }
 }

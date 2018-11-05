@@ -15,16 +15,18 @@ class TreeDetailListAdapter(context: Context?, data: List<DatasItem>?, isOpenLoa
     }
 
     override fun convert(viewHolder: ViewHolder, data: DatasItem, position: Int) {
-        viewHolder.setText(R.id.articleTitleTv, Html.fromHtml(data.title).toString())
-        viewHolder.setText(R.id.articleAuthorTv, data.author)
-        viewHolder.setText(R.id.articleTimeTv, data.niceDate)
+        with(viewHolder){
+            setText(R.id.articleTitleTv, Html.fromHtml(data.title).toString())
+            setText(R.id.articleAuthorTv, data.author)
+            setText(R.id.articleTimeTv, data.niceDate)
 
-        val collectTv = viewHolder.getView<ImageView>(R.id.treeArticleCollectIv)
-
-        if (data.collect) {
-            collectTv.setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_like_fill))
-        } else {
-            collectTv.setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_like))
+            getView<ImageView>(R.id.treeArticleCollectIv).run {
+                if (data.collect) {
+                    setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_like_fill))
+                } else {
+                    setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_like))
+                }
+            }
         }
     }
 }

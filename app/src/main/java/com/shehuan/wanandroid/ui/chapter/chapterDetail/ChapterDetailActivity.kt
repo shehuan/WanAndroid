@@ -29,6 +29,8 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
     private lateinit var keyWord: String
     private lateinit var queryResultAdapter: ChapterDetailListAdapter
     private var isInitQuery: Boolean = false
+    // 搜索结果是否为空
+    private var isEmpty: Boolean = false
 
     private lateinit var collectDataItem: DatasItem
     private var collectPosition: Int = 0
@@ -78,25 +80,26 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
      * 文章列表初始化
      */
     private fun initChapterList() {
-        chapterDetailListAdapter = ChapterDetailListAdapter(mContext, null, true)
-        chapterDetailListAdapter.setLoadingView(R.layout.rv_loading_layout)
-        chapterDetailListAdapter.setLoadEndView(R.layout.rv_load_end_layout)
-        chapterDetailListAdapter.setLoadFailedView(R.layout.rv_load_failed_layout)
+        chapterDetailListAdapter = ChapterDetailListAdapter(mContext, null, true).apply {
+            setLoadingView(R.layout.rv_loading_layout)
+            setLoadEndView(R.layout.rv_load_end_layout)
+            setLoadFailedView(R.layout.rv_load_failed_layout)
 
-        chapterDetailListAdapter.setOnItemClickListener { _, data, _ ->
-            ArticleActivity.start(mContext, data.title, data.link)
-        }
-        chapterDetailListAdapter.setOnItemChildClickListener(R.id.chapterArticleCollectIv) { _, data, position ->
-            collectDataItem = data
-            collectPosition = position
-            if (!data.collect) {
-                presenter.collect(data.id)
-            } else {
-                presenter.uncollect(data.id)
+            setOnItemClickListener { _, data, _ ->
+                ArticleActivity.start(mContext, data.title, data.link)
             }
-        }
-        chapterDetailListAdapter.setOnLoadMoreListener {
-            presenter.getChapterArticleList(chapterId, pageNum)
+            setOnItemChildClickListener(R.id.chapterArticleCollectIv) { _, data, position ->
+                collectDataItem = data
+                collectPosition = position
+                if (!data.collect) {
+                    presenter.collect(data.id)
+                } else {
+                    presenter.uncollect(data.id)
+                }
+            }
+            setOnLoadMoreListener {
+                presenter.getChapterArticleList(chapterId, pageNum)
+            }
         }
         val linearLayoutManager = LinearLayoutManager(mContext)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -109,25 +112,26 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
      * 搜索列表初始化
      */
     private fun initQueryChapterList() {
-        queryResultAdapter = ChapterDetailListAdapter(mContext, null, true)
-        queryResultAdapter.setLoadingView(R.layout.rv_loading_layout)
-        queryResultAdapter.setLoadEndView(R.layout.rv_load_end_layout)
-        queryResultAdapter.setLoadFailedView(R.layout.rv_load_failed_layout)
+        queryResultAdapter = ChapterDetailListAdapter(mContext, null, true).apply {
+            setLoadingView(R.layout.rv_loading_layout)
+            setLoadEndView(R.layout.rv_load_end_layout)
+            setLoadFailedView(R.layout.rv_load_failed_layout)
 
-        queryResultAdapter.setOnItemClickListener { _, data, _ ->
-            ArticleActivity.start(mContext, data.title, data.link)
-        }
-        queryResultAdapter.setOnItemChildClickListener(R.id.chapterArticleCollectIv) { _, data, position ->
-            collectDataItem = data
-            collectPosition = position
-            if (!data.collect) {
-                presenter.collect(data.id)
-            } else {
-                presenter.uncollect(data.id)
+            setOnItemClickListener { _, data, _ ->
+                ArticleActivity.start(mContext, data.title, data.link)
             }
-        }
-        queryResultAdapter.setOnLoadMoreListener {
-            presenter.queryChapterArticle(chapterId, pageNum, keyWord)
+            setOnItemChildClickListener(R.id.chapterArticleCollectIv) { _, data, position ->
+                collectDataItem = data
+                collectPosition = position
+                if (!data.collect) {
+                    presenter.collect(data.id)
+                } else {
+                    presenter.uncollect(data.id)
+                }
+            }
+            setOnLoadMoreListener {
+                presenter.queryChapterArticle(chapterId, pageNum, keyWord)
+            }
         }
         val linearLayoutManager = LinearLayoutManager(mContext)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -140,32 +144,36 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
         menuInflater.inflate(R.menu.toolbar_query_menu_layout, menu)
         val queryItem = menu?.findItem(R.id.action_query)
         val searchView = MenuItemCompat.getActionView(queryItem) as SearchView
-        // 是否显示提交按钮
-        searchView.isSubmitButtonEnabled = false
-        // 搜索框是否展开,false表示展开
-        searchView.isIconified = true
-        searchView.queryHint = "输入关键字"
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(content: String): Boolean {
-                searchView.clearFocus()
-                keyWord = content
-                if (!keyWord.isEmpty()) {
-                    queryPageNum = 0
-                    isInitQuery = true
-                    presenter.queryChapterArticle(chapterId, queryPageNum, keyWord)
+        searchView.run {
+            // 是否显示提交按钮
+            isSubmitButtonEnabled = false
+            // 搜索框是否展开,false表示展开
+            isIconified = true
+            queryHint = "输入关键字"
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(content: String): Boolean {
+                    searchView.clearFocus()
+                    keyWord = content
+                    if (!keyWord.isEmpty()) {
+                        queryPageNum = 0
+                        isInitQuery = true
+                        presenter.queryChapterArticle(chapterId, queryPageNum, keyWord)
+                    }
+                    return true
                 }
-                return true
-            }
 
-            override fun onQueryTextChange(p0: String?): Boolean {
-                return true
-            }
-        })
+                override fun onQueryTextChange(p0: String?): Boolean {
+                    return true
+                }
+            })
 
-        // 关闭搜索
-        searchView.setOnCloseListener {
-            queryChapterRv.visibility = View.GONE
-            return@setOnCloseListener false
+            // 关闭搜索
+            setOnCloseListener {
+                isEmpty = false
+                statusView.showContentView()
+                queryChapterRv.visibility = View.GONE
+                return@setOnCloseListener false
+            }
         }
 
         return super.onCreateOptionsMenu(menu)
@@ -181,7 +189,6 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
         pageNum++
         if (pageNum == data.pageCount) {
             chapterDetailListAdapter.loadEnd()
-            return
         }
     }
 
@@ -205,6 +212,13 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
         }
 
         if (queryPageNum == 0) {
+            if (data.datas.isEmpty()) {
+                isEmpty = true
+                statusView.showEmptyView()
+                return
+            } else if (isEmpty) {
+                statusView.showContentView()
+            }
             queryResultAdapter.setNewData(data.datas)
         } else {
             queryResultAdapter.setLoadMoreData(data.datas)
@@ -212,7 +226,6 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
         queryPageNum++
         if (queryPageNum == data.pageCount) {
             queryResultAdapter.loadEnd()
-            return
         }
     }
 

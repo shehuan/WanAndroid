@@ -16,15 +16,18 @@ class QueryResultAdapter(context: Context?, data: List<DatasItem>?, isOpenLoadMo
     }
 
     override fun convert(viewHolder: ViewHolder, data: DatasItem, position: Int) {
-        viewHolder.setText(R.id.articleTitleTv, Html.fromHtml(data.title).toString())
-        val typeTv = viewHolder.getView<TextView>(R.id.articleTypeTv)
-        if (data.tags.isNotEmpty()) {
-            typeTv.text = data.tags[0].name
-            typeTv.visibility = View.VISIBLE
-        } else {
-            typeTv.visibility = View.GONE
+        with(viewHolder) {
+            setText(R.id.articleTitleTv, Html.fromHtml(data.title).toString())
+            getView<TextView>(R.id.articleTypeTv).run {
+                if (data.tags.isNotEmpty()) {
+                    text = data.tags[0].name
+                    visibility = View.VISIBLE
+                } else {
+                    visibility = View.GONE
+                }
+            }
+            setText(R.id.articleAuthorTv, data.author)
+            setText(R.id.articleTimeTv, data.niceDate)
         }
-        viewHolder.setText(R.id.articleAuthorTv, data.author)
-        viewHolder.setText(R.id.articleTimeTv, data.niceDate)
     }
 }

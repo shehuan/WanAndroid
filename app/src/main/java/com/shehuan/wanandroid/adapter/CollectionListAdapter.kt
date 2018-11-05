@@ -14,8 +14,10 @@ class CollectionListAdapter(context: Context?, data: List<DatasItem>?, isOpenLoa
     }
 
     override fun convert(viewHolder: ViewHolder, data: DatasItem, position: Int) {
-        viewHolder.setText(R.id.articleTitleTv, Html.fromHtml(data.title).toString())
-        viewHolder.setText(R.id.articleAuthorTv, data.author)
-        viewHolder.setText(R.id.collectTimeTv, data.niceDate)
+        with(viewHolder){
+            setText(R.id.articleTitleTv, Html.fromHtml(data.title).toString())
+            setText(R.id.articleAuthorTv, data.author)
+            setText(R.id.collectTimeTv, data.niceDate)
+        }
     }
 }

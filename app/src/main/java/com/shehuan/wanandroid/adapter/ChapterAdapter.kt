@@ -20,7 +20,9 @@ class ChapterAdapter(context: Context?, data: List<ChapterBean>?, isOpenLoadMore
     }
 
     override fun convert(viewHolder: ViewHolder, data: ChapterBean, position: Int) {
-        viewHolder.setText(R.id.chapterNameTv, data.name)
-        viewHolder.setBgColor(R.id.chapterNameTv, mContext.resources.getColor(colors[position % 5]))
+        with(viewHolder) {
+            setText(R.id.chapterNameTv, data.name)
+            setBgColor(R.id.chapterNameTv, mContext.resources.getColor(colors[position % 5]))
+        }
     }
 }

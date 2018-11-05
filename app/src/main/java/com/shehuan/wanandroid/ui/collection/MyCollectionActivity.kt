@@ -13,7 +13,6 @@ import com.shehuan.wanandroid.utils.ToastUtil
 import com.shehuan.wanandroid.widget.DivideItemDecoration
 import com.shehuan.wanandroid.widget.WrapLinearLayoutManager
 import kotlinx.android.synthetic.main.activity_my_collection.*
-import kotlinx.android.synthetic.main.toolbar_layout.*
 
 class MyCollectionActivity : BaseMvpActivity<MyCollectionPresenterImpl>(), MyCollectionContract.View {
     private var pageNum: Int = 0
@@ -47,21 +46,22 @@ class MyCollectionActivity : BaseMvpActivity<MyCollectionPresenterImpl>(), MyCol
     override fun initView() {
         initToolbar("收藏")
 
-        collectionListAdapter = CollectionListAdapter(mContext, null, true)
-        collectionListAdapter.setLoadingView(R.layout.rv_loading_layout)
-        collectionListAdapter.setLoadEndView(R.layout.rv_load_end_layout)
-        collectionListAdapter.setLoadFailedView(R.layout.rv_load_failed_layout)
+        collectionListAdapter = CollectionListAdapter(mContext, null, true).apply {
+            setLoadingView(R.layout.rv_loading_layout)
+            setLoadEndView(R.layout.rv_load_end_layout)
+            setLoadFailedView(R.layout.rv_load_failed_layout)
 
-        collectionListAdapter.setOnItemClickListener { _, data, _ ->
-            ArticleActivity.start(mContext, data.title, data.link)
-        }
-        collectionListAdapter.setOnItemChildClickListener(R.id.articleCollectIv) { _, data, position ->
-            collectPosition = position
-            presenter.cancelCollection(data.id, data.originId)
+            setOnItemClickListener { _, data, _ ->
+                ArticleActivity.start(mContext, data.title, data.link)
+            }
+            setOnItemChildClickListener(R.id.articleCollectIv) { _, data, position ->
+                collectPosition = position
+                presenter.cancelCollection(data.id, data.originId)
 
-        }
-        collectionListAdapter.setOnLoadMoreListener {
-            presenter.getCollectionList(pageNum)
+            }
+            setOnLoadMoreListener {
+                presenter.getCollectionList(pageNum)
+            }
         }
         val linearLayoutManager = WrapLinearLayoutManager(mContext)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL

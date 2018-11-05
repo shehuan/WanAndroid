@@ -30,6 +30,8 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
     private var isInitQuery: Boolean = false
     private lateinit var queryResultAdapter: QueryResultAdapter
     private lateinit var searchView: SearchView
+    // 搜索结果是否为空
+    private var isEmpty: Boolean = false
 
     companion object {
         fun start(context: BaseActivity) {
@@ -72,26 +74,28 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
         }
 
         // 搜索结果列表相关初始化
-        queryResultAdapter = QueryResultAdapter(mContext, null, true)
-        queryResultAdapter.setLoadingView(R.layout.rv_loading_layout)
-        queryResultAdapter.setLoadEndView(R.layout.rv_load_end_layout)
-        queryResultAdapter.setLoadFailedView(R.layout.rv_load_failed_layout)
+        queryResultAdapter = QueryResultAdapter(mContext, null, true).apply {
+            setLoadingView(R.layout.rv_loading_layout)
+            setLoadEndView(R.layout.rv_load_end_layout)
+            setLoadFailedView(R.layout.rv_load_failed_layout)
 
-        queryResultAdapter.setOnItemClickListener { _, data, _ ->
-            ArticleActivity.start(mContext, data.title, data.link)
-        }
-        queryResultAdapter.setOnLoadMoreListener {
-            if (!keyWord.isEmpty()) {
-                presenter.query(pageNum, keyWord, false)
+            setOnItemClickListener { _, data, _ ->
+                ArticleActivity.start(mContext, data.title, data.link)
+            }
+            setOnLoadMoreListener {
+                if (!keyWord.isEmpty()) {
+                    presenter.query(pageNum, keyWord, false)
+                }
             }
         }
+
         val linearLayoutManager = LinearLayoutManager(mContext)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         queryResultRv.layoutManager = linearLayoutManager
         queryResultRv.addItemDecoration(DivideItemDecoration())
         queryResultRv.adapter = queryResultAdapter
 
-        initStatusView(R.id.hotKeyFL) {
+        initStatusView(R.id.contentFl) {
             loadData()
         }
     }
@@ -100,35 +104,38 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
         menuInflater.inflate(R.menu.toolbar_query_menu_layout, menu)
         val queryItem = menu?.findItem(R.id.action_query)
         searchView = MenuItemCompat.getActionView(queryItem) as SearchView
-        // 是否显示提交按钮
-        searchView.isSubmitButtonEnabled = false
-        // 搜索框是否展开
-        searchView.isIconified = false
-        searchView.queryHint = "输入关键字，多个用空格隔开"
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(content: String): Boolean {
-                searchView.clearFocus()
-                addQueryHistory(content)
-                keyWord = content
-                if (!keyWord.isEmpty()) {
-                    isInitQuery = true
-                    pageNum = 0
-                    presenter.query(pageNum, keyWord, true)
+        searchView.run {
+            // 是否显示提交按钮
+            isSubmitButtonEnabled = false
+            // 搜索框是否展开
+            isIconified = false
+            queryHint = "输入关键字，多个用空格隔开"
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(content: String): Boolean {
+                    clearFocus()
+                    addQueryHistory(content)
+                    keyWord = content
+                    if (!keyWord.isEmpty()) {
+                        isInitQuery = true
+                        pageNum = 0
+                        presenter.query(pageNum, keyWord, true)
+                    }
+                    return true
                 }
-                return true
-            }
 
-            override fun onQueryTextChange(p0: String?): Boolean {
-                return true
-            }
-        })
+                override fun onQueryTextChange(p0: String?): Boolean {
+                    return true
+                }
+            })
 
-        // 关闭搜索
-        searchView.setOnCloseListener {
-            queryResultRv.visibility = View.GONE
-            return@setOnCloseListener false
+            // 关闭搜索
+            setOnCloseListener {
+                isEmpty = false
+                statusView.showContentView()
+                queryResultRv.visibility = View.GONE
+                return@setOnCloseListener false
+            }
         }
-
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -144,6 +151,13 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
         }
 
         if (pageNum == 0) {
+            if (data.datas.isEmpty()) {
+                isEmpty = true
+                statusView.showEmptyView()
+                return
+            } else if (isEmpty) {
+                statusView.showContentView()
+            }
             queryResultAdapter.setNewData(data.datas)
         } else {
             queryResultAdapter.setLoadMoreData(data.datas)
@@ -151,7 +165,6 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
         pageNum++
         if (pageNum == data.pageCount) {
             queryResultAdapter.loadEnd()
-            return
         }
     }
 

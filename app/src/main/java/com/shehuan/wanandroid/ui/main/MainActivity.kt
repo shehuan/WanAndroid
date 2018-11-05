@@ -86,29 +86,33 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
             return@setNavigationItemSelectedListener true
         }
 
-        mainBottomTabLayout.setOnTabSwitchListener(object : BottomTabLayout.OnTabSwitchListener {
-            override fun onTabSwitch(tabIndex: Int, tabName: String) {
-                tabNameTv.text = tabName
-            }
-        })
-
-        mainBottomTabLayout.addTab("首页", R.drawable.ic_homepage, R.drawable.ic_homepage_fill)
-        mainBottomTabLayout.addTab("项目", R.drawable.ic_createtask, R.drawable.ic_createtask_fill)
-        mainBottomTabLayout.addTab("体系", R.drawable.ic_manage, R.drawable.ic_manage_fill)
-        mainBottomTabLayout.addTab("导航", R.drawable.ic_coordinates, R.drawable.ic_coordinates_fill)
-        mainBottomTabLayout.addTab("公众号", R.drawable.ic_select, R.drawable.ic_select_fill)
-
-        val fragments = arrayListOf<BaseFragment>()
-        fragments.add(HomeFragment.newInstance())
-        fragments.add(ProjectFragment.newInstance())
-        fragments.add(TreeFragment.newInstance())
-        fragments.add(NavFragment.newInstance())
-        fragments.add(ChapterFragment.newInstance())
+        // 初始化ViewPager
+        val fragments = arrayListOf<BaseFragment>().apply {
+            add(HomeFragment.newInstance())
+            add(ProjectFragment.newInstance())
+            add(TreeFragment.newInstance())
+            add(NavFragment.newInstance())
+            add(ChapterFragment.newInstance())
+        }
         val viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
         viewPagerAdapter.setFragments(fragments)
         mainViewpager.adapter = viewPagerAdapter
         mainViewpager.offscreenPageLimit = fragments.size
-        mainBottomTabLayout.setupWithViewPager(mainViewpager)
+
+        // 初始化底部Tab
+        mainBottomTabLayout.run {
+            setupWithViewPager(mainViewpager)
+            setOnTabSwitchListener(object : BottomTabLayout.OnTabSwitchListener {
+                override fun onTabSwitch(tabIndex: Int, tabName: String) {
+                    tabNameTv.text = tabName
+                }
+            })
+            addTab("首页", R.drawable.ic_homepage, R.drawable.ic_homepage_fill)
+            addTab("项目", R.drawable.ic_createtask, R.drawable.ic_createtask_fill)
+            addTab("体系", R.drawable.ic_manage, R.drawable.ic_manage_fill)
+            addTab("导航", R.drawable.ic_coordinates, R.drawable.ic_coordinates_fill)
+            addTab("公众号", R.drawable.ic_select, R.drawable.ic_select_fill)
+        }
     }
 
     private fun collection() {
@@ -120,11 +124,11 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
     }
 
     private fun setting() {
-
+        ToastUtil.showToast(mContext, "暂时没有什么需要设置的！")
     }
 
     private fun about() {
-
+        ToastUtil.showToast(mContext, "一起学习Kotlin吧！")
     }
 
     private fun logout() {
@@ -139,7 +143,7 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
         SpUtil.removeCookies()
         SpUtil.removeUsername()
         usernameTv.text = SpUtil.getUsername()
-        ToastUtil.showToast(mContext, "退出成功")
+        ToastUtil.showToast(mContext, "退出成功！")
     }
 
     override fun onLogoutError(e: ResponseException) {
@@ -160,7 +164,7 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
                 return
             }
             isBackPressed = true
-            ToastUtil.showToast(mContext, "再按一次退出")
+            ToastUtil.showToast(mContext, "再按一次退出！")
             Handler().postDelayed({ isBackPressed = false }, 2000)
         }
     }

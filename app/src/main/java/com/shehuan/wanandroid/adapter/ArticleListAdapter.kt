@@ -17,22 +17,25 @@ class ArticleListAdapter(context: Context?, data: List<DatasItem>?, isOpenLoadMo
     }
 
     override fun convert(viewHolder: ViewHolder, data: DatasItem, position: Int) {
-        viewHolder.setText(R.id.articleTitleTv, Html.fromHtml(data.title).toString())
-        val typeTv = viewHolder.getView<TextView>(R.id.articleTypeTv)
-        val collectTv = viewHolder.getView<ImageView>(R.id.articleCollectIv)
-        if (data.collect) {
-            collectTv.setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_like_fill))
-        } else {
-            collectTv.setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_like))
+        with(viewHolder) {
+            setText(R.id.articleTitleTv, Html.fromHtml(data.title).toString())
+            getView<ImageView>(R.id.articleCollectIv).run {
+                if (data.collect) {
+                    setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_like_fill))
+                } else {
+                    setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_like))
+                }
+            }
+            getView<TextView>(R.id.articleTypeTv).run {
+                if (data.tags.isNotEmpty()) {
+                    text = data.tags[0].name
+                    visibility = View.VISIBLE
+                } else {
+                    visibility = View.GONE
+                }
+            }
+            setText(R.id.articleAuthorTv, data.author)
+            setText(R.id.articleTimeTv, data.niceDate)
         }
-
-        if (data.tags.isNotEmpty()) {
-            typeTv.text = data.tags[0].name
-            typeTv.visibility = View.VISIBLE
-        } else {
-            typeTv.visibility = View.GONE
-        }
-        viewHolder.setText(R.id.articleAuthorTv, data.author)
-        viewHolder.setText(R.id.articleTimeTv, data.niceDate)
     }
 }

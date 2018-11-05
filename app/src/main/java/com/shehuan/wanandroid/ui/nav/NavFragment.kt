@@ -37,10 +37,10 @@ class NavFragment : BaseMvpFragment<NavPresenterImpl>(), NavContract.View {
     override fun initView() {
         naviTabLayout.setOnTabClickListener(object : VerticalTabLayout.OnTabClickListener {
             override fun onTabClick(oldTabIndex: Int, newTabIndex: Int) {
-                fragmentManager!!.beginTransaction()
-                        .hide(fragments[oldTabIndex])
-                        .show(fragments[newTabIndex])
-                        .commit()
+                fragmentManager?.beginTransaction()
+                        ?.hide(fragments[oldTabIndex])
+                        ?.show(fragments[newTabIndex])
+                        ?.commit()
             }
         })
 

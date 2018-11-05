@@ -47,27 +47,28 @@ class ProjectDetailFragment : BaseMvpFragment<ProjectDetailPresenterImpl>(), Pro
     }
 
     override fun initView() {
-        projectListAdapter = ProjectListAdapter(context, null, true)
-        projectListAdapter.setLoadingView(R.layout.rv_loading_layout)
-        projectListAdapter.setLoadEndView(R.layout.rv_load_end_layout)
-        projectListAdapter.setLoadFailedView(R.layout.rv_load_failed_layout)
-        projectListAdapter.setOnItemClickListener { _, data, _ ->
-            ArticleActivity.start(mContext, data.title, data.link)
-        }
-        projectListAdapter.setOnItemChildClickListener(R.id.projectCollectIv) { _, data, position ->
-            collectDataItem = data
-            collectPosition = position
-            if (!data.collect) {
-                presenter.collect(data.id)
-            } else {
-                presenter.uncollect(data.id)
+        projectListAdapter = ProjectListAdapter(context, null, true).apply {
+            setLoadingView(R.layout.rv_loading_layout)
+            setLoadEndView(R.layout.rv_load_end_layout)
+            setLoadFailedView(R.layout.rv_load_failed_layout)
+            setOnItemClickListener { _, data, _ ->
+                ArticleActivity.start(mContext, data.title, data.link)
             }
-        }
-        projectListAdapter.setOnLoadMoreListener {
-            if (cid == -1) {
-                presenter.getNewProjectList(pageNum)
-            } else {
-                presenter.getProjectDetail(pageNum, cid)
+            setOnItemChildClickListener(R.id.projectCollectIv) { _, data, position ->
+                collectDataItem = data
+                collectPosition = position
+                if (!data.collect) {
+                    presenter.collect(data.id)
+                } else {
+                    presenter.uncollect(data.id)
+                }
+            }
+            setOnLoadMoreListener {
+                if (cid == -1) {
+                    presenter.getNewProjectList(pageNum)
+                } else {
+                    presenter.getProjectDetail(pageNum, cid)
+                }
             }
         }
         val linearLayoutManager = LinearLayoutManager(context)

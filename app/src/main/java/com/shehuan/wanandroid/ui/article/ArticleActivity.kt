@@ -47,11 +47,12 @@ class ArticleActivity : BaseActivity() {
         initToolbar(Html.fromHtml(title).toString())
 
         articleWebView.requestFocusFromTouch()
-        val webSettings = articleWebView.settings
-        webSettings.javaScriptEnabled = true
-        webSettings.setSupportZoom(true)
-        webSettings.builtInZoomControls = true
-        webSettings.displayZoomControls = false
+        articleWebView.settings.run {
+            javaScriptEnabled = true
+            setSupportZoom(true)
+            builtInZoomControls = true
+            displayZoomControls = false
+        }
         articleWebView.webViewClient = object : WebViewClient() {
             override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
                 super.onReceivedError(view, request, error)
@@ -92,7 +93,7 @@ class ArticleActivity : BaseActivity() {
 
     private fun browser() {
         val intent = Intent()
-        intent.apply {
+        intent.run {
             data = Uri.parse(link)
             action = Intent.ACTION_VIEW
         }

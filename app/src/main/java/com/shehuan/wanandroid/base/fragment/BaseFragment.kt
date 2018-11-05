@@ -170,11 +170,12 @@ abstract class BaseFragment : Fragment() {
     }
 
     protected fun initStatusView(statusView: StatusView, errorRetry: (View) -> Unit) {
-        this.statusView = statusView
-        this.statusView.setLoadingView(R.layout.dialog_loading_layout)
-        this.statusView.config(StatusViewBuilder.Builder()
-                .setLoadingTip(" ")
-                .setOnErrorRetryClickListener(errorRetry)
-                .build())
+        this.statusView = statusView.apply {
+            setLoadingView(R.layout.dialog_loading_layout)
+            config(StatusViewBuilder.Builder()
+                    .showEmptyRetry(false)
+                    .setOnErrorRetryClickListener(errorRetry)
+                    .build())
+        }
     }
 }

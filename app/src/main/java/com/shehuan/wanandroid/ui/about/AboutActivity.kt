@@ -13,6 +13,6 @@ class AboutActivity : BaseActivity() {
     }
 
     override fun initView() {
-
+        initToolbar("关于")
     }
 }

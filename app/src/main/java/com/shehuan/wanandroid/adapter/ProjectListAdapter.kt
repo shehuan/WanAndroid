@@ -16,18 +16,20 @@ class ProjectListAdapter(context: Context?, data: List<DatasItem>?, isOpenLoadMo
     }
 
     override fun convert(viewHolder: ViewHolder, data: DatasItem, position: Int) {
-        ImageLoader.load(mContext, data.envelopePic, viewHolder.getView(R.id.projectIv))
-        viewHolder.setText(R.id.projectTitleTv, Html.fromHtml(data.title).toString())
-        viewHolder.setText(R.id.projectDescTv, data.desc)
-        viewHolder.setText(R.id.projectAuthorTv, data.author)
-        viewHolder.setText(R.id.projectTimeTv, data.niceDate)
+        with(viewHolder){
+            ImageLoader.load(mContext, data.envelopePic, getView(R.id.projectIv))
+            setText(R.id.projectTitleTv, Html.fromHtml(data.title).toString())
+            setText(R.id.projectDescTv, data.desc)
+            setText(R.id.projectAuthorTv, data.author)
+            setText(R.id.projectTimeTv, data.niceDate)
 
-        val collectTv = viewHolder.getView<ImageView>(R.id.projectCollectIv)
-
-        if (data.collect) {
-            collectTv.setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_like_fill))
-        } else {
-            collectTv.setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_like))
+           getView<ImageView>(R.id.projectCollectIv).run {
+                if (data.collect) {
+                   setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_like_fill))
+                } else {
+                    setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_like))
+                }
+            }
         }
     }
 }

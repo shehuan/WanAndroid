@@ -14,15 +14,17 @@ class ChapterDetailListAdapter(context: Context?, data: List<DatasItem>?, isOpen
     }
 
     override fun convert(viewHolder: ViewHolder, data: DatasItem, position: Int) {
-        viewHolder.setText(R.id.chapterArticleTitleTv, data.title)
-        viewHolder.setText(R.id.chapterArticleTimeTv, data.niceDate)
+        with(viewHolder) {
+            setText(R.id.chapterArticleTitleTv, data.title)
+            setText(R.id.chapterArticleTimeTv, data.niceDate)
 
-        val collectTv = viewHolder.getView<ImageView>(R.id.chapterArticleCollectIv)
-
-        if (data.collect) {
-            collectTv.setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_like_fill))
-        } else {
-            collectTv.setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_like))
+            getView<ImageView>(R.id.chapterArticleCollectIv).run {
+                if (data.collect) {
+                    setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_like_fill))
+                } else {
+                    setImageDrawable(mContext.resources.getDrawable(R.drawable.ic_like))
+                }
+            }
         }
     }
 }

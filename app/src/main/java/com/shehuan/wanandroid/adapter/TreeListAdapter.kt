@@ -18,8 +18,10 @@ class TreeListAdapter(context: Context?, data: List<TreeBean>?, isOpenLoadMore: 
     }
 
     override fun convert(viewHolder: ViewHolder, data: TreeBean, position: Int) {
-        viewHolder.setText(R.id.treeTitleTv, data.name)
-        setTreeData(mContext, viewHolder.getView(R.id.treeFL), data.children)
+        with(viewHolder) {
+            setText(R.id.treeTitleTv, data.name)
+            setTreeData(mContext, getView(R.id.treeFL), data.children)
+        }
     }
 
     private fun setTreeData(context: Context, fl: FlexboxLayout, data: List<ChildrenItem>) {

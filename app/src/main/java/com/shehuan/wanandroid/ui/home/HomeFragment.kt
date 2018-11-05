@@ -51,36 +51,40 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
 
     override fun initView() {
         banner = LayoutInflater.from(context).inflate(R.layout.home_banner_layout, homeRootLayout, false) as Banner
-        banner.setImageLoader(BannerImageLoader())
-        banner.setDelayTime(3000)
-        banner.setIndicatorGravity(BannerConfig.RIGHT)
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE)
-        banner.setOnBannerListener {
-            ArticleActivity.start(mContext, bannerBeans[it].title, bannerBeans[it].url)
-        }
-
-        articleListAdapter = ArticleListAdapter(context, null, true)
-        articleListAdapter.setLoadingView(R.layout.rv_loading_layout)
-        articleListAdapter.setLoadEndView(R.layout.rv_load_end_layout)
-        articleListAdapter.setLoadFailedView(R.layout.rv_load_failed_layout)
-        // 添加banner
-        articleListAdapter.addHeaderView(banner)
-
-        articleListAdapter.setOnItemClickListener { _, data, _ ->
-            ArticleActivity.start(mContext, data.title, data.link)
-        }
-        articleListAdapter.setOnItemChildClickListener(R.id.articleCollectIv) { _, data, position ->
-            collectDataItem = data
-            collectPosition = position
-            if (!data.collect) {
-                presenter.collect(data.id)
-            } else {
-                presenter.uncollect(data.id)
+        banner.run {
+            setImageLoader(BannerImageLoader())
+            setDelayTime(3000)
+            setIndicatorGravity(BannerConfig.RIGHT)
+            setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE)
+            setOnBannerListener {
+                ArticleActivity.start(mContext, bannerBeans[it].title, bannerBeans[it].url)
             }
         }
-        articleListAdapter.setOnLoadMoreListener {
-            presenter.getArticleList(pageNum)
+
+        articleListAdapter = ArticleListAdapter(context, null, true).apply {
+            setLoadingView(R.layout.rv_loading_layout)
+            setLoadEndView(R.layout.rv_load_end_layout)
+            setLoadFailedView(R.layout.rv_load_failed_layout)
+            // 添加banner
+            addHeaderView(banner)
+
+            setOnItemClickListener { _, data, _ ->
+                ArticleActivity.start(mContext, data.title, data.link)
+            }
+            setOnItemChildClickListener(R.id.articleCollectIv) { _, data, position ->
+                collectDataItem = data
+                collectPosition = position
+                if (!data.collect) {
+                    presenter.collect(data.id)
+                } else {
+                    presenter.uncollect(data.id)
+                }
+            }
+            setOnLoadMoreListener {
+                presenter.getArticleList(pageNum)
+            }
         }
+
         val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         articleRv.layoutManager = linearLayoutManager
@@ -102,10 +106,11 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
             images.add(bannerBean.imagePath)
             titles.add(bannerBean.title)
         }
-
-        banner.setImages(images)
-        banner.setBannerTitles(titles)
-        banner.start()
+        banner.run {
+            setImages(images)
+            setBannerTitles(titles)
+            start()
+        }
     }
 
     override fun onBannerError(e: ResponseException) {
