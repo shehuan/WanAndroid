@@ -13,12 +13,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/chapterDetailRv"
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/cFFFFFF"
-            android:overScrollMode="never" />
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/chapterDetailRv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/cFFFFFF"
+                android:overScrollMode="never" />
+
+            <include layout="@layout/floating_button_layout" />
+        </android.support.design.widget.CoordinatorLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/queryChapterRv"

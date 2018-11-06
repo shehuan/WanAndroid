@@ -70,7 +70,7 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
         usernameTv = navigationView.getHeaderView(0).findViewById(R.id.usernameTv)
         usernameTv.text = SpUtil.getUsername()
         usernameTv.setOnClickListener {
-            if ("登录" == SpUtil.getUsername()) {
+            if (getString(R.string.login) == SpUtil.getUsername()) {
                 LoginActivity.start(this)
             }
         }
@@ -107,33 +107,33 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
                     tabNameTv.text = tabName
                 }
             })
-            addTab("首页", R.drawable.ic_homepage, R.drawable.ic_homepage_fill)
-            addTab("项目", R.drawable.ic_createtask, R.drawable.ic_createtask_fill)
-            addTab("体系", R.drawable.ic_manage, R.drawable.ic_manage_fill)
-            addTab("导航", R.drawable.ic_coordinates, R.drawable.ic_coordinates_fill)
-            addTab("公众号", R.drawable.ic_select, R.drawable.ic_select_fill)
+            addTab(getString(R.string.home), R.drawable.ic_homepage, R.drawable.ic_homepage_fill)
+            addTab(getString(R.string.project), R.drawable.ic_createtask, R.drawable.ic_createtask_fill)
+            addTab(getString(R.string.tree), R.drawable.ic_manage, R.drawable.ic_manage_fill)
+            addTab(getString(R.string.nav), R.drawable.ic_coordinates, R.drawable.ic_coordinates_fill)
+            addTab(getString(R.string.chapter), R.drawable.ic_select, R.drawable.ic_select_fill)
         }
     }
 
     private fun collection() {
         if (SpUtil.getCookies().isEmpty()) {
-            ToastUtil.showToast(mContext, "请先登录!")
+            ToastUtil.showToast(mContext, R.string.login_tip)
             return
         }
         MyCollectionActivity.start(mContext)
     }
 
     private fun setting() {
-        ToastUtil.showToast(mContext, "暂时没有什么需要设置的！")
+        ToastUtil.showToast(mContext, "开发中！")
     }
 
     private fun about() {
-        ToastUtil.showToast(mContext, "一起学习Kotlin吧！")
+        ToastUtil.showToast(mContext, "开发中！")
     }
 
     private fun logout() {
         if (SpUtil.getCookies().isEmpty()) {
-            ToastUtil.showToast(mContext, "没登录还想退出？")
+            ToastUtil.showToast(mContext, R.string.login_tip)
             return
         }
         presenter.logout()
@@ -143,7 +143,7 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
         SpUtil.removeCookies()
         SpUtil.removeUsername()
         usernameTv.text = SpUtil.getUsername()
-        ToastUtil.showToast(mContext, "退出成功！")
+        ToastUtil.showToast(mContext, R.string.logout_tip)
     }
 
     override fun onLogoutError(e: ResponseException) {
@@ -164,7 +164,7 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
                 return
             }
             isBackPressed = true
-            ToastUtil.showToast(mContext, "再按一次退出！")
+            ToastUtil.showToast(mContext, R.string.exit_tip)
             Handler().postDelayed({ isBackPressed = false }, 2000)
         }
     }

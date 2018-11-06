@@ -45,7 +45,7 @@ class ProjectFragment : BaseMvpFragment<ProjectPresenterImpl>(), ProjectContract
         projectTabLayout.visibility = View.VISIBLE
         val titles = arrayListOf<String>()
         val fragments = arrayListOf<BaseFragment>()
-        titles.add("最新项目")
+        titles.add(getString(R.string.new_project))
         fragments.add(ProjectDetailFragment.newInstance(-1))
         for (category in data) {
             titles.add(Html.fromHtml(category.name).toString())

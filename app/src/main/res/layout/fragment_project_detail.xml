@@ -6,11 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.project.projectDetail.ProjectDetailFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/projectRv"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/cFFFFFF"
-        android:overScrollMode="never" />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/projectRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/cFFFFFF"
+            android:overScrollMode="never" />
+
+        <include layout="@layout/floating_button_layout"/>
+    </android.support.design.widget.CoordinatorLayout>
 
 </com.shehuan.library.StatusView>

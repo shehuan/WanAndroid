@@ -2,6 +2,7 @@ package com.shehuan.wanandroid.base.activity
 
 import android.content.Context
 import android.os.Bundle
+import android.support.annotation.StringRes
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.shehuan.library.StatusView
@@ -37,6 +38,10 @@ abstract class BaseActivity : AppCompatActivity() {
                     .setOnErrorRetryClickListener(errorRetry)
                     .build())
         }
+    }
+
+    protected fun initToolbar(@StringRes titleId: Int) {
+        initToolbar(getString(titleId))
     }
 
     protected fun initToolbar(titleStr: String) {

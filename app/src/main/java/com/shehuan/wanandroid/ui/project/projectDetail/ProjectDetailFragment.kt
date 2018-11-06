@@ -2,6 +2,7 @@ package com.shehuan.wanandroid.ui.project.projectDetail
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.ProjectListAdapter
 import com.shehuan.wanandroid.base.fragment.BaseMvpFragment
@@ -10,7 +11,8 @@ import com.shehuan.wanandroid.bean.project.DatasItem
 import com.shehuan.wanandroid.bean.project.ProjectBean
 import com.shehuan.wanandroid.ui.article.ArticleActivity
 import com.shehuan.wanandroid.utils.ToastUtil
-import com.shehuan.wanandroid.widget.DivideItemDecoration
+import com.shehuan.wanandroid.widget.DividerItemDecoration
+import kotlinx.android.synthetic.main.floating_button_layout.*
 import kotlinx.android.synthetic.main.fragment_project_detail.*
 
 private const val CID = "cid"
@@ -47,6 +49,12 @@ class ProjectDetailFragment : BaseMvpFragment<ProjectDetailPresenterImpl>(), Pro
     }
 
     override fun initView() {
+        // 悬浮按钮点击事件
+        floatBtn.hide()
+        floatBtn.setOnClickListener {
+            projectRv.smoothScrollToPosition(0)
+        }
+
         projectListAdapter = ProjectListAdapter(context, null, true).apply {
             setLoadingView(R.layout.rv_loading_layout)
             setLoadEndView(R.layout.rv_load_end_layout)
@@ -73,9 +81,22 @@ class ProjectDetailFragment : BaseMvpFragment<ProjectDetailPresenterImpl>(), Pro
         }
         val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        projectRv.layoutManager = linearLayoutManager
-        projectRv.addItemDecoration(DivideItemDecoration())
-        projectRv.adapter = projectListAdapter
+        projectRv.run {
+            layoutManager = linearLayoutManager
+            addItemDecoration(DividerItemDecoration())
+            adapter = projectListAdapter
+            // 控制悬浮按钮
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (linearLayoutManager.findLastVisibleItemPosition() > 10) {
+                        floatBtn.show()
+                    } else {
+                        floatBtn.hide()
+                    }
+                }
+            })
+        }
 
         initStatusView(projectDetailRootLayout) {
             loadData()
@@ -132,7 +153,7 @@ class ProjectDetailFragment : BaseMvpFragment<ProjectDetailPresenterImpl>(), Pro
     override fun onCollectSuccess(data: String) {
         collectDataItem.collect = true
         projectListAdapter.change(collectPosition)
-        ToastUtil.showToast(mContext, "收藏成功")
+        ToastUtil.showToast(mContext, R.string.collect_success)
     }
 
     override fun onCollectError(e: ResponseException) {
@@ -142,7 +163,7 @@ class ProjectDetailFragment : BaseMvpFragment<ProjectDetailPresenterImpl>(), Pro
     override fun onUncollectSuccess(data: String) {
         collectDataItem.collect = false
         projectListAdapter.change(collectPosition)
-        ToastUtil.showToast(mContext, "取消收藏成功")
+        ToastUtil.showToast(mContext, R.string.uncollect_success)
     }
 
     override fun onUncollectError(e: ResponseException) {

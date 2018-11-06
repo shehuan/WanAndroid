@@ -7,7 +7,7 @@ import com.shehuan.wanandroid.base.fragment.BaseMvpFragment
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.bean.tree.TreeBean
 import com.shehuan.wanandroid.ui.tree.treeDetail.TreeDetailActivity
-import com.shehuan.wanandroid.widget.DivideItemDecoration
+import com.shehuan.wanandroid.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.fragment_tree.*
 
 class TreeFragment : BaseMvpFragment<TreePresenterImpl>(), TreeContract.View {
@@ -42,9 +42,9 @@ class TreeFragment : BaseMvpFragment<TreePresenterImpl>(), TreeContract.View {
         val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         treeRv.layoutManager = linearLayoutManager
-        treeRv.addItemDecoration(DivideItemDecoration()
-                .setDevideHeight(20)
-                .setDevideColor(resources.getColor(R.color.cEEEEF5)))
+        treeRv.addItemDecoration(DividerItemDecoration()
+                .setDividerHeight(20)
+                .setDividerColor(resources.getColor(R.color.cEEEEF5)))
         treeRv.adapter = treeListAdapter
 
         initStatusView(treeRootLayout) {

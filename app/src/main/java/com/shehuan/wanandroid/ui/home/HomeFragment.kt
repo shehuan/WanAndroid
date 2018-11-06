@@ -1,13 +1,14 @@
 package com.shehuan.wanandroid.ui.home
 
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.ArticleListAdapter
 import com.shehuan.wanandroid.base.fragment.BaseMvpFragment
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.bean.BannerBean
 import com.shehuan.wanandroid.bean.article.ArticleBean
-import com.shehuan.wanandroid.widget.DivideItemDecoration
+import com.shehuan.wanandroid.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.fragment_home.*
 import android.view.LayoutInflater
 import com.shehuan.wanandroid.bean.article.DatasItem
@@ -16,6 +17,7 @@ import com.shehuan.wanandroid.utils.ToastUtil
 import com.youth.banner.Banner
 import com.shehuan.wanandroid.widget.BannerImageLoader
 import com.youth.banner.BannerConfig
+import kotlinx.android.synthetic.main.floating_button_layout.*
 
 
 class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
@@ -50,6 +52,7 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
     }
 
     override fun initView() {
+        // 初始化banner
         banner = LayoutInflater.from(context).inflate(R.layout.home_banner_layout, homeRootLayout, false) as Banner
         banner.run {
             setImageLoader(BannerImageLoader())
@@ -59,6 +62,12 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
             setOnBannerListener {
                 ArticleActivity.start(mContext, bannerBeans[it].title, bannerBeans[it].url)
             }
+        }
+
+        // 悬浮按钮点击事件
+        floatBtn.hide()
+        floatBtn.setOnClickListener {
+            articleRv.smoothScrollToPosition(0)
         }
 
         articleListAdapter = ArticleListAdapter(context, null, true).apply {
@@ -87,9 +96,22 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
 
         val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        articleRv.layoutManager = linearLayoutManager
-        articleRv.addItemDecoration(DivideItemDecoration())
-        articleRv.adapter = articleListAdapter
+        articleRv.run {
+            layoutManager = linearLayoutManager
+            addItemDecoration(DividerItemDecoration())
+            adapter = articleListAdapter
+            // 控制悬浮按钮
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (linearLayoutManager.findLastVisibleItemPosition() > 10) {
+                        floatBtn.show()
+                    } else {
+                        floatBtn.hide()
+                    }
+                }
+            })
+        }
 
         initStatusView(homeRootLayout) {
             loadData()
@@ -137,7 +159,7 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
     override fun onCollectSuccess(data: String) {
         collectDataItem.collect = true
         articleListAdapter.change(collectPosition + 1)
-        ToastUtil.showToast(mContext, "收藏成功")
+        ToastUtil.showToast(mContext, R.string.collect_success)
     }
 
     override fun onCollectError(e: ResponseException) {
@@ -147,7 +169,7 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
     override fun onUncollectSuccess(data: String) {
         collectDataItem.collect = false
         articleListAdapter.change(collectPosition + 1)
-        ToastUtil.showToast(mContext, "取消收藏成功")
+        ToastUtil.showToast(mContext, R.string.uncollect_success)
     }
 
     override fun onUncollectError(e: ResponseException) {

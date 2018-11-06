@@ -79,7 +79,7 @@ abstract class BaseFragment : Fragment() {
      */
     private fun isParentVisible(): Boolean {
         val fragment: Fragment? = parentFragment
-        return fragment == null || (fragment is BaseMvpFragment<*> && fragment.isVisibleToUser)
+        return fragment == null || (fragment is BaseFragment && fragment.isVisibleToUser)
     }
 
     /**
@@ -92,7 +92,7 @@ abstract class BaseFragment : Fragment() {
             return
         }
         for (child in fragments) {
-            if (child is BaseMvpFragment<*> && child.isVisibleToUser) {
+            if (child is BaseFragment && child.isVisibleToUser) {
                 child.tryLoadData()
             }
         }
@@ -124,7 +124,7 @@ abstract class BaseFragment : Fragment() {
             return
         }
         for (child in fragments) {
-            if (child is BaseMvpFragment<*> && !child.isHidden) {
+            if (child is BaseFragment && !child.isHidden) {
                 child.tryLoadData1()
             }
         }
@@ -137,7 +137,7 @@ abstract class BaseFragment : Fragment() {
         val fragment: Fragment? = parentFragment
         if (fragment == null) {
             return false
-        } else if (fragment is BaseMvpFragment<*> && !fragment.isHidden) {
+        } else if (fragment is BaseFragment && !fragment.isHidden) {
             return false
         }
         return true

@@ -103,7 +103,7 @@ class ArticleActivity : BaseActivity() {
     private fun copy() {
         val manager = mContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         manager.primaryClip = ClipData.newPlainText(null, link)
-        ToastUtil.showToast(mContext, "复制成功")
+        ToastUtil.showToast(mContext, R.string.copy_success)
     }
 
     private fun share() {
@@ -113,9 +113,12 @@ class ArticleActivity : BaseActivity() {
             putExtra(Intent.EXTRA_TEXT, "$title\n$link")
             type = "text/plain"
         }
-        startActivity(Intent.createChooser(intent, "分享到"))
+        startActivity(Intent.createChooser(intent, getString(R.string.share_to)))
     }
 
+    /**
+     * 通过反射使菜单显示图标
+     */
     private fun setIconsVisible(menu: Menu, flag: Boolean) {
         try {
             val method = menu.javaClass.getDeclaredMethod("setOptionalIconsVisible", java.lang.Boolean.TYPE)

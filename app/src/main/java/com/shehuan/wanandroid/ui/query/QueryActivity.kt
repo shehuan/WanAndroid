@@ -18,7 +18,7 @@ import com.shehuan.wanandroid.bean.HotKeyBean
 import com.shehuan.wanandroid.bean.query.QueryBean
 import com.shehuan.wanandroid.ui.article.ArticleActivity
 import com.shehuan.wanandroid.utils.CommonUtil
-import com.shehuan.wanandroid.widget.DivideItemDecoration
+import com.shehuan.wanandroid.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.activity_query.*
 import com.shehuan.wanandroid.bean.db.QueryHistoryBean
 import com.shehuan.wanandroid.utils.QueryHistoryDbUtil
@@ -58,7 +58,7 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
     }
 
     override fun initView() {
-        initToolbar("搜索")
+        initToolbar(R.string.query)
 
         // 搜索记录相关
         val queryHistoryBeans = QueryHistoryDbUtil.query()
@@ -92,7 +92,7 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
         val linearLayoutManager = LinearLayoutManager(mContext)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         queryResultRv.layoutManager = linearLayoutManager
-        queryResultRv.addItemDecoration(DivideItemDecoration())
+        queryResultRv.addItemDecoration(DividerItemDecoration())
         queryResultRv.adapter = queryResultAdapter
 
         initStatusView(R.id.contentFl) {
@@ -109,7 +109,7 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
             isSubmitButtonEnabled = false
             // 搜索框是否展开
             isIconified = false
-            queryHint = "输入关键字，多个用空格隔开"
+            queryHint = getString(R.string.query_tip1)
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(content: String): Boolean {
                     clearFocus()

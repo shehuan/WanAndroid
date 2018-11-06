@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:text="加载中..."
+        android:text="@string/rv_loading"
         android:textColor="@color/cBFBFBF"
         android:textSize="14sp" />
 

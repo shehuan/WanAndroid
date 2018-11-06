@@ -8,5 +8,9 @@ class ToastUtil {
         fun showToast(context: Context?, content: String?) {
             Toast.makeText(context, content, Toast.LENGTH_SHORT).show()
         }
+
+        fun showToast(context: Context, content: Int) {
+            Toast.makeText(context, context.getString(content), Toast.LENGTH_SHORT).show()
+        }
     }
 }

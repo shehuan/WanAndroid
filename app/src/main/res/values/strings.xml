@@ -1,6 +1,51 @@
 <resources>
     <string name="app_name">玩Android</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="repassword">确认密码</string>
+    <string name="username_empty">用户名不能为空！</string>
+    <string name="password_empty">密码不能为空！</string>
+    <string name="repassword_empty">确认密码不能为空！</string>
+    <string name="password_unequal">密码不一致</string>
+
+    <string name="login_tip">请先登录！</string>
+    <string name="logout_tip">退出成功！</string>
+    <string name="exit_tip">再按一次退出！</string>
+
+    <string name="home">首页</string>
+    <string name="project">项目</string>
+    <string name="tree">体系</string>
+    <string name="nav">导航</string>
+    <string name="chapter">公众号</string>
+
+    <string name="query">搜索</string>
+    <string name="collect">收藏</string>
+    <string name="setting">设置</string>
+    <string name="about">关于</string>
+    <string name="logout">退出</string>
+
+    <string name="share">分享</string>
+    <string name="copy">复制链接</string>
+    <string name="browser">浏览器打开</string>
+
+    <string name="query_history">搜索记录</string>
+    <string name="clear_query">清空记录</string>
+    <string name="hot_query">热门搜索</string>
+    <string name="query_tip">输入关键字</string>
+    <string name="query_tip1">输入关键字，多个用空格隔开</string>
+
+    <string name="collect_success">收藏成功！</string>
+    <string name="uncollect_success">取消收藏成功！</string>
+
+    <string name="new_project">最新项目</string>
+    <string name="copy_success">复制成功！</string>
+    <string name="share_to">分享到</string>
+    <string name="hot_website">"热门网站"</string>
+
+    <string name="rv_loading">加载中…</string>
+    <string name="rv_failed">出错了，点我重试…</string>
+    <string name="rv_load_end">我也是有底线的…</string>
 </resources>

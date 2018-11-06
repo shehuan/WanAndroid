@@ -28,21 +28,22 @@ object RetrofitManager {
 
     private fun getOkHttpClient(flag: Boolean): OkHttpClient {
         //配置超时拦截器
-        val builder = OkHttpClient.Builder()
-        builder.connectTimeout(10, TimeUnit.SECONDS)
-        builder.writeTimeout(10, TimeUnit.SECONDS)
-        builder.readTimeout(10, TimeUnit.SECONDS)
+        val builder = OkHttpClient.Builder().apply {
+            connectTimeout(10, TimeUnit.SECONDS)
+            writeTimeout(10, TimeUnit.SECONDS)
+            readTimeout(10, TimeUnit.SECONDS)
 
-        if (flag) {
-            //配置log打印拦截器
-            val loggingInterceptor = HttpLoggingInterceptor()
-            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-            builder.addInterceptor(loggingInterceptor)
+            if (flag) {
+                //配置log打印拦截器
+                val loggingInterceptor = HttpLoggingInterceptor()
+                loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+                addInterceptor(loggingInterceptor)
+            }
+
+            // 请求相应拦截器
+            addInterceptor(SaveCookiesInterceptor())
+            addInterceptor(AddCookiesInterceptor())
         }
-
-        // 请求相应拦截器
-        builder.addInterceptor(SaveCookiesInterceptor())
-        builder.addInterceptor(AddCookiesInterceptor())
 
         return builder.build()
     }

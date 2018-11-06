@@ -57,10 +57,10 @@ class NavDetailFragment : BaseFragment() {
             val padding2 = CommonUtil.dp2px(mContext, 3)
             view.setPadding(padding1, padding2, padding1, padding2)
             val params = FlexboxLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            val margin1 = CommonUtil.dp2px(mContext, 10)
+            val margin1 = CommonUtil.dp2px(mContext, 12)
             val margin2 = CommonUtil.dp2px(mContext, 10)
             params.setMargins(margin2, margin1, margin2, margin1)
-            navDetailFL.addView(view, params)
+            this.addView(view, params)
         }
     }
 }

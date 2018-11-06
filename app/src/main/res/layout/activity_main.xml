@@ -33,7 +33,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
                 android:layout_toRightOf="@+id/mainMenuIv"
-                android:text="首页"
+                android:text="@string/home"
                 android:textColor="@color/cFFFFFF"
                 android:textSize="18sp"
                 android:textStyle="bold" />

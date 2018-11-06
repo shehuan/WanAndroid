@@ -8,7 +8,6 @@ import com.shehuan.wanandroid.base.activity.BaseActivity
 import com.shehuan.wanandroid.base.fragment.BaseFragment
 import com.shehuan.wanandroid.bean.tree.ChildrenItem
 import kotlinx.android.synthetic.main.activity_tree_detail.*
-import kotlinx.android.synthetic.main.toolbar_layout.*
 
 class TreeDetailActivity : BaseActivity() {
     private lateinit var title: String

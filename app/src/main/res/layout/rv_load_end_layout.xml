@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:text="我也是有底线的..."
+        android:text="@string/rv_load_end"
         android:textColor="@color/cBFBFBF"
         android:textSize="14sp" />
 </LinearLayout>

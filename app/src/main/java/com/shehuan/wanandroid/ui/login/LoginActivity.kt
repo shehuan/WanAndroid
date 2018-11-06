@@ -12,7 +12,6 @@ import com.shehuan.wanandroid.ui.register.RegisterActivity
 import com.shehuan.wanandroid.utils.sp.SpUtil
 import com.shehuan.wanandroid.widget.WrapTextWatcher
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.toolbar_layout.*
 import org.greenrobot.eventbus.EventBus
 
 class LoginActivity : BaseMvpActivity<LoginPresenterImpl>(), LoginContract.View {
@@ -40,7 +39,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenterImpl>(), LoginContract.View 
     }
 
     override fun initView() {
-        initToolbar("登录")
+        initToolbar(R.string.login)
 
         registerTv.paint.flags = Paint.UNDERLINE_TEXT_FLAG
         registerTv.setOnClickListener {
@@ -54,12 +53,12 @@ class LoginActivity : BaseMvpActivity<LoginPresenterImpl>(), LoginContract.View 
 
         loginBtn.setOnClickListener {
             if (loginUsernameET.text.isEmpty()) {
-                loginUsernameTTL.error = "用户名不能为空"
+                loginUsernameTTL.error = getString(R.string.username_empty)
                 loginUsernameTTL.isErrorEnabled = true
                 return@setOnClickListener
             }
             if (loginPasswordET.text.isEmpty()) {
-                loginPasswordTTL.error = "密码不能为空"
+                loginPasswordTTL.error = getString(R.string.password_empty)
                 return@setOnClickListener
             }
 

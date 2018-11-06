@@ -3,6 +3,7 @@ package com.shehuan.wanandroid.ui.tree.treeDetail
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.TreeDetailListAdapter
 import com.shehuan.wanandroid.base.fragment.BaseMvpFragment
@@ -11,7 +12,8 @@ import com.shehuan.wanandroid.bean.treeDetail.DatasItem
 import com.shehuan.wanandroid.bean.treeDetail.TreeDetailBean
 import com.shehuan.wanandroid.ui.article.ArticleActivity
 import com.shehuan.wanandroid.utils.ToastUtil
-import com.shehuan.wanandroid.widget.DivideItemDecoration
+import com.shehuan.wanandroid.widget.DividerItemDecoration
+import kotlinx.android.synthetic.main.floating_button_layout.*
 import kotlinx.android.synthetic.main.fragment_tree_detail.*
 
 private const val CID = "cid"
@@ -48,6 +50,12 @@ class TreeDetailFragment : BaseMvpFragment<TreeDetailPresenterImpl>(), TreeDetai
     }
 
     override fun initView() {
+        // 悬浮按钮点击事件
+        floatBtn.hide()
+        floatBtn.setOnClickListener {
+            treeDetailRv.smoothScrollToPosition(0)
+        }
+
         treeDetailListAdapter = TreeDetailListAdapter(context, null, true).apply {
             setLoadingView(R.layout.rv_loading_layout)
             setLoadEndView(R.layout.rv_load_end_layout)
@@ -71,9 +79,22 @@ class TreeDetailFragment : BaseMvpFragment<TreeDetailPresenterImpl>(), TreeDetai
         }
         val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        treeDetailRv.layoutManager = linearLayoutManager
-        treeDetailRv.addItemDecoration(DivideItemDecoration())
-        treeDetailRv.adapter = treeDetailListAdapter
+        treeDetailRv.run {
+            layoutManager = linearLayoutManager
+            addItemDecoration(DividerItemDecoration())
+            adapter = treeDetailListAdapter
+            // 控制悬浮按钮
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (linearLayoutManager.findLastVisibleItemPosition() > 10) {
+                        floatBtn.show()
+                    } else {
+                        floatBtn.hide()
+                    }
+                }
+            })
+        }
 
         initStatusView(treeDetailRootLayout) {
             loadData()
@@ -110,7 +131,7 @@ class TreeDetailFragment : BaseMvpFragment<TreeDetailPresenterImpl>(), TreeDetai
     override fun onCollectSuccess(data: String) {
         collectDataItem.collect = true
         treeDetailListAdapter.change(collectPosition)
-        ToastUtil.showToast(mContext, "收藏成功")
+        ToastUtil.showToast(mContext, R.string.collect_success)
     }
 
     override fun onCollectError(e: ResponseException) {
@@ -120,7 +141,7 @@ class TreeDetailFragment : BaseMvpFragment<TreeDetailPresenterImpl>(), TreeDetai
     override fun onUncollectSuccess(data: String) {
         collectDataItem.collect = false
         treeDetailListAdapter.change(collectPosition)
-        ToastUtil.showToast(mContext, "取消收藏成功")
+        ToastUtil.showToast(mContext, R.string.uncollect_success)
     }
 
     override fun onUncollectError(e: ResponseException) {

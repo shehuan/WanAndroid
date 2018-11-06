@@ -7,19 +7,19 @@
         <item
             android:id="@+id/nav_item_collect"
             android:icon="@drawable/ic_collect"
-            android:title="收藏" />
+            android:title="@string/collect" />
         <item
             android:id="@+id/nav_item_setting"
             android:icon="@drawable/ic_settings"
-            android:title="设置" />
+            android:title="@string/setting" />
         <item
             android:id="@+id/nav_item_about"
             android:icon="@drawable/ic_about"
-            android:title="关于" />
+            android:title="@string/about" />
         <item
             android:id="@+id/nav_item_logout"
             android:icon="@drawable/ic_logout"
-            android:title="退出" />
+            android:title="@string/logout" />
     </group>
 
 </menu>

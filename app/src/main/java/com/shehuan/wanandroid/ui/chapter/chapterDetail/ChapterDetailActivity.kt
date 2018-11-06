@@ -3,6 +3,7 @@ package com.shehuan.wanandroid.ui.chapter.chapterDetail
 import android.content.Intent
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.View
@@ -15,8 +16,9 @@ import com.shehuan.wanandroid.bean.chapter.ChapterArticleBean
 import com.shehuan.wanandroid.bean.chapter.DatasItem
 import com.shehuan.wanandroid.ui.article.ArticleActivity
 import com.shehuan.wanandroid.utils.ToastUtil
-import com.shehuan.wanandroid.widget.DivideItemDecoration
+import com.shehuan.wanandroid.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.activity_chapter_detail.*
+import kotlinx.android.synthetic.main.floating_button_layout.*
 
 class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), ChapterDetailContract.View {
     private var pageNum: Int = 0
@@ -80,6 +82,12 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
      * 文章列表初始化
      */
     private fun initChapterList() {
+        // 悬浮按钮点击事件
+        floatBtn.hide()
+        floatBtn.setOnClickListener {
+            chapterDetailRv.smoothScrollToPosition(0)
+        }
+
         chapterDetailListAdapter = ChapterDetailListAdapter(mContext, null, true).apply {
             setLoadingView(R.layout.rv_loading_layout)
             setLoadEndView(R.layout.rv_load_end_layout)
@@ -103,9 +111,22 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
         }
         val linearLayoutManager = LinearLayoutManager(mContext)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        chapterDetailRv.layoutManager = linearLayoutManager
-        chapterDetailRv.addItemDecoration(DivideItemDecoration())
-        chapterDetailRv.adapter = chapterDetailListAdapter
+        chapterDetailRv.run {
+            layoutManager = linearLayoutManager
+            addItemDecoration(DividerItemDecoration())
+            adapter = chapterDetailListAdapter
+            // 控制悬浮按钮
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (linearLayoutManager.findLastVisibleItemPosition() > 10) {
+                        floatBtn.show()
+                    } else {
+                        floatBtn.hide()
+                    }
+                }
+            })
+        }
     }
 
     /**
@@ -136,7 +157,7 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
         val linearLayoutManager = LinearLayoutManager(mContext)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         queryChapterRv.layoutManager = linearLayoutManager
-        queryChapterRv.addItemDecoration(DivideItemDecoration())
+        queryChapterRv.addItemDecoration(DividerItemDecoration())
         queryChapterRv.adapter = queryResultAdapter
     }
 
@@ -149,7 +170,7 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
             isSubmitButtonEnabled = false
             // 搜索框是否展开,false表示展开
             isIconified = true
-            queryHint = "输入关键字"
+            queryHint = getString(R.string.query_tip)
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(content: String): Boolean {
                     searchView.clearFocus()
@@ -236,7 +257,7 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
     override fun onCollectSuccess(data: String) {
         collectDataItem.collect = true
         chapterDetailListAdapter.change(collectPosition)
-        ToastUtil.showToast(mContext, "收藏成功")
+        ToastUtil.showToast(mContext, R.string.collect_success)
     }
 
     override fun onCollectError(e: ResponseException) {
@@ -246,7 +267,7 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
     override fun onUncollectSuccess(data: String) {
         collectDataItem.collect = false
         chapterDetailListAdapter.change(collectPosition)
-        ToastUtil.showToast(mContext, "取消收藏成功")
+        ToastUtil.showToast(mContext, R.string.uncollect_success)
     }
 
     override fun onUncollectError(e: ResponseException) {

@@ -10,7 +10,7 @@ import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.bean.article.ArticleBean
 import com.shehuan.wanandroid.ui.article.ArticleActivity
 import com.shehuan.wanandroid.utils.ToastUtil
-import com.shehuan.wanandroid.widget.DivideItemDecoration
+import com.shehuan.wanandroid.widget.DividerItemDecoration
 import com.shehuan.wanandroid.widget.WrapLinearLayoutManager
 import kotlinx.android.synthetic.main.activity_my_collection.*
 
@@ -44,7 +44,7 @@ class MyCollectionActivity : BaseMvpActivity<MyCollectionPresenterImpl>(), MyCol
     }
 
     override fun initView() {
-        initToolbar("收藏")
+        initToolbar(R.string.collect)
 
         collectionListAdapter = CollectionListAdapter(mContext, null, true).apply {
             setLoadingView(R.layout.rv_loading_layout)
@@ -66,7 +66,7 @@ class MyCollectionActivity : BaseMvpActivity<MyCollectionPresenterImpl>(), MyCol
         val linearLayoutManager = WrapLinearLayoutManager(mContext)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         collectionRv.layoutManager = linearLayoutManager
-        collectionRv.addItemDecoration(DivideItemDecoration())
+        collectionRv.addItemDecoration(DividerItemDecoration())
         collectionRv.adapter = collectionListAdapter
 
         initStatusView(R.id.collectionRv) {
@@ -98,7 +98,7 @@ class MyCollectionActivity : BaseMvpActivity<MyCollectionPresenterImpl>(), MyCol
 
     override fun onCancelCollectionSuccess(data: String) {
         collectionListAdapter.remove(collectPosition)
-        ToastUtil.showToast(mContext, "取消收藏成功")
+        ToastUtil.showToast(mContext, R.string.uncollect_success)
     }
 
     override fun onCancelCollectionError(e: ResponseException) {

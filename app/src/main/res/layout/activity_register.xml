@@ -21,7 +21,7 @@
             android:id="@+id/registerUsernameET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="用户名" />
+            android:hint="@string/username" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -37,7 +37,7 @@
             android:id="@+id/registerPasswordET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="密码"
+            android:hint="@string/password"
             android:inputType="textPassword" />
 
     </android.support.design.widget.TextInputLayout>
@@ -54,7 +54,7 @@
             android:id="@+id/registerRepasswordET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="确认密码"
+            android:hint="@string/repassword"
             android:inputType="textPassword" />
 
     </android.support.design.widget.TextInputLayout>
@@ -67,7 +67,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginRight="50dp"
         android:background="@drawable/cfe6243_corner_rect_solid_shape"
-        android:text="注册"
+        android:text="@string/register"
         android:textColor="@color/cFFFFFF"
         android:textSize="18sp" />
 

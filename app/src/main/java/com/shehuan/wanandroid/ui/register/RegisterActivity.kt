@@ -10,7 +10,6 @@ import com.shehuan.wanandroid.bean.event.AccountEvent
 import com.shehuan.wanandroid.utils.sp.SpUtil
 import com.shehuan.wanandroid.widget.WrapTextWatcher
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.toolbar_layout.*
 import org.greenrobot.eventbus.EventBus
 
 class RegisterActivity : BaseMvpActivity<RegisterPresenterImpl>(), RegisterContract.View {
@@ -38,7 +37,7 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenterImpl>(), RegisterContr
     }
 
     override fun initView() {
-        initToolbar("注册")
+        initToolbar(R.string.register)
 
         registerPasswordTTL.isPasswordVisibilityToggleEnabled = true
         registerRepasswordTTL.isPasswordVisibilityToggleEnabled = true
@@ -48,23 +47,23 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenterImpl>(), RegisterContr
 
         registerBtn.setOnClickListener {
             if (registerUsernameET.text.isEmpty()) {
-                registerUsernameTTL.error = "用户名不能为空"
+                registerUsernameTTL.error = getString(R.string.username_empty)
                 registerUsernameTTL.isErrorEnabled = true
                 return@setOnClickListener
             }
             if (registerPasswordET.text.isEmpty()) {
-                registerPasswordTTL.error = "密码不能为空"
+                registerPasswordTTL.error = getString(R.string.password_empty)
                 return@setOnClickListener
             }
 
             if (registerRepasswordET.text.isEmpty()) {
-                registerRepasswordTTL.error = "确认密码不能为空"
+                registerRepasswordTTL.error = getString(R.string.repassword_empty)
                 return@setOnClickListener
             }
 
             if (registerPasswordET.text.toString() != registerRepasswordET.text.toString()) {
-                registerPasswordTTL.error = "密码不一致"
-                registerRepasswordTTL.error = "密码不一致"
+                registerPasswordTTL.error = getString(R.string.password_unequal)
+                registerRepasswordTTL.error = getString(R.string.password_unequal)
                 return@setOnClickListener
             }
 

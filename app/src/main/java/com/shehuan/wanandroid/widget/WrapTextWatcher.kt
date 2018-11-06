@@ -15,7 +15,7 @@ class WrapTextWatcher(private val textInputLayout: TextInputLayout) : TextWatche
     }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        if (!s!!.isEmpty()) {
+        if (s!!.isEmpty()) {
             textInputLayout.error = null
             textInputLayout.isErrorEnabled = false
         }

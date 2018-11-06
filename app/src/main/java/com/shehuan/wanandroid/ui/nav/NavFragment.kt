@@ -52,7 +52,7 @@ class NavFragment : BaseMvpFragment<NavPresenterImpl>(), NavContract.View {
     override fun onNavSuccess(data: List<NaviBean>) {
         statusView.showContentView()
         val tabNames = arrayListOf<String>()
-        tabNames.add("热门网站")
+        tabNames.add(getString(R.string.hot_website))
         fragments.add(HotWebsiteFragment.newInstance())
         for (navBean in data) {
             tabNames.add(navBean.name)
