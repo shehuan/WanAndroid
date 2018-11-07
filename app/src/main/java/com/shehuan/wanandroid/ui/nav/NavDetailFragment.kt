@@ -51,7 +51,7 @@ class NavDetailFragment : BaseFragment() {
                 ArticleActivity.start(mContext, website.title, website.link)
             }
             view.text = website.title
-            view.setTextColor(resources.getColor(R.color.c515151))
+            view.setTextColor(resources.getColor(R.color.c2C2C2C))
             view.background = resources.getDrawable(R.drawable.website_selecter)
             val padding1 = CommonUtil.dp2px(mContext, 10)
             val padding2 = CommonUtil.dp2px(mContext, 3)

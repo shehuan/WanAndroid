@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import com.shehuan.library.StatusView
-import com.shehuan.library.StatusViewBuilder
+import com.shehuan.statusview.StatusView
+import com.shehuan.statusview.StatusViewBuilder
 import com.shehuan.wanandroid.R
 import kotlinx.android.synthetic.main.toolbar_layout.*
 

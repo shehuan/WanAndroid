@@ -7,8 +7,8 @@ import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.shehuan.library.StatusView
-import com.shehuan.library.StatusViewBuilder
+import com.shehuan.statusview.StatusView
+import com.shehuan.statusview.StatusViewBuilder
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.base.activity.BaseActivity
 

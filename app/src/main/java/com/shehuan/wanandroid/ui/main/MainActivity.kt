@@ -11,6 +11,7 @@ import com.shehuan.wanandroid.base.activity.BaseMvpActivity
 import com.shehuan.wanandroid.base.fragment.BaseFragment
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.bean.event.AccountEvent
+import com.shehuan.wanandroid.ui.about.AboutActivity
 import com.shehuan.wanandroid.ui.home.HomeFragment
 import com.shehuan.wanandroid.ui.nav.NavFragment
 import com.shehuan.wanandroid.ui.chapter.ChapterFragment
@@ -124,11 +125,11 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
     }
 
     private fun setting() {
-        ToastUtil.showToast(mContext, "开发中！")
+        ToastUtil.showToast(mContext, "暂时没有什么需要设置的！")
     }
 
     private fun about() {
-        ToastUtil.showToast(mContext, "开发中！")
+        AboutActivity.start(this)
     }
 
     private fun logout() {

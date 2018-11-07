@@ -57,6 +57,7 @@ class HotWebsiteFragment : BaseMvpFragment<HotWebsitePresenterImpl>(), HotWebsit
                 ArticleActivity.start(mContext, website.name, website.link)
             }
             view.text = website.name
+            view.setTextColor(resources.getColor(R.color.c2C2C2C))
             view.background = resources.getDrawable(R.drawable.website_selecter)
             val padding1 = CommonUtil.dp2px(mContext, 12)
             val padding2 = CommonUtil.dp2px(mContext, 5)

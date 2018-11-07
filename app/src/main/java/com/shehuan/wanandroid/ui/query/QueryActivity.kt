@@ -188,7 +188,7 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
                 flexboxChildClick(hotKey.name)
             }
             view.text = hotKey.name
-            view.setTextColor(resources.getColor(R.color.c8A8A8A))
+            view.setTextColor(resources.getColor(R.color.c515151))
             view.background = resources.getDrawable(R.drawable.hotkey_selector)
             val padding1 = CommonUtil.dp2px(mContext, 10)
             val padding2 = CommonUtil.dp2px(mContext, 3)

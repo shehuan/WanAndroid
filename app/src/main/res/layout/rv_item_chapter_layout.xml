@@ -10,7 +10,6 @@
         android:gravity="center"
         android:padding="15dp"
         android:textColor="@color/c2C2C2C"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textSize="18sp" />
 
 </RelativeLayout>

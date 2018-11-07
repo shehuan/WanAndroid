@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <com.othershe.library.NiceImageView
+    <com.shehuan.niv.NiceImageView
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:src="@mipmap/ic_launcher_round"

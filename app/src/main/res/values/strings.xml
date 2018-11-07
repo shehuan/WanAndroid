@@ -44,6 +44,10 @@
     <string name="copy_success">复制成功！</string>
     <string name="share_to">分享到</string>
     <string name="hot_website">"热门网站"</string>
+    <string name="project_address_title">项目地址</string>
+    <string name="project_address_url">https://github.com/SheHuan/WanAndroid</string>
+    <string name="project_desc_title">项目说明</string>
+    <string name="project_desc_content">基于鸿洋大神的 玩Android 开放Api开发，旨在学习Kotlin，逐步完善中，欢迎提交issue，希望对你有所帮助…</string>
 
     <string name="rv_loading">加载中…</string>
     <string name="rv_failed">出错了，点我重试…</string>
