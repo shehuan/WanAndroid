@@ -2,7 +2,7 @@
 
 ### 说明
 
-**基于鸿洋大神的 玩Android 开放Api开发，旨在学习 Kotlin，功能逐步完善中…**
+**一个Kotlin版的玩Android App，基于鸿洋大神的[玩Android开放API](http://www.wanandroid.com/blog/show/2)开发，旨在学习 Kotlin，功能逐步完善中…**
 
 扫码下载体验：
 
@@ -12,10 +12,9 @@
 |![](preview/home.png)|![](preview/project.png)|![](preview/tree.png)|![](preview/nav.png)|
 |---|---|---|---|
 |![](preview/chapter.png)|![](preview/article.png)|![](preview/query.png)|![](preview/menu.png)|
-|---|---|---|---|
 |![](preview/login.png)|![](preview/tree_detail.png)|![](preview/chapter_detail.png)|![](preview/collection.png)|
 
-### 功能
+### 已有功能
 - [X] 首页banner、文章列表
 - [X] 项目分类
 - [X] 知识体系
@@ -25,7 +24,7 @@
 - [X] 注册、登录
 - [X] 收藏
 
-### 开源库
+### 使用的开源库
 * [okhttp](https://github.com/square/okhttp)
 * [retrofit](https://github.com/square/retrofit)
 * [RxJava](https://github.com/ReactiveX/RxJava)
