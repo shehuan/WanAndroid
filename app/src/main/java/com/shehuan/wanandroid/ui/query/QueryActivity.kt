@@ -62,7 +62,7 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
         if (!queryHistoryBeans.isEmpty()) {
             queryHistoryRl.visibility = View.VISIBLE
             for (queryHistory in queryHistoryBeans) {
-                queryHistoryFL.addCommonView(mContext, queryHistory.name, R.color.c8A8A8A, R.drawable.query_history_selector) {
+                queryHistoryFL.addCommonView(mContext, queryHistory.name, R.color.c8A8A8A, R.drawable.query_history_selector, false) {
                     flexboxClick(queryHistory.name)
                 }
             }
