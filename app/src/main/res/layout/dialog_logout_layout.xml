@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/cffffff_corner_rect_solid_shape"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp">
+
+    <TextView
+        android:id="@+id/logoutTitleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/tip"
+        android:textColor="@color/c2C2C2C"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/logoutMsgTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logoutTitleTv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/logout_msg"
+        android:textColor="@color/cBFBFBF"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/logoutCancelBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logoutMsgTv"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="30dp"
+        android:padding="5dp"
+        android:text="@string/cancel" />
+
+    <TextView
+        android:id="@+id/logoutOkBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logoutMsgTv"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="60dp"
+        android:padding="5dp"
+        android:text="@string/ok" />
+
+</RelativeLayout>

@@ -3,6 +3,7 @@ package com.shehuan.wanandroid.ui.main
 import android.content.Intent
 import android.os.Handler
 import android.support.v4.view.GravityCompat
+import android.view.View
 import android.widget.TextView
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.ViewPagerAdapter
@@ -23,6 +24,7 @@ import com.shehuan.wanandroid.ui.tree.TreeFragment
 import com.shehuan.wanandroid.utils.ToastUtil
 import com.shehuan.wanandroid.utils.sp.SpUtil
 import com.shehuan.wanandroid.widget.BottomTabLayout
+import com.shehuan.wanandroid.widget.LogoutDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -137,7 +139,13 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
             ToastUtil.showToast(mContext, R.string.login_tip)
             return
         }
-        presenter.logout()
+
+        LogoutDialog.show(supportFragmentManager, object : LogoutDialog.OnLogoutListener {
+            override fun logout() {
+                presenter.logout()
+            }
+        })
+
     }
 
     override fun onLogoutSuccess(data: String) {

@@ -52,4 +52,9 @@
     <string name="rv_loading">加载中…</string>
     <string name="rv_failed">出错了，点我重试…</string>
     <string name="rv_load_end">我也是有底线的…</string>
+
+    <string name="cancel">取消</string>
+    <string name="ok">确定</string>
+    <string name="tip">提示</string>
+    <string name="logout_msg">确定要退出登录吗？</string>
 </resources>

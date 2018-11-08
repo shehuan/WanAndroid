@@ -6,9 +6,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import com.google.android.flexbox.FlexboxLayout
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.QueryResultAdapter
 import com.shehuan.wanandroid.base.activity.BaseActivity
@@ -17,11 +14,11 @@ import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.bean.HotKeyBean
 import com.shehuan.wanandroid.bean.query.QueryBean
 import com.shehuan.wanandroid.ui.article.ArticleActivity
-import com.shehuan.wanandroid.utils.CommonUtil
 import com.shehuan.wanandroid.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.activity_query.*
-import com.shehuan.wanandroid.bean.db.QueryHistoryBean
 import com.shehuan.wanandroid.utils.QueryHistoryDbUtil
+import com.shehuan.wanandroid.utils.addCommonView
+import com.shehuan.wanandroid.utils.childName
 
 
 class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View {
@@ -64,7 +61,11 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
         val queryHistoryBeans = QueryHistoryDbUtil.query()
         if (!queryHistoryBeans.isEmpty()) {
             queryHistoryRl.visibility = View.VISIBLE
-            queryHistoryFL.addQueryHistoryViews(queryHistoryBeans)
+            for (queryHistory in queryHistoryBeans) {
+                queryHistoryFL.addCommonView(mContext, queryHistory.name, R.color.c8A8A8A, R.drawable.query_history_selector) {
+                    flexboxClick(queryHistory.name)
+                }
+            }
         }
         // 清空搜索记录
         clearHistoryTv.setOnClickListener {
@@ -174,67 +175,21 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
 
     override fun onHotKeySuccess(data: List<HotKeyBean>) {
         statusView.showContentView()
-        hotKeyFL.addHotKeyViews(data)
+        for (hotKey in data) {
+            hotKeyFL.addCommonView(mContext, hotKey.name, R.color.c515151, R.drawable.hotkey_selector) {
+                flexboxClick(hotKey.name)
+            }
+        }
     }
 
     override fun onHotKeyError(e: ResponseException) {
         statusView.showErrorView()
     }
 
-    private fun FlexboxLayout.addHotKeyViews(data: List<HotKeyBean>) {
-        for (hotKey in data) {
-            val view = TextView(mContext)
-            view.setOnClickListener {
-                flexboxChildClick(hotKey.name)
-            }
-            view.text = hotKey.name
-            view.setTextColor(resources.getColor(R.color.c515151))
-            view.background = resources.getDrawable(R.drawable.hotkey_selector)
-            val padding1 = CommonUtil.dp2px(mContext, 10)
-            val padding2 = CommonUtil.dp2px(mContext, 3)
-            view.setPadding(padding1, padding2, padding1, padding2)
-            val params = FlexboxLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            val margin1 = CommonUtil.dp2px(mContext, 6)
-            val margin2 = CommonUtil.dp2px(mContext, 10)
-            params.setMargins(margin2, margin1, margin2, margin1)
-            this.addView(view, params)
-        }
-    }
-
-    private fun FlexboxLayout.addQueryHistoryViews(data: List<QueryHistoryBean>) {
-        for (queryHistory in data) {
-            addQueryHistoryView(queryHistory.name)
-        }
-    }
-
-    private fun FlexboxLayout.addQueryHistoryView(name: String) {
-        val view = TextView(mContext)
-        view.setOnClickListener {
-            flexboxChildClick(name)
-        }
-        view.text = name
-        view.setTextColor(resources.getColor(R.color.c8A8A8A))
-        view.background = resources.getDrawable(R.drawable.query_history_selector)
-        val padding1 = CommonUtil.dp2px(mContext, 10)
-        val padding2 = CommonUtil.dp2px(mContext, 3)
-        view.setPadding(padding1, padding2, padding1, padding2)
-        val params = FlexboxLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        val margin1 = CommonUtil.dp2px(mContext, 6)
-        val margin2 = CommonUtil.dp2px(mContext, 10)
-        params.setMargins(margin2, margin1, margin2, margin1)
-        view.layoutParams = params
-        this.addView(view, 0)
-    }
-
-    private fun FlexboxLayout.childName(index: Int): String {
-        val view: TextView = this.getChildAt(index) as TextView
-        return view.text.toString()
-    }
-
     /**
      * 点击搜索记录、热门搜索时调用
      */
-    private fun flexboxChildClick(name: String) {
+    private fun flexboxClick(name: String) {
         addQueryHistory(name)
         if (searchView.isIconified) {
             searchView.isIconified = false
@@ -256,7 +211,9 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
             }
         }
 
-        queryHistoryFL.addQueryHistoryView(name)
+        queryHistoryFL.addCommonView(mContext, name, R.color.c8A8A8A, R.drawable.query_history_selector) {
+            flexboxClick(name)
+        }
         QueryHistoryDbUtil.save(name)
         queryHistoryRl.visibility = View.VISIBLE
     }
