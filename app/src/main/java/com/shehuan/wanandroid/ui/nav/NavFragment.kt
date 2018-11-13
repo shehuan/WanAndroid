@@ -21,7 +21,7 @@ class NavFragment : BaseMvpFragment<NavPresenterImpl>(), NavContract.View {
         return NavPresenterImpl(this)
     }
 
-    override fun loadData() {
+    override fun initLoad() {
         statusView.showLoadingView()
         presenter.nav()
     }
@@ -45,7 +45,7 @@ class NavFragment : BaseMvpFragment<NavPresenterImpl>(), NavContract.View {
         })
 
         initStatusView(navRootLayout) {
-            loadData()
+            initLoad()
         }
     }
 

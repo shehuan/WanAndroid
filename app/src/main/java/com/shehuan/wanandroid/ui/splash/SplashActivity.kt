@@ -17,4 +17,8 @@ class SplashActivity : BaseActivity() {
         MainActivity.start(this)
         finish()
     }
+
+    override fun initLoad() {
+
+    }
 }

@@ -41,7 +41,7 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
         return QueryPresenterImpl(this)
     }
 
-    override fun loadData() {
+    override fun initLoad() {
         statusView.showLoadingView()
         presenter.getHotKey()
     }
@@ -97,7 +97,7 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
         queryResultRv.adapter = queryResultAdapter
 
         initStatusView(R.id.contentFl) {
-            loadData()
+            initLoad()
         }
     }
 

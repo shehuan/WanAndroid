@@ -2,6 +2,7 @@ package com.shehuan.wanandroid.base.activity
 
 import android.content.Context
 import android.os.Bundle
+import android.support.annotation.LayoutRes
 import android.support.annotation.StringRes
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -13,11 +14,14 @@ import kotlinx.android.synthetic.main.toolbar_layout.*
 abstract class BaseActivity : AppCompatActivity() {
     lateinit var mContext: Context
 
+    @LayoutRes
     abstract fun initLayoutResID(): Int
 
     abstract fun initData()
 
     abstract fun initView()
+
+    abstract fun initLoad()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +30,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
         initData()
         initView()
+        initLoad()
     }
 
     protected lateinit var statusView: StatusView

@@ -3,7 +3,6 @@ package com.shehuan.wanandroid.ui.main
 import android.content.Intent
 import android.os.Handler
 import android.support.v4.view.GravityCompat
-import android.view.View
 import android.widget.TextView
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.ViewPagerAdapter
@@ -49,7 +48,7 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
         return MainPresenterImpl(this)
     }
 
-    override fun loadData() {
+    override fun initLoad() {
         EventBus.getDefault().register(this)
     }
 

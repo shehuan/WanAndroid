@@ -26,7 +26,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenterImpl>(), LoginContract.View 
         return LoginPresenterImpl(this)
     }
 
-    override fun loadData() {
+    override fun initLoad() {
 
     }
 

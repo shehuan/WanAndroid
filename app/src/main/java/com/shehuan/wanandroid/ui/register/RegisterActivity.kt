@@ -24,7 +24,7 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenterImpl>(), RegisterContr
         return RegisterPresenterImpl(this)
     }
 
-    override fun loadData() {
+    override fun initLoad() {
 
     }
 

@@ -2,6 +2,7 @@ package com.shehuan.wanandroid.base.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
@@ -20,13 +21,14 @@ abstract class BaseFragment : Fragment() {
     private var isDataLoaded: Boolean = false// 数据是否已请求, isNeedReload()返回false的时起作用
     private var isFragmentHidden: Boolean = true // 记录当前fragment的是否隐藏
 
+    @LayoutRes
     abstract fun initLayoutResID(): Int
 
     abstract fun initData()
 
     abstract fun initView()
 
-    abstract fun loadData()
+    abstract fun initLoad()
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -108,7 +110,7 @@ abstract class BaseFragment : Fragment() {
      */
     protected fun tryLoadData() {
         if (isViewCreated && isVisibleToUser && isParentVisible() && (isNeedReload() || !isDataLoaded)) {
-            loadData()
+            initLoad()
             isDataLoaded = true
             dispatchParentVisibleState()
         }
@@ -148,7 +150,7 @@ abstract class BaseFragment : Fragment() {
      */
     protected fun tryLoadData1() {
         if (!isParentHidden() && (isNeedReload() || !isDataLoaded)) {
-            loadData()
+            initLoad()
             isDataLoaded = true
             dispatchParentHiddenState()
         }

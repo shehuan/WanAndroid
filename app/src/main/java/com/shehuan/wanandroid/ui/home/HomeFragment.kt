@@ -37,7 +37,7 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
         return HomePresenterImpl(this)
     }
 
-    override fun loadData() {
+    override fun initLoad() {
         statusView.showLoadingView()
         presenter.getArticleList(pageNum)
         presenter.getBannerData()
@@ -114,7 +114,7 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
         }
 
         initStatusView(homeRootLayout) {
-            loadData()
+            initLoad()
         }
     }
 

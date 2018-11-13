@@ -97,11 +97,11 @@ class TreeDetailFragment : BaseMvpFragment<TreeDetailPresenterImpl>(), TreeDetai
         }
 
         initStatusView(treeDetailRootLayout) {
-            loadData()
+            initLoad()
         }
     }
 
-    override fun loadData() {
+    override fun initLoad() {
         statusView.showLoadingView()
         presenter.getTreeDetail(pageNum, cid)
     }

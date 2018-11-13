@@ -54,4 +54,8 @@ class TreeDetailActivity : BaseActivity() {
         }
         treeDetailTabLayout.setupWithViewPager(treeDetailViewPager)
     }
+
+    override fun initLoad() {
+
+    }
 }

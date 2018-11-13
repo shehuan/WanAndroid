@@ -30,7 +30,7 @@ class MyCollectionActivity : BaseMvpActivity<MyCollectionPresenterImpl>(), MyCol
         return MyCollectionPresenterImpl(this)
     }
 
-    override fun loadData() {
+    override fun initLoad() {
         statusView.showLoadingView()
         presenter.getCollectionList(pageNum)
     }
@@ -70,7 +70,7 @@ class MyCollectionActivity : BaseMvpActivity<MyCollectionPresenterImpl>(), MyCol
         collectionRv.adapter = collectionListAdapter
 
         initStatusView(R.id.collectionRv) {
-            loadData()
+            initLoad()
         }
     }
 

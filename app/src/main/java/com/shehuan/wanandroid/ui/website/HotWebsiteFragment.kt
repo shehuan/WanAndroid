@@ -28,11 +28,11 @@ class HotWebsiteFragment : BaseMvpFragment<HotWebsitePresenterImpl>(), HotWebsit
 
     override fun initView() {
         initStatusView(hotWebsiteHomeLayout) {
-            loadData()
+            initLoad()
         }
     }
 
-    override fun loadData() {
+    override fun initLoad() {
         statusView.showLoadingView()
         presenter.getFriendData()
     }

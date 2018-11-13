@@ -52,7 +52,7 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
         return ChapterDetailPresenterImpl(this)
     }
 
-    override fun loadData() {
+    override fun initLoad() {
         statusView.showLoadingView()
         presenter.getChapterArticleList(chapterId, pageNum)
     }
@@ -74,7 +74,7 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
         initQueryChapterList()
 
         initStatusView(R.id.contentFl) {
-            loadData()
+            initLoad()
         }
     }
 

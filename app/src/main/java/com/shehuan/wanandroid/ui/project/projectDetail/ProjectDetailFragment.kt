@@ -99,11 +99,11 @@ class ProjectDetailFragment : BaseMvpFragment<ProjectDetailPresenterImpl>(), Pro
         }
 
         initStatusView(projectDetailRootLayout) {
-            loadData()
+            initLoad()
         }
     }
 
-    override fun loadData() {
+    override fun initLoad() {
         statusView.showLoadingView()
         if (cid == -1) {
             presenter.getNewProjectList(pageNum)

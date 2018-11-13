@@ -8,12 +8,9 @@ abstract class BaseMvpActivity<P : BasePresenter<*>> : BaseActivity() {
 
     abstract fun initPresenter(): P
 
-    abstract fun loadData()
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         presenter = initPresenter()
-        loadData()
+        super.onCreate(savedInstanceState)
     }
 
     override fun onDestroy() {

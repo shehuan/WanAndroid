@@ -41,7 +41,7 @@ class NavDetailFragment : BaseFragment() {
         }
     }
 
-    override fun loadData() {
+    override fun initLoad() {
 
     }
 }

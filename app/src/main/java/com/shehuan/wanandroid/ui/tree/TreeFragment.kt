@@ -21,7 +21,7 @@ class TreeFragment : BaseMvpFragment<TreePresenterImpl>(), TreeContract.View {
         return TreePresenterImpl(this)
     }
 
-    override fun loadData() {
+    override fun initLoad() {
         statusView.showLoadingView()
         presenter.getTree()
     }
@@ -48,7 +48,7 @@ class TreeFragment : BaseMvpFragment<TreePresenterImpl>(), TreeContract.View {
         treeRv.adapter = treeListAdapter
 
         initStatusView(treeRootLayout) {
-            loadData()
+            initLoad()
         }
     }
 

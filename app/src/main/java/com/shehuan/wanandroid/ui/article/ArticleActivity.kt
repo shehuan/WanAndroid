@@ -76,6 +76,10 @@ class ArticleActivity : BaseActivity() {
         statusView.showLoadingView()
     }
 
+    override fun initLoad() {
+
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         setIconsVisible(menu!!, true)
         menuInflater.inflate(R.menu.article_menu_layout, menu)

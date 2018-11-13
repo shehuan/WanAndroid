@@ -23,4 +23,8 @@ class AboutActivity : BaseActivity() {
     override fun initView() {
         initToolbar(R.string.about)
     }
+
+    override fun initLoad() {
+
+    }
 }

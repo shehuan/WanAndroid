@@ -20,7 +20,7 @@ class ChapterFragment : BaseMvpFragment<ChapterPresenterImpl>(), ChapterContract
         return ChapterPresenterImpl(this)
     }
 
-    override fun loadData() {
+    override fun initLoad() {
         statusView.showLoadingView()
         presenter.getChapter()
     }
@@ -43,7 +43,7 @@ class ChapterFragment : BaseMvpFragment<ChapterPresenterImpl>(), ChapterContract
         chapterRv.adapter = chapterAdapter
 
         initStatusView(chapterRootLayout) {
-            loadData()
+            initLoad()
         }
     }
 
