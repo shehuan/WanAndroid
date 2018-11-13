@@ -1,6 +1,6 @@
 package com.shehuan.wanandroid.ui.chapter
 
-import android.support.v7.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.ChapterAdapter
 import com.shehuan.wanandroid.base.fragment.BaseMvpFragment

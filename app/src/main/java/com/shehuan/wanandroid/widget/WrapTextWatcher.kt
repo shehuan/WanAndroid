@@ -1,8 +1,8 @@
 package com.shehuan.wanandroid.widget
 
-import android.support.design.widget.TextInputLayout
 import android.text.Editable
 import android.text.TextWatcher
+import com.google.android.material.textfield.TextInputLayout
 
 class WrapTextWatcher(private val textInputLayout: TextInputLayout) : TextWatcher {
 

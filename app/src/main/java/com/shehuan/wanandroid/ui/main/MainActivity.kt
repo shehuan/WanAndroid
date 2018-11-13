@@ -1,12 +1,12 @@
 package com.shehuan.wanandroid.ui.main
 
+import android.content.Context
 import android.content.Intent
 import android.os.Handler
-import android.support.v4.view.GravityCompat
+import androidx.core.view.GravityCompat
 import android.widget.TextView
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.ViewPagerAdapter
-import com.shehuan.wanandroid.base.activity.BaseActivity
 import com.shehuan.wanandroid.base.activity.BaseMvpActivity
 import com.shehuan.wanandroid.base.fragment.BaseFragment
 import com.shehuan.wanandroid.base.net.exception.ResponseException
@@ -38,7 +38,7 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
     private lateinit var usernameTv: TextView
 
     companion object {
-        fun start(context: BaseActivity) {
+        fun start(context: Context) {
             val intent = Intent(context, MainActivity::class.java)
             context.startActivity(intent)
         }

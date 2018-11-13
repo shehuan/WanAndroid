@@ -1,6 +1,7 @@
 package com.shehuan.wanandroid.ui.tree
 
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.TreeListAdapter
 import com.shehuan.wanandroid.base.fragment.BaseMvpFragment
@@ -40,7 +41,7 @@ class TreeFragment : BaseMvpFragment<TreePresenterImpl>(), TreeContract.View {
             TreeDetailActivity.start(mContext, data.name, data.children)
         }
         val linearLayoutManager = LinearLayoutManager(context)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        linearLayoutManager.orientation = RecyclerView.VERTICAL
         treeRv.layoutManager = linearLayoutManager
         treeRv.addItemDecoration(DividerItemDecoration()
                 .setDividerHeight(20)

@@ -2,7 +2,7 @@ package com.shehuan.wanandroid.ui.collection
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.CollectionListAdapter
 import com.shehuan.wanandroid.base.activity.BaseMvpActivity
@@ -64,7 +64,7 @@ class MyCollectionActivity : BaseMvpActivity<MyCollectionPresenterImpl>(), MyCol
             }
         }
         val linearLayoutManager = WrapLinearLayoutManager(mContext)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        linearLayoutManager.orientation = RecyclerView.VERTICAL
         collectionRv.layoutManager = linearLayoutManager
         collectionRv.addItemDecoration(DividerItemDecoration())
         collectionRv.adapter = collectionListAdapter

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".ui.project.ProjectFragment">
 
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/projectTabLayout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -20,7 +20,7 @@
         app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
         app:tabTextColor="@color/c8A8A8A" />
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/projectViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

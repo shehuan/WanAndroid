@@ -1,11 +1,12 @@
 package com.shehuan.wanandroid.ui.query
 
 import android.content.Intent
-import android.support.v4.view.MenuItemCompat
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.SearchView
+import androidx.core.view.MenuItemCompat
 import android.view.Menu
 import android.view.View
+import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.QueryResultAdapter
 import com.shehuan.wanandroid.base.activity.BaseActivity
@@ -91,7 +92,7 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
         }
 
         val linearLayoutManager = LinearLayoutManager(mContext)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        linearLayoutManager.orientation = RecyclerView.VERTICAL
         queryResultRv.layoutManager = linearLayoutManager
         queryResultRv.addItemDecoration(DividerItemDecoration())
         queryResultRv.adapter = queryResultAdapter

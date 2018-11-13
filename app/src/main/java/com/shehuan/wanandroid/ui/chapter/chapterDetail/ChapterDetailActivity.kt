@@ -1,12 +1,12 @@
 package com.shehuan.wanandroid.ui.chapter.chapterDetail
 
 import android.content.Intent
-import android.support.v4.view.MenuItemCompat
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.SearchView
+import androidx.core.view.MenuItemCompat
 import android.view.Menu
 import android.view.View
+import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.ChapterDetailListAdapter
 import com.shehuan.wanandroid.base.activity.BaseActivity
@@ -110,7 +110,7 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
             }
         }
         val linearLayoutManager = LinearLayoutManager(mContext)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        linearLayoutManager.orientation = RecyclerView.VERTICAL
         chapterDetailRv.run {
             layoutManager = linearLayoutManager
             addItemDecoration(DividerItemDecoration())
@@ -155,7 +155,7 @@ class ChapterDetailActivity : BaseMvpActivity<ChapterDetailPresenterImpl>(), Cha
             }
         }
         val linearLayoutManager = LinearLayoutManager(mContext)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        linearLayoutManager.orientation = RecyclerView.VERTICAL
         queryChapterRv.layoutManager = linearLayoutManager
         queryChapterRv.addItemDecoration(DividerItemDecoration())
         queryChapterRv.adapter = queryResultAdapter

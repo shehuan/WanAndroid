@@ -1,8 +1,8 @@
 package com.shehuan.wanandroid.ui.project
 
-import android.support.design.widget.TabLayout
 import android.text.Html
 import android.view.View
+import com.google.android.material.tabs.TabLayout
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.ViewPagerAdapter
 import com.shehuan.wanandroid.base.fragment.BaseFragment

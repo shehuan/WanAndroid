@@ -1,7 +1,7 @@
 package com.shehuan.wanandroid.widget
 
-import android.support.v4.app.FragmentManager
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import com.shehuan.nicedialog.BaseNiceDialog
 import com.shehuan.nicedialog.ViewHolder
 import com.shehuan.wanandroid.R

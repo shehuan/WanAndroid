@@ -1,7 +1,7 @@
 package com.shehuan.wanandroid.base.net.observer
 
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.shehuan.nicedialog.BaseNiceDialog
 import com.shehuan.wanandroid.widget.LoadingDialog
 import io.reactivex.disposables.Disposable

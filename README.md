@@ -1,6 +1,6 @@
 # WanAndroid
 
-### 说明
+## 说明
 
 **一个Kotlin版的玩Android App，基于鸿洋大神的[玩Android开放API](http://www.wanandroid.com/blog/show/2)开发，旨在学习 Kotlin，功能逐步完善中…**
 
@@ -8,13 +8,13 @@
 
 ![](preview/download.png)
 
-### 预览
+## 效果预览
 |![](preview/home.png)|![](preview/project.png)|![](preview/tree.png)|![](preview/nav.png)|
 |---|---|---|---|
 |![](preview/chapter.png)|![](preview/article.png)|![](preview/query.png)|![](preview/menu.png)|
 |![](preview/login.png)|![](preview/tree_detail.png)|![](preview/chapter_detail.png)|![](preview/collection.png)|
 
-### 已有功能
+## 已有功能
 - [X] 首页banner、文章列表
 - [X] 项目分类
 - [X] 知识体系
@@ -24,7 +24,7 @@
 - [X] 注册、登录
 - [X] 收藏
 
-### 使用的开源库
+## 使用的开源库
 * [okhttp](https://github.com/square/okhttp)
 * [retrofit](https://github.com/square/retrofit)
 * [RxJava](https://github.com/ReactiveX/RxJava)
@@ -38,3 +38,20 @@
 * [NiceImageView](https://github.com/SheHuan/NiceImageView)
 * [RecyclerViewAdapter](https://github.com/SheHuan/RecyclerViewAdapter)
 * [StatusView](https://github.com/SheHuan/StatusView)
+
+## License
+```
+Copyright 2018 SheHuan
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```

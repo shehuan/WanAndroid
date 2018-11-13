@@ -2,10 +2,10 @@ package com.shehuan.wanandroid.base.activity
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.annotation.StringRes
-import android.support.v7.app.AppCompatActivity
 import android.view.View
+import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import com.shehuan.statusview.StatusView
 import com.shehuan.statusview.StatusViewBuilder
 import com.shehuan.wanandroid.R

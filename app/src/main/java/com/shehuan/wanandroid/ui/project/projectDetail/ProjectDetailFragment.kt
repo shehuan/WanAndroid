@@ -1,8 +1,8 @@
 package com.shehuan.wanandroid.ui.project.projectDetail
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.ProjectListAdapter
 import com.shehuan.wanandroid.base.fragment.BaseMvpFragment
@@ -80,7 +80,7 @@ class ProjectDetailFragment : BaseMvpFragment<ProjectDetailPresenterImpl>(), Pro
             }
         }
         val linearLayoutManager = LinearLayoutManager(context)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        linearLayoutManager.orientation = RecyclerView.VERTICAL
         projectRv.run {
             layoutManager = linearLayoutManager
             addItemDecoration(DividerItemDecoration())

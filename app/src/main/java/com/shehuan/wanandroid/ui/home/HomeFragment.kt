@@ -1,7 +1,5 @@
 package com.shehuan.wanandroid.ui.home
 
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.ArticleListAdapter
 import com.shehuan.wanandroid.base.fragment.BaseMvpFragment
@@ -11,6 +9,8 @@ import com.shehuan.wanandroid.bean.article.ArticleBean
 import com.shehuan.wanandroid.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.fragment_home.*
 import android.view.LayoutInflater
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.shehuan.wanandroid.bean.article.DatasItem
 import com.shehuan.wanandroid.ui.article.ArticleActivity
 import com.shehuan.wanandroid.utils.ToastUtil
@@ -95,7 +95,7 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
         }
 
         val linearLayoutManager = LinearLayoutManager(context)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        linearLayoutManager.orientation = RecyclerView.VERTICAL
         articleRv.run {
             layoutManager = linearLayoutManager
             addItemDecoration(DividerItemDecoration())

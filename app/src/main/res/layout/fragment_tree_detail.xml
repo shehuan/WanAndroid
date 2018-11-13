@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.tree.treeDetail.TreeDetailFragment">
 
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/treeDetailRv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -19,6 +19,6 @@
 
         <include layout="@layout/floating_button_layout"/>
 
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </com.shehuan.statusview.StatusView>

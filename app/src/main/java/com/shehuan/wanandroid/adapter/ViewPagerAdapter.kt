@@ -1,20 +1,19 @@
 package com.shehuan.wanandroid.adapter
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v4.view.PagerAdapter
-import com.shehuan.wanandroid.base.fragment.BaseFragment
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager.widget.PagerAdapter
 
 class ViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
-    private lateinit var fragments: List<BaseFragment>
+    private lateinit var fragments: List<Fragment>
     private lateinit var titles: List<String>
 
-    fun setFragments(fragments: List<BaseFragment>) {
+    fun setFragments(fragments: List<Fragment>) {
         this.fragments = fragments
     }
 
-    fun setFragmentsAndTitles(fragments: List<BaseFragment>, titles: List<String>) {
+    fun setFragmentsAndTitles(fragments: List<Fragment>, titles: List<String>) {
         this.fragments = fragments
         this.titles = titles
     }

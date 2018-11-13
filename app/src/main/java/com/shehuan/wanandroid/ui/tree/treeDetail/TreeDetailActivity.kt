@@ -1,7 +1,7 @@
 package com.shehuan.wanandroid.ui.tree.treeDetail
 
 import android.content.Intent
-import android.support.design.widget.TabLayout
+import com.google.android.material.tabs.TabLayout
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.ViewPagerAdapter
 import com.shehuan.wanandroid.base.activity.BaseActivity
