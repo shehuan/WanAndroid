@@ -4,19 +4,67 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+// Initializes a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+// Loads the keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
-    compileSdkVersion 28
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
     defaultConfig {
         applicationId "com.shehuan.wanandroid"
-        minSdkVersion 16
-        targetSdkVersion 28
-        versionCode 2
-        versionName "1.0.2"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        resConfigs "zh"
     }
+
+    dexOptions {
+        // Sets the maximum number of DEX processes
+        // that can be started concurrently.
+        maxProcessCount 8
+        // Sets the maximum memory allocation pool size
+        // for the dex operation.
+        javaMaxHeapSize "4g"
+        // Enables Gradle to pre-dex library dependencies.
+        preDexLibraries true
+    }
+
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            // 清理无用资源
+            shrinkResources true
+            // 压缩优化
+            zipAlignEnabled true
+            // 支持本地化整理
+            pseudoLocalesEnabled true
+
+            signingConfig signingConfigs.release
+
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('release.apk')) {
+                        def fileName = "WanAndroid_v${defaultConfig.versionName}_release.apk"
+                        outputFileName = fileName
+                    }
+                }
+            }
         }
     }
 }

@@ -24,6 +24,11 @@
 - [X] 注册、登录
 - [X] 收藏
 
+## 版本信息
+##### v1.0.2
+* 初版，完成主要功能
+* 迁移到 AndroidX
+
 ## 使用的开源库
 * [okhttp](https://github.com/square/okhttp)
 * [retrofit](https://github.com/square/retrofit)
