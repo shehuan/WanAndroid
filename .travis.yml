@@ -1,61 +1,43 @@
 language: android
 jdk: oraclejdk8
 sudo: false
-
 android:
   components:
-    # Uncomment the lines below if you want to
-    # use the latest revision of Android SDK Tools
-    # - tools
-    # - platform-tools
-
-    # The BuildTools version used by your project
-    - build-tools-28.0.0
-
-    # The SDK version used to compile your project
-    - android-28
-
-    # Additional components
-    - extra-google-google_play_services
-    - extra-google-m2repository
-    - extra-android-m2repository
+  - build-tools-28.0.0
+  - android-28
+  - extra-google-google_play_services
+  - extra-google-m2repository
+  - extra-android-m2repository
   licenses:
-    - 'android-sdk-preview-license-.+'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
-
+  - android-sdk-preview-license-.+
+  - android-sdk-license-.+
+  - google-gdk-license-.+
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-    - $HOME/.android/build-cache
-
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+  - "$HOME/.android/build-cache"
 before_install:
-# 环境构建阶段安装fir-cli
+- openssl aes-256-cbc -K $encrypted_5404bf61aaa2_key -iv $encrypted_5404bf61aaa2_iv
+  -in shehuan.jks.enc -out shehuan.jks -d
 - gem install fir-cli
 - chmod +x gradlew
-- openssl aes-256-cbc -K $encrypted_5404bf61aaa2_key -iv $encrypted_5404bf61aaa2_iv -in keystore.properties.enc -out keystore.properties -d
-- openssl aes-256-cbc -K $encrypted_5404bf61aaa2_key -iv $encrypted_5404bf61aaa2_iv -in shehuan.jks.enc -out shehuan.jks -d
-
+- openssl aes-256-cbc -K $encrypted_5404bf61aaa2_key -iv $encrypted_5404bf61aaa2_iv
+  -in keystore.properties.enc -out keystore.properties -d
 script:
 - "./gradlew assembleRelease"
-
 deploy:
   provider: releases
   api_key:
-    # GitHub oauth token
-    secure: "Ph7zvls5f9TgG9id321McJONqrDiOW6fY/2dGREKXXpDMC8UKfZdclHyfK+nv3FQUUgk69kAOerrxTm2GWCLVrUgypSt82pR/rV+bSJ9mJfcQgUUtdebssQs7iqSrc2M1O+9PIZrYgQsaBR9yAl+y35E2U93yw/xK2eZjZq97wzoYxCWOuVsewVMFvLPgvsLBfS5Q+RTxdroMT0zvzIEDtDzoVuSbimv+k/pBtTUnrpuqiRXcih/7+70M7NGHOceKbRiUgicTTX1+g4nkEHdENYWlxW26LIwkdllx8OlzhOgtGsHTddMzXktPvVUCVcq/4snguRRNwtvtkNUhepGlxetAvStehQiBHbtag/QYIDokO9LpxncfmCBV/023EEASY11jO/xSTDHY2gyh1GnCj4BYarGu8HJPToQikDzrg/Hq5S061/N2sLul4a33Q3BIunwMzsb5Y++AN4zD2XjSThah3rxu+gXsbx8d5lfWanhrCCKWqzPtITjiVyiIPTMx3N9TE9MDPUZIgpkIgWeG65EGxEsJDcsyljtPJORQQZ4dClgbZnpi+qrM2Ejgc/aXNKNx7D5Vs1schy8JW+SzKyo4dSY4R02yNlyEgBC0TinhvcWwNgByq/tM1Kui5hhHd1BQk8JNa98dZp487LFVfzXtFSxj71WDXwNiRMxjJs="
-  # 部署文件路径，对于Android就部署生成的apk文件
+    secure: Ph7zvls5f9TgG9id321McJONqrDiOW6fY/2dGREKXXpDMC8UKfZdclHyfK+nv3FQUUgk69kAOerrxTm2GWCLVrUgypSt82pR/rV+bSJ9mJfcQgUUtdebssQs7iqSrc2M1O+9PIZrYgQsaBR9yAl+y35E2U93yw/xK2eZjZq97wzoYxCWOuVsewVMFvLPgvsLBfS5Q+RTxdroMT0zvzIEDtDzoVuSbimv+k/pBtTUnrpuqiRXcih/7+70M7NGHOceKbRiUgicTTX1+g4nkEHdENYWlxW26LIwkdllx8OlzhOgtGsHTddMzXktPvVUCVcq/4snguRRNwtvtkNUhepGlxetAvStehQiBHbtag/QYIDokO9LpxncfmCBV/023EEASY11jO/xSTDHY2gyh1GnCj4BYarGu8HJPToQikDzrg/Hq5S061/N2sLul4a33Q3BIunwMzsb5Y++AN4zD2XjSThah3rxu+gXsbx8d5lfWanhrCCKWqzPtITjiVyiIPTMx3N9TE9MDPUZIgpkIgWeG65EGxEsJDcsyljtPJORQQZ4dClgbZnpi+qrM2Ejgc/aXNKNx7D5Vs1schy8JW+SzKyo4dSY4R02yNlyEgBC0TinhvcWwNgByq/tM1Kui5hhHd1BQk8JNa98dZp487LFVfzXtFSxj71WDXwNiRMxjJs=
   file: build/outputs/apk/release/WanAndroid-release.apk
-  # 避免 Travis CI 在部署之前清空生成的apk文件
   skip_cleanup: true
   on:
     tags: true
     all_branches: true
-
 after_deploy:
-  # 发布成功后通过fir命令行工具将apk上传到fir
-  - fir p app/build/outputs/apk/release/WanAndroid-release.apk -T $FIR_TOKEN -c "`git cat-file tag $TRAVIS_TAG`"
+- fir p app/build/outputs/apk/release/WanAndroid-release.apk -T $FIR_TOKEN -c "`git
+  cat-file tag $TRAVIS_TAG`"
