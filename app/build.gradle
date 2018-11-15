@@ -10,6 +10,12 @@ def keystoreProperties = new Properties()
 // Loads the keystore.properties file into the keystoreProperties object.
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
+def keyStoreFile = file(keystoreProperties['storeFile'])
+
+if (!keyStoreFile.exists()){
+    keyStoreFile = file(keystoreProperties['storeFileCI'])
+}
+
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     defaultConfig {
