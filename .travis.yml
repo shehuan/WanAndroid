@@ -37,9 +37,8 @@ before_install:
 # 环境构建阶段安装fir-cli
 - gem install fir-cli
 - chmod +x gradlew
-#
-- openssl aes-256-cbc -K $encrypted_5404bf61aaa2_key -iv $encrypted_5404bf61aaa2_iv -in shehuan.jks.enc -out shehuan.jks -d
 - openssl aes-256-cbc -K $encrypted_5404bf61aaa2_key -iv $encrypted_5404bf61aaa2_iv -in keystore.properties.enc -out keystore.properties -d
+- openssl aes-256-cbc -K $encrypted_5404bf61aaa2_key -iv $encrypted_5404bf61aaa2_iv -in shehuan.jks.enc -out shehuan.jks -d
 
 script:
 - "./gradlew assembleRelease"
