@@ -1,6 +1,5 @@
 package com.shehuan.wanandroid.base.activity
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
@@ -12,7 +11,7 @@ import com.shehuan.wanandroid.R
 import kotlinx.android.synthetic.main.toolbar_layout.*
 
 abstract class BaseActivity : AppCompatActivity() {
-    lateinit var mContext: Context
+    lateinit var mContext: BaseActivity
 
     @LayoutRes
     abstract fun initLayoutResID(): Int

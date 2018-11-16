@@ -21,7 +21,7 @@ class ArticleActivity : BaseActivity() {
     private lateinit var link: String
 
     companion object {
-        fun start(context: Context, title: String, link: String) {
+        fun start(context: BaseActivity, title: String, link: String) {
             val intent = Intent(context, ArticleActivity::class.java)
             intent.apply {
                 putExtra("title", title)
