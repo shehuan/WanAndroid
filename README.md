@@ -25,6 +25,9 @@
 - [X] 收藏
 
 ## 版本信息
+##### v1.0.3
+* 使用 https
+* 修复若干问题
 ##### v1.0.2
 * 初版，完成主要功能
 * 迁移到 AndroidX
@@ -46,7 +49,7 @@
 
 ## License
 ```
-Copyright 2018 SheHuan
+Copyright 2019 SheHuan
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

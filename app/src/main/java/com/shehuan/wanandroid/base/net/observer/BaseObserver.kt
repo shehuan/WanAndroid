@@ -1,6 +1,8 @@
 package com.shehuan.wanandroid.base.net.observer
 
 import android.content.Context
+import android.text.TextUtils
+import android.util.Log
 import com.shehuan.wanandroid.App
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.utils.ToastUtil
@@ -23,8 +25,9 @@ abstract class BaseObserver<E>(private val showErrorTip: Boolean = true) : Obser
 
     override fun onError(e: Throwable) {
         val responseException: ResponseException = e as ResponseException
-        if (showErrorTip) {
-            ToastUtil.showToast(wrContext.get(), responseException.getErrorMessage())
+        val errorMessage = responseException.getErrorMessage()
+        if (showErrorTip && !TextUtils.isEmpty(errorMessage)) {
+            ToastUtil.showToast(wrContext.get(), errorMessage)
         }
         onError(responseException)
     }

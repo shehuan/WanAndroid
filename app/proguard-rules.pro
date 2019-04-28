@@ -63,7 +63,7 @@
     <init>(java.lang.Throwable);
 }
 
-#Glide
+# Glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public class * extends com.bumptech.glide.module.AppGlideModule
 -keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
@@ -75,3 +75,7 @@
 -keep class org.litepal.** { *; }
 -keep class * extends org.litepal.crud.DataSupport { *; }
 -keep class * extends org.litepal.crud.LitePalSupport { *; }
+
+# 不混淆数据bean
+-keep class com.shehuan.wanandroid.bean.** { *; }
+-keep class com.shehuan.wanandroid.base.BaseResponse { *; }

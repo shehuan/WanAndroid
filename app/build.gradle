@@ -10,6 +10,10 @@ def keystoreProperties = new Properties()
 // Loads the keystore.properties file into the keystoreProperties object.
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
+def static time() {
+    return new Date().format("yyyyMMddHHmm")
+}
+
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     defaultConfig {
@@ -60,7 +64,7 @@ android {
                 variant.outputs.all { output ->
                     def outputFile = output.outputFile
                     if (outputFile != null && outputFile.name.endsWith('release.apk')) {
-                        def fileName = "WanAndroid_v${defaultConfig.versionName}_release.apk"
+                        def fileName = "WanAndroid_v${defaultConfig.versionName}_${time()}_release.apk"
                         outputFileName = fileName
                     }
                 }

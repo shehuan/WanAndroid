@@ -4,9 +4,10 @@ import com.shehuan.wanandroid.base.BaseView
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.bean.HotKeyBean
 import com.shehuan.wanandroid.bean.query.QueryBean
+import com.shehuan.wanandroid.ui.collection.CollectContract
 
 interface QueryContract {
-    interface View : BaseView {
+    interface View : BaseView, CollectContract.View {
         fun onQuerySuccess(data: QueryBean)
         fun onQueryError(e: ResponseException)
 
@@ -14,7 +15,7 @@ interface QueryContract {
         fun onHotKeyError(e: ResponseException)
     }
 
-    interface Presenter {
+    interface Presenter : CollectContract.Presenter {
         fun query(pageNum: Int, k: String, showLoading: Boolean)
 
         fun getHotKey()

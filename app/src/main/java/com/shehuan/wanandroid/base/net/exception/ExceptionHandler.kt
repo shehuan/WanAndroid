@@ -1,6 +1,7 @@
 package com.shehuan.wanandroid.base.net.exception
 
 import android.net.ParseException
+import android.util.Log
 import com.google.gson.JsonParseException
 import com.shehuan.wanandroid.base.net.exception.Code.Companion.BAD_GATEWAY
 import com.shehuan.wanandroid.base.net.exception.Code.Companion.FORBIDDEN
@@ -24,13 +25,14 @@ import java.net.ConnectException
 class ExceptionHandler {
     companion object {
         fun handle(e: Throwable): ResponseException {
+            Log.e("error", e.toString())
             val responseException: ResponseException
             if (e is ApiException) {
                 responseException = ResponseException(e, Integer.valueOf(e.errorCode), e.message)
             } else if (e is HttpException) {
                 responseException = when (e.code()) {
                     UNAUTHORIZED, FORBIDDEN, NOT_FOUND, REQUEST_TIMEOUT, GATEWAY_TIMEOUT, INTERNAL_SERVER_ERROR, BAD_GATEWAY, SERVICE_UNAVAILABLE -> ResponseException(e, "$HTTP_ERROR:${e.code()}", "网络连接错误")
-                    else -> ResponseException(e, "$HTTP_ERROR:${e.code()}", "网络连接错误")
+                    else -> ResponseException(e, "$HTTP_ERROR:${e.code()}", "网络连接错误（${e.code()}）")
                 }
             } else if (e is JsonParseException
                     || e is JSONException

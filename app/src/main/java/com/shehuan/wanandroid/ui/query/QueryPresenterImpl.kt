@@ -37,4 +37,29 @@ class QueryPresenterImpl(view: QueryContract.View) : BasePresenter<QueryContract
                 })
     }
 
+    override fun uncollect(id: Int) {
+        RequestManager.execute(this, RetrofitManager.create(WanAndroidApis::class.java).uncollectArticle(id),
+                object : LoadingObserver<String>(context, false, true) {
+                    override fun onSuccess(data: String) {
+                        view.onUncollectSuccess(data)
+                    }
+
+                    override fun onError(e: ResponseException) {
+                        view.onUncollectError(e)
+                    }
+                })
+    }
+
+    override fun collect(id: Int) {
+        RequestManager.execute(this, RetrofitManager.create(WanAndroidApis::class.java).collectArticle(id),
+                object : LoadingObserver<String>(context) {
+                    override fun onSuccess(data: String) {
+                        view.onCollectSuccess(data)
+                    }
+
+                    override fun onError(e: ResponseException) {
+                        view.onCollectError(e)
+                    }
+                })
+    }
 }

@@ -1,5 +1,6 @@
 package com.shehuan.wanandroid.ui.website
 
+import android.annotation.SuppressLint
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.base.fragment.BaseMvpFragment
 import com.shehuan.wanandroid.base.net.exception.ResponseException
@@ -37,6 +38,7 @@ class HotWebsiteFragment : BaseMvpFragment<HotWebsitePresenterImpl>(), HotWebsit
         presenter.getFriendData()
     }
 
+    @SuppressLint("ResourceType")
     override fun onFriedSuccess(data: List<FriendBean>) {
         statusView.showContentView()
         for (website in data) {

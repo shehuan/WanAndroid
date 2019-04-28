@@ -1,5 +1,6 @@
 package com.shehuan.wanandroid.ui.query
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.core.view.MenuItemCompat
 import android.view.Menu
@@ -13,11 +14,13 @@ import com.shehuan.wanandroid.base.activity.BaseActivity
 import com.shehuan.wanandroid.base.activity.BaseMvpActivity
 import com.shehuan.wanandroid.base.net.exception.ResponseException
 import com.shehuan.wanandroid.bean.HotKeyBean
+import com.shehuan.wanandroid.bean.query.DatasItem
 import com.shehuan.wanandroid.bean.query.QueryBean
 import com.shehuan.wanandroid.ui.article.ArticleActivity
 import com.shehuan.wanandroid.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.activity_query.*
 import com.shehuan.wanandroid.utils.QueryHistoryDbUtil
+import com.shehuan.wanandroid.utils.ToastUtil
 import com.shehuan.wanandroid.utils.addCommonView
 import com.shehuan.wanandroid.utils.childName
 
@@ -30,6 +33,9 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
     private lateinit var searchView: SearchView
     // 搜索结果是否为空
     private var isEmpty: Boolean = false
+
+    private lateinit var collectDataItem: DatasItem
+    private var collectPosition: Int = 0
 
     companion object {
         fun start(context: BaseActivity) {
@@ -55,12 +61,13 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
 
     }
 
+    @SuppressLint("ResourceType")
     override fun initView() {
         initToolbar(R.string.query)
 
         // 搜索记录相关
         val queryHistoryBeans = QueryHistoryDbUtil.query()
-        if (!queryHistoryBeans.isEmpty()) {
+        if (queryHistoryBeans.isNotEmpty()) {
             queryHistoryRl.visibility = View.VISIBLE
             for (queryHistory in queryHistoryBeans) {
                 queryHistoryFL.addCommonView(mContext, queryHistory.name, R.color.c8A8A8A, R.drawable.query_history_selector, false) {
@@ -84,8 +91,19 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
             setOnItemClickListener { _, data, _ ->
                 ArticleActivity.start(mContext, data.title, data.link)
             }
+
+            setOnItemChildClickListener(R.id.articleCollectIv) { _, data, position ->
+                collectDataItem = data
+                collectPosition = position
+                if (!data.collect) {
+                    presenter.collect(data.id)
+                } else {
+                    presenter.uncollect(data.id)
+                }
+            }
+
             setOnLoadMoreListener {
-                if (!keyWord.isEmpty()) {
+                if (keyWord.isNotEmpty()) {
                     presenter.query(pageNum, keyWord, false)
                 }
             }
@@ -174,6 +192,7 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
         queryResultAdapter.loadFailed()
     }
 
+    @SuppressLint("ResourceType")
     override fun onHotKeySuccess(data: List<HotKeyBean>) {
         statusView.showContentView()
         for (hotKey in data) {
@@ -201,6 +220,7 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
     /**
      * 添加搜索记录
      */
+    @SuppressLint("ResourceType")
     private fun addQueryHistory(name: String) {
         for (i in 0 until queryHistoryFL.childCount) {
             if (name == queryHistoryFL.childName(i)) {
@@ -217,5 +237,25 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
         }
         QueryHistoryDbUtil.save(name)
         queryHistoryRl.visibility = View.VISIBLE
+    }
+
+    override fun onCollectSuccess(data: String) {
+        collectDataItem.collect = true
+        queryResultAdapter.change(collectPosition)
+        ToastUtil.showToast(mContext, R.string.collect_success)
+    }
+
+    override fun onCollectError(e: ResponseException) {
+
+    }
+
+    override fun onUncollectSuccess(data: String) {
+        collectDataItem.collect = false
+        queryResultAdapter.change(collectPosition)
+        ToastUtil.showToast(mContext, R.string.uncollect_success)
+    }
+
+    override fun onUncollectError(e: ResponseException) {
+
     }
 }
