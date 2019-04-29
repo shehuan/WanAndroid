@@ -31,8 +31,6 @@ import org.greenrobot.eventbus.ThreadMode
 
 
 class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
-    private val TAG: String = MainActivity::class.java.simpleName
-
     private var isBackPressed: Boolean = false
 
     private lateinit var usernameTv: TextView
@@ -119,14 +117,14 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
 
     private fun collection() {
         if (SpUtil.getCookies().isEmpty()) {
-            ToastUtil.showToast(mContext, R.string.login_tip)
+            ToastUtil.show(mContext, R.string.login_tip)
             return
         }
         MyCollectionActivity.start(mContext)
     }
 
     private fun setting() {
-        ToastUtil.showToast(mContext, "暂时没有什么需要设置的！")
+        ToastUtil.show(mContext, R.string.setting_tip)
     }
 
     private fun about() {
@@ -135,7 +133,7 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
 
     private fun logout() {
         if (SpUtil.getCookies().isEmpty()) {
-            ToastUtil.showToast(mContext, R.string.login_tip)
+            ToastUtil.show(mContext, R.string.login_tip)
             return
         }
 
@@ -151,7 +149,7 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
         SpUtil.removeCookies()
         SpUtil.removeUsername()
         usernameTv.text = SpUtil.getUsername()
-        ToastUtil.showToast(mContext, R.string.logout_tip)
+        ToastUtil.show(mContext, R.string.logout_tip)
     }
 
     override fun onLogoutError(e: ResponseException) {
@@ -172,7 +170,7 @@ class MainActivity : BaseMvpActivity<MainPresenterImpl>(), MainContract.View {
                 return
             }
             isBackPressed = true
-            ToastUtil.showToast(mContext, R.string.exit_tip)
+            ToastUtil.show(mContext, R.string.exit_tip)
             Handler().postDelayed({ isBackPressed = false }, 2000)
         }
     }

@@ -159,7 +159,7 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
     override fun onCollectSuccess(data: String) {
         collectDataItem.collect = true
         articleListAdapter.change(collectPosition + 1)
-        ToastUtil.showToast(mContext, R.string.collect_success)
+        ToastUtil.show(mContext, R.string.collect_success)
     }
 
     override fun onCollectError(e: ResponseException) {
@@ -169,7 +169,7 @@ class HomeFragment : BaseMvpFragment<HomePresenterImpl>(), HomeContract.View {
     override fun onUncollectSuccess(data: String) {
         collectDataItem.collect = false
         articleListAdapter.change(collectPosition + 1)
-        ToastUtil.showToast(mContext, R.string.uncollect_success)
+        ToastUtil.show(mContext, R.string.uncollect_success)
     }
 
     override fun onUncollectError(e: ResponseException) {

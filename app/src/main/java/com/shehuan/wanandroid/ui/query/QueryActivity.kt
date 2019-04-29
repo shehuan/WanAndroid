@@ -242,7 +242,7 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
     override fun onCollectSuccess(data: String) {
         collectDataItem.collect = true
         queryResultAdapter.change(collectPosition)
-        ToastUtil.showToast(mContext, R.string.collect_success)
+        ToastUtil.show(mContext, R.string.collect_success)
     }
 
     override fun onCollectError(e: ResponseException) {
@@ -252,7 +252,7 @@ class QueryActivity : BaseMvpActivity<QueryPresenterImpl>(), QueryContract.View 
     override fun onUncollectSuccess(data: String) {
         collectDataItem.collect = false
         queryResultAdapter.change(collectPosition)
-        ToastUtil.showToast(mContext, R.string.uncollect_success)
+        ToastUtil.show(mContext, R.string.uncollect_success)
     }
 
     override fun onUncollectError(e: ResponseException) {

@@ -5,7 +5,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -36,7 +35,7 @@ class BottomTabLayout : LinearLayout {
         if (childCount == 0)
             tab.select()
 
-        val params = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT)
+        val params = LayoutParams(0, LayoutParams.MATCH_PARENT)
         params.weight = 1f
 
         addView(tab, params)

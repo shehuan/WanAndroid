@@ -98,7 +98,7 @@ class MyCollectionActivity : BaseMvpActivity<MyCollectionPresenterImpl>(), MyCol
 
     override fun onCancelCollectionSuccess(data: String) {
         collectionListAdapter.remove(collectPosition)
-        ToastUtil.showToast(mContext, R.string.uncollect_success)
+        ToastUtil.show(mContext, R.string.uncollect_success)
     }
 
     override fun onCancelCollectionError(e: ResponseException) {

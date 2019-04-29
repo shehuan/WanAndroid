@@ -1,7 +1,6 @@
 package com.shehuan.wanandroid.base.net.exception
 
 import android.net.ParseException
-import android.util.Log
 import com.google.gson.JsonParseException
 import com.shehuan.wanandroid.base.net.exception.Code.Companion.BAD_GATEWAY
 import com.shehuan.wanandroid.base.net.exception.Code.Companion.FORBIDDEN
@@ -25,7 +24,6 @@ import java.net.ConnectException
 class ExceptionHandler {
     companion object {
         fun handle(e: Throwable): ResponseException {
-            Log.e("error", e.toString())
             val responseException: ResponseException
             if (e is ApiException) {
                 responseException = ResponseException(e, Integer.valueOf(e.errorCode), e.message)

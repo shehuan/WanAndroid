@@ -57,4 +57,5 @@
     <string name="ok">确定</string>
     <string name="tip">提示</string>
     <string name="logout_msg">确定要退出登录吗？</string>
+    <string name="setting_tip">暂时没有什么需要设置的！</string>
 </resources>

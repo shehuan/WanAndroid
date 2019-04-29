@@ -131,7 +131,7 @@ class TreeDetailFragment : BaseMvpFragment<TreeDetailPresenterImpl>(), TreeDetai
     override fun onCollectSuccess(data: String) {
         collectDataItem.collect = true
         treeDetailListAdapter.change(collectPosition)
-        ToastUtil.showToast(mContext, R.string.collect_success)
+        ToastUtil.show(mContext, R.string.collect_success)
     }
 
     override fun onCollectError(e: ResponseException) {
@@ -141,7 +141,7 @@ class TreeDetailFragment : BaseMvpFragment<TreeDetailPresenterImpl>(), TreeDetai
     override fun onUncollectSuccess(data: String) {
         collectDataItem.collect = false
         treeDetailListAdapter.change(collectPosition)
-        ToastUtil.showToast(mContext, R.string.uncollect_success)
+        ToastUtil.show(mContext, R.string.uncollect_success)
     }
 
     override fun onUncollectError(e: ResponseException) {

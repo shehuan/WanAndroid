@@ -107,7 +107,7 @@ class ArticleActivity : BaseActivity() {
     private fun copy() {
         val manager = mContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         manager.primaryClip = ClipData.newPlainText(null, link)
-        ToastUtil.showToast(mContext, R.string.copy_success)
+        ToastUtil.show(mContext, R.string.copy_success)
     }
 
     private fun share() {

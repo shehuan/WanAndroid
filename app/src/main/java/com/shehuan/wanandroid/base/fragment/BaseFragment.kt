@@ -14,6 +14,8 @@ import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.base.activity.BaseActivity
 
 abstract class BaseFragment : Fragment() {
+    protected val TAG: String = this.javaClass.simpleName
+
     lateinit var mContext: BaseActivity
 
     private var isViewCreated: Boolean = false // 界面是否已创建完成

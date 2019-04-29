@@ -11,6 +11,8 @@ import com.shehuan.wanandroid.R
 import kotlinx.android.synthetic.main.toolbar_layout.*
 
 abstract class BaseActivity : AppCompatActivity() {
+    protected val TAG: String = this.javaClass.simpleName
+
     lateinit var mContext: BaseActivity
 
     @LayoutRes

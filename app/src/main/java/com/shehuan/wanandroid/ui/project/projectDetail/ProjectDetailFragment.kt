@@ -153,7 +153,7 @@ class ProjectDetailFragment : BaseMvpFragment<ProjectDetailPresenterImpl>(), Pro
     override fun onCollectSuccess(data: String) {
         collectDataItem.collect = true
         projectListAdapter.change(collectPosition)
-        ToastUtil.showToast(mContext, R.string.collect_success)
+        ToastUtil.show(mContext, R.string.collect_success)
     }
 
     override fun onCollectError(e: ResponseException) {
@@ -163,7 +163,7 @@ class ProjectDetailFragment : BaseMvpFragment<ProjectDetailPresenterImpl>(), Pro
     override fun onUncollectSuccess(data: String) {
         collectDataItem.collect = false
         projectListAdapter.change(collectPosition)
-        ToastUtil.showToast(mContext, R.string.uncollect_success)
+        ToastUtil.show(mContext, R.string.uncollect_success)
     }
 
     override fun onUncollectError(e: ResponseException) {
