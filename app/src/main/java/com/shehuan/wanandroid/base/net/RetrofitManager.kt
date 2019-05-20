@@ -21,7 +21,7 @@ object RetrofitManager {
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(Const.WAN_ANDROID_UTL)
+                .baseUrl(Const.WAN_ANDROID_URL)
                 .build()
         return retrofit.create(service)
     }
