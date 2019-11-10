@@ -34,7 +34,14 @@ class ArticleListAdapter(context: Context?, data: List<DatasItem>?, isOpenLoadMo
                     visibility = View.GONE
                 }
             }
-            setText(R.id.articleAuthorTv, data.author)
+            getView<TextView>(R.id.articleAuthorTv).run {
+                if (data.author.isNotEmpty()) {
+                    text = data.author
+                    visibility = View.VISIBLE
+                } else {
+                    visibility = View.GONE
+                }
+            }
             setText(R.id.articleTimeTv, data.niceDate)
         }
     }

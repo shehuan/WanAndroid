@@ -43,6 +43,7 @@
         android:paddingTop="1dp"
         android:paddingRight="4dp"
         android:paddingBottom="1dp"
+        android:layout_marginRight="20dp"
         android:textColor="@color/c25C6FC"
         android:textSize="12sp" />
 
@@ -51,7 +52,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="20dp"
         android:layout_toRightOf="@+id/articleAuthorTv"
         android:text=""
         android:textColor="@color/cBFBFBF"
