@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
     android:background="@color/cFE6243"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="30dp"
+    android:paddingBottom="30dp">
 
-    <com.shehuan.niv.NiceImageView
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:src="@mipmap/ic_launcher_round"
-        app:border_color="@color/cFFFFFF"
-        app:border_width="1dp"
-        app:is_circle="true" />
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="85dp"
+        android:src="@drawable/wan_android" />
 
     <TextView
         android:id="@+id/usernameTv"
