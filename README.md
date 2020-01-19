@@ -1,5 +1,9 @@
 # WanAndroid
 
+[MVVM版本：基于Kotlin语言，使用了Kotlin的Coroutines（协程），以及Jetpack 中的ViewModel、LiveData、DataBinding等](https://github.com/SheHuan/WanAndroid-MVVM)
+
+[微信小程序版本](https://github.com/SheHuan/WanAndroid-WXMP)
+
 ## 说明
 
 **一个Kotlin版的玩Android App，基于鸿洋大神的[玩Android开放API](http://www.wanandroid.com/blog/show/2)开发，旨在学习 Kotlin，功能逐步完善中…**
@@ -49,7 +53,7 @@
 
 ## License
 ```
-Copyright 2019 SheHuan
+Copyright 2020 SheHuan
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
