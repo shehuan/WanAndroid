@@ -10,7 +10,7 @@ class SaveCookiesInterceptor : Interceptor {
         val originalResponse = chain.proceed(chain.request())
 
         val request = chain.request()
-        if (request.url().toString().contains("login") || request.url().toString().contains("register")) {
+        if (request.url.toString().contains("login") || request.url.toString().contains("register")) {
             if (!originalResponse.headers("Set-Cookie").isEmpty()) {
                 val cookies = originalResponse.headers("Set-Cookie")
 
